@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- * GML 3.1.1 bevat dubbele element namen, maar dan wel met andere cases, of met underscores 
+     * ervoor. Deze binding zorgt ervoor dat dubbele namen verdwijnen, en verschillende onderdelen 
+     * in hun eigen package komen. 
+     * @see http://java.net/nonav/projects/ogc/lists/dev/archive/2011-06/message/0 
+     * @author GinkeM -->
+<jaxb:bindings version="1.0" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+	xmlns:inheritance="http://jaxb2-commons.dev.java.net/basic/inheritance"
+	xmlns:annox="http://annox.dev.java.net"
+	jaxb:extensionBindingPrefixes="xjc inheritance">
+	<jaxb:globalBindings generateIsSetMethod="false" generateElementProperty="false">
+		<jaxb:javaType name="java.util.Calendar" xmlType="xs:date"
+			parseMethod="javax.xml.bind.DatatypeConverter.parseDate"
+			printMethod="javax.xml.bind.DatatypeConverter.printDate"/>
+		<jaxb:javaType name="java.util.Calendar" xmlType="xs:dateTime"
+            parseMethod="javax.xml.bind.DatatypeConverter.parseDateTime"
+            printMethod="javax.xml.bind.DatatypeConverter.printDateTime"/>
+        <jaxb:javaType name="java.math.BigDecimal" xmlType="xs:double"
+			parseMethod="javax.xml.bind.DatatypeConverter.parseDecimal"
+			printMethod="javax.xml.bind.DatatypeConverter.printDecimal"/>
+		<jaxb:javaType name="java.lang.Integer" xmlType="xs:integer"/>
+	</jaxb:globalBindings>
+	<jaxb:bindings schemaLocation="gml-3.1.1.2/gml/3.1.1/base/gml.xsd">
+		<jaxb:schemaBindings>
+			<jaxb:package name="org.opengis.gml_3_1_1" />
+		</jaxb:schemaBindings>
+	</jaxb:bindings>
+	<jaxb:bindings schemaLocation="gml-3.1.1.2/gml/3.1.1/base/defaultStyle.xsd" node="/xs:schema">
+		<jaxb:bindings node="xs:element[@name='graphStyle']">
+			<jaxb:class name="GraphStylePropertyElement" />
+		</jaxb:bindings>
+		<jaxb:bindings node="xs:element[@name='featureStyle']">
+			<jaxb:class name="FeatureStylePropertyElement" />
+		</jaxb:bindings>
+		<jaxb:bindings node="xs:element[@name='geometryStyle']">
+			<jaxb:class name="GeometryStylePropertyElement" />
+		</jaxb:bindings>
+		<jaxb:bindings node="xs:element[@name='labelStyle']">
+			<jaxb:class name="LabelStylePropertyElement" />
+		</jaxb:bindings>
+		<jaxb:bindings node="xs:element[@name='topologyStyle']">
+			<jaxb:class name="TopologyStylePropertyElement" />
+		</jaxb:bindings>
+		<jaxb:bindings node="xs:element[@name='_Style']">
+			<jaxb:class name="AStyleElement" />
+		</jaxb:bindings>
+	</jaxb:bindings>
+	<jaxb:bindings schemaLocation="gml-3.1.1.2/gml/3.1.1/base/geometryBasic0d1d.xsd" node="/xs:schema">
+		<jaxb:bindings node="//xs:complexType[@name='PointType']">
+			<jaxb:class/>
+			<annox:annotate>
+				<annox:annotate annox:class="javax.xml.bind.annotation.XmlRootElement"/>
+			</annox:annotate>
+		</jaxb:bindings>
+	</jaxb:bindings>
+	<jaxb:bindings schemaLocation="gml-3.1.1.2/gml/3.1.1/base/geometryBasic2d.xsd"
+		node="/xs:schema">
+		<jaxb:bindings node="xs:element[@name='_Surface']">
+			<jaxb:class name="ASurfaceElement" />
+		</jaxb:bindings>
+		<jaxb:bindings node="xs:element[@name='_Ring']">
+			<jaxb:class name="ARingElement" />
+		</jaxb:bindings>
+	</jaxb:bindings>
+	<jaxb:bindings schemaLocation="gml-3.1.1.2/gml/3.1.1/base/feature.xsd"
+		node="/xs:schema">
+		<jaxb:bindings node="xs:element[@name='_FeatureCollection']">
+			<jaxb:class name="AFeatureCollectionElement" />
+		</jaxb:bindings>
+	</jaxb:bindings>
+	<jaxb:bindings schemaLocation="gml-3.1.1.2/gml/3.1.1/base/geometryPrimitives.xsd"
+		node="/xs:schema">
+		<jaxb:bindings node="xs:element[@name='_Solid']">
+			<jaxb:class name="ASolidElement" />
+		</jaxb:bindings>
+	</jaxb:bindings>
+	<jaxb:bindings schemaLocation="gml-3.1.1.2/gml/3.1.1/base/geometryBasic0d1d.xsd"
+		node="/xs:schema">
+		<jaxb:bindings node="xs:element[@name='_Curve']">
+			<jaxb:class name="ACurveElement" />
+		</jaxb:bindings>
+	</jaxb:bindings>
+	<jaxb:bindings schemaLocation="xlink/1.0.0/xlink.xsd"
+		node="/xs:schema">
+		<jaxb:bindings node=".//xs:attribute[@name='title']">
+			<jaxb:property name="XLinksTitle" />
+		</jaxb:bindings>
+	</jaxb:bindings>
+</jaxb:bindings>
