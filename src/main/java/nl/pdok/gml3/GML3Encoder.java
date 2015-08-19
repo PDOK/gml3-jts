@@ -35,6 +35,7 @@ public class GML3Encoder {
 		
 			JAXBContext jaxbContext = JAXBContext.newInstance(AbstractGeometryType.class);
 			marshaller = jaxbContext.createMarshaller();
+			marshaller.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
 		
 		} catch (JAXBException e) {
 			throw new IllegalStateException("GML cannot be created. Cause: "+ e.getMessage());
@@ -43,36 +44,32 @@ public class GML3Encoder {
 
 	
 	public String toGML(Geometry geometry) throws JAXBException{
-		
-		
-		ObjectFactory objectFactory = new ObjectFactory();
-		
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		
+
+		ObjectFactory objectFactory = new ObjectFactory();		
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();		
 		Polygon polygon = (Polygon) geometry;
-		
+
 		DirectPositionListType positionList = objectFactory.createDirectPositionListType();
-		
+
 		Coordinate[] coordinates = polygon.getExteriorRing().getCoordinates();
-		for (Coordinate coord:coordinates){
+		for (Coordinate coord:coordinates) {
 			positionList.getValue().add(String.valueOf(coord.x));
 			positionList.getValue().add(String.valueOf(coord.y));
 		}
-		
+
 		LinearRingType linearRingType = objectFactory.createLinearRingType();
 		linearRingType.setPosList(positionList);
-		
+
 		JAXBElement<LinearRingType> ringType = objectFactory.createLinearRing(linearRingType);
-				
+
 		AbstractRingPropertyType type = objectFactory.createAbstractRingPropertyType();
 		type.setRing(ringType);
-				
+
 		JAXBElement<AbstractRingPropertyType> ringPropertyType = objectFactory.createExterior(type);
 
-				
 		PolygonType polygonType = objectFactory.createPolygonType();
 		polygonType.setExterior(ringPropertyType);
-		
+
 		JAXBElement<PolygonType> polygonJaxb = objectFactory.createPolygon(polygonType);
 		
         SurfaceArrayPropertyType surfaceArrayPropertyType = objectFactory.createSurfaceArrayPropertyType();
@@ -80,9 +77,10 @@ public class GML3Encoder {
 		
 		MultiSurfaceType multiSurfaceType = objectFactory.createMultiSurfaceType();
 		multiSurfaceType.setSurfaceMembers(surfaceArrayPropertyType);
+		multiSurfaceType.setSrsName("urn:ogc:def:crs:EPSG::28992");
+		multiSurfaceType.setSrsDimension(2);
 		
 		marshaller.marshal(objectFactory.createMultiSurface(multiSurfaceType), baos);
 		return "gml --> " + baos.toString();
-	}
-	
+	}	
 }

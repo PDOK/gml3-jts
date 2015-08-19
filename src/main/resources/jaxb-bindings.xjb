@@ -8,15 +8,16 @@
 	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
 	xmlns:inheritance="http://jaxb2-commons.dev.java.net/basic/inheritance"
 	xmlns:annox="http://annox.dev.java.net"
+	xmlns:namespace="http://jaxb2-commons.dev.java.net/namespace-prefix"
 	jaxb:extensionBindingPrefixes="xjc inheritance">
 	<jaxb:globalBindings generateIsSetMethod="false" generateElementProperty="false">
 		<jaxb:javaType name="java.util.Calendar" xmlType="xs:date"
 			parseMethod="javax.xml.bind.DatatypeConverter.parseDate"
 			printMethod="javax.xml.bind.DatatypeConverter.printDate"/>
 		<jaxb:javaType name="java.util.Calendar" xmlType="xs:dateTime"
-            parseMethod="javax.xml.bind.DatatypeConverter.parseDateTime"
-            printMethod="javax.xml.bind.DatatypeConverter.printDateTime"/>
-        <jaxb:javaType name="java.math.BigDecimal" xmlType="xs:double"
+			parseMethod="javax.xml.bind.DatatypeConverter.parseDateTime"
+			printMethod="javax.xml.bind.DatatypeConverter.printDateTime"/>
+		<jaxb:javaType name="java.math.BigDecimal" xmlType="xs:double"
 			parseMethod="javax.xml.bind.DatatypeConverter.parseDecimal"
 			printMethod="javax.xml.bind.DatatypeConverter.printDecimal"/>
 		<jaxb:javaType name="java.lang.Integer" xmlType="xs:integer"/>
@@ -25,6 +26,9 @@
 		<jaxb:schemaBindings>
 			<jaxb:package name="org.opengis.gml_3_1_1" />
 		</jaxb:schemaBindings>
+		<jaxb:bindings>
+			<namespace:prefix name="gml" />
+		</jaxb:bindings>
 	</jaxb:bindings>
 	<jaxb:bindings schemaLocation="gml-3.1.1.2/gml/3.1.1/base/defaultStyle.xsd" node="/xs:schema">
 		<jaxb:bindings node="xs:element[@name='graphStyle']">

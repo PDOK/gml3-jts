@@ -22,7 +22,6 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-deploy-plugin</artifactId>
 					<version>2.8.2</version>
-
 				</plugin>
 			</plugins>
 		</pluginManagement>
@@ -32,7 +31,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass> nl.pdok.parser.GML3Parser</mainClass>
+							<mainClass>nl.pdok.parser.GML3Parser</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
@@ -48,9 +47,11 @@
 					</execution>
 				</executions>
 				<configuration>
-					<args>
+					<args>						
 						<arg>-Xinheritance</arg>
 						<arg>-Xannotate</arg>
+			            <arg>-extension</arg>
+			            <arg>-Xnamespace-prefix</arg>						
 					</args>
 					<forceRegenerate>false</forceRegenerate>
 					<strict>false</strict>
@@ -59,9 +60,14 @@
 					<schemaIncludes>
 						<include>gml-3.1.1.2/gml/3.1.1/base/*.xsd</include>
 						<include>xlink/1.0.0/xlink.xsd</include>
-					</schemaIncludes>
+					</schemaIncludes>		
 					<extension>true</extension>
 					<plugins>
+						<plugin>
+							<groupId>org.jvnet.jaxb2_commons</groupId>
+							<artifactId>jaxb2-namespace-prefix</artifactId>
+							<version>1.1</version>
+						</plugin>						
 						<plugin>
 							<groupId>org.jvnet.jaxb2_commons</groupId>
 							<artifactId>jaxb2-basics</artifactId>
@@ -73,7 +79,7 @@
 							<version>1.0.1</version>
 						</plugin>
 					</plugins>
-				</configuration>
+				</configuration>				
 			</plugin>
 		</plugins>
 	</build>
