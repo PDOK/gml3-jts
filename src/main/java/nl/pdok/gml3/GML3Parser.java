@@ -27,7 +27,7 @@ import nl.pdok.gml3.exceptions.GeometryException;
 
 public class GML3Parser {
 	
-	private Unmarshaller unmarshaller;
+	private JAXBContext jaxbContext;
 	private GMLToJTSGeometryConvertor gmlToJtsGeoConvertor;
 	
 	public static void main(String[] args) throws IOException {
@@ -44,9 +44,8 @@ public class GML3Parser {
 	public GML3Parser(){
 		
 		try {
-			JAXBContext jaxbContext = JAXBContext.newInstance(AbstractGeometryType.class);
-			unmarshaller = jaxbContext.createUnmarshaller();
-			
+
+			jaxbContext = JAXBContext.newInstance(AbstractGeometryType.class);
 			GeometryFactory geometryFactory = new GeometryFactory(new PrecisionModel(), 28992);
 			GMLToPointConvertor pointConvertor = new GMLToPointConvertor(geometryFactory);
 			GMLToLineConvertor lineConvertor = new GMLToLineConvertor(geometryFactory, pointConvertor);
@@ -78,6 +77,9 @@ public class GML3Parser {
 	private AbstractGeometryType parseGeometryFromGML(String gml) throws JAXBException {
 		StringReader reader = new StringReader(gml);
 		Source source = new StreamSource(reader);
+		
+		// create new unmarshaller because Marshaller/Unmarshaller are not thread-safe
+		Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 		Object o = unmarshaller.unmarshal(source);
 		if ((o.getClass() == JAXBElement.class)) {
 			@SuppressWarnings("rawtypes")
