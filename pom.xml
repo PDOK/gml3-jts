@@ -168,5 +168,19 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+	
+    <scm>
+        <url>http://github.so.kadaster.nl/PDOK/gml311-jts</url>
+        <connection>scm:git:http://github.so.kadaster.nl/PDOK/gml311-jts.git</connection>
+        <developerConnection>scm:git:git@github.so.kadaster.nl:PDOK/gml311-jts.git</developerConnection>
+  	</scm>
 
+    <distributionManagement>
+        <repository>
+            <id>releases-repo</id>
+            <name>Nexus Releases Repo</name>
+            <url>http://mvnrepository.so.kadaster.nl:8081/nexus/content/repositories/releases/</url>
+        </repository>
+    </distributionManagement>	
+	
 </project>
