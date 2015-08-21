@@ -5,6 +5,10 @@
 	<artifactId>gml311-jts</artifactId>
 	<version>0.0.2-SNAPSHOT</version>
 	<name>gml311-jts</name>
+	
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 
 	<build>
 		<pluginManagement>
