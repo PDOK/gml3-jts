@@ -28,7 +28,6 @@ import nl.pdok.gml3.exceptions.InvalidGeometryException;
  */
 public class GMLToPointConvertor {
 
-	private static final int MAX_SCALE = 99; // mm
 	private static final int REQUIRED_NUMBER_OF_ORDINATES = 2; // 2 ordinaten (2D)
 	private GeometryFactory geometryFactory;
 
