@@ -28,7 +28,7 @@ import nl.pdok.gml3.exceptions.InvalidGeometryException;
  */
 public class GMLToPointConvertor {
 
-	private static final int MAX_SCALE = 3; // mm
+	private static final int MAX_SCALE = 99; // mm
 	private static final int REQUIRED_NUMBER_OF_ORDINATES = 2; // 2 ordinaten (2D)
 	private GeometryFactory geometryFactory;
 
@@ -53,7 +53,7 @@ public class GMLToPointConvertor {
 		CoordinateArraySequence sequence = new CoordinateArraySequence(ordinates.size() / 2);
 		int i = 0;
 		for (String ordinate : ordinates) {
-			BigDecimal bd = determineScale(ordinate);
+			BigDecimal bd = new BigDecimal(ordinate);
 			int ordinateIndex = i % 2;
 			int index = (i / 2);
 			sequence.setOrdinate(index, ordinateIndex, bd.doubleValue());
@@ -66,16 +66,6 @@ public class GMLToPointConvertor {
 
 	private Coordinate createCoordinateFromFirstTwoOrdinates(List<String> ordinates) {
 		return new Coordinate(Double.valueOf(ordinates.get(0)), Double.valueOf(ordinates.get(1)));
-	}
-
-	private BigDecimal determineScale(String ordinate)
-			throws CoordinateMaxScaleExceededException {
-		BigDecimal bd = new BigDecimal(ordinate);
-		if (bd.scale() > MAX_SCALE) {
-			throw new CoordinateMaxScaleExceededException();
-		}
-		
-		return bd;
 	}
 
 	public Point convertPoint(PointType point) throws GeometryException {
