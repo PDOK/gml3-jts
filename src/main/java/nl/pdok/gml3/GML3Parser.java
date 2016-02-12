@@ -25,10 +25,13 @@ import nl.pdok.gml3.convertors.GMLToPointConvertor;
 import nl.pdok.gml3.convertors.GMLToSurfaceConvertor;
 import nl.pdok.gml3.exceptions.GeometryException;
 
+/*
+Not threadsafe.
+*/
 public class GML3Parser {
 	
-	private JAXBContext jaxbContext;
-	private GMLToJTSGeometryConvertor gmlToJtsGeoConvertor;
+	private final GMLToJTSGeometryConvertor gmlToJtsGeoConvertor;
+    private final Unmarshaller unmarshaller;
 	
 	public static void main(String[] args) throws IOException {
 		
@@ -45,7 +48,7 @@ public class GML3Parser {
 		
 		try {
 
-			jaxbContext = JAXBContext.newInstance(AbstractGeometryType.class);
+			JAXBContext jaxbContext = JAXBContext.newInstance(AbstractGeometryType.class);
 			GeometryFactory geometryFactory = new GeometryFactory(new PrecisionModel(), 28992);
 			GMLToPointConvertor pointConvertor = new GMLToPointConvertor(geometryFactory);
 			GMLToLineConvertor lineConvertor = new GMLToLineConvertor(geometryFactory, pointConvertor);
@@ -55,6 +58,8 @@ public class GML3Parser {
 			gmlToJtsGeoConvertor.setGmlToPointConvertor(pointConvertor);
 			gmlToJtsGeoConvertor.setGmlToLineConvertor(lineConvertor);
 			gmlToJtsGeoConvertor.setGmlToSurfaceConvertor(surfaceConvertor);
+            
+            unmarshaller = jaxbContext.createUnmarshaller();
 		
 		} catch (JAXBException e) {
 			throw new IllegalStateException("Object cannot be created. Cause: "+ e.getMessage());
@@ -78,8 +83,6 @@ public class GML3Parser {
 		StringReader reader = new StringReader(gml);
 		Source source = new StreamSource(reader);
 		
-		// create new unmarshaller because Marshaller/Unmarshaller are not thread-safe
-		Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 		Object o = unmarshaller.unmarshal(source);
 		if ((o.getClass() == JAXBElement.class)) {
 			@SuppressWarnings("rawtypes")
