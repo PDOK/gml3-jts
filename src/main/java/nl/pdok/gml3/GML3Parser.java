@@ -15,7 +15,6 @@ import org.apache.commons.io.FileUtils;
 import org.opengis.gml_3_1_1.AbstractGeometryType;
 
 import com.vividsolutions.jts.geom.Geometry;
-import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.PrecisionModel;
 import com.vividsolutions.jts.io.WKTWriter;
 
@@ -24,6 +23,7 @@ import nl.pdok.gml3.convertors.GMLToLineConvertor;
 import nl.pdok.gml3.convertors.GMLToPointConvertor;
 import nl.pdok.gml3.convertors.GMLToSurfaceConvertor;
 import nl.pdok.gml3.exceptions.GeometryException;
+import nl.pdok.gml3.geometry.extended.ExtendedGeometryFactory;
 
 /*
 Not threadsafe.
@@ -43,13 +43,19 @@ public class GML3Parser {
 		
 		System.out.println("wkt -->> \n" + new WKTWriter().writeFormatted(geo));
 
-	}	
-	public GML3Parser(){
+	}
+    
+    public GML3Parser() {
+        this(0.01);
+    }
+    
+	public GML3Parser(double maximumArcApproximationError){
 		
 		try {
 
 			JAXBContext jaxbContext = JAXBContext.newInstance(AbstractGeometryType.class);
-			GeometryFactory geometryFactory = new GeometryFactory(new PrecisionModel(), 28992);
+			ExtendedGeometryFactory geometryFactory = new ExtendedGeometryFactory(new PrecisionModel(), 28992);
+            geometryFactory.setMaximumArcApproximationError(maximumArcApproximationError);
 			GMLToPointConvertor pointConvertor = new GMLToPointConvertor(geometryFactory);
 			GMLToLineConvertor lineConvertor = new GMLToLineConvertor(geometryFactory, pointConvertor);
 			GMLToSurfaceConvertor surfaceConvertor = new GMLToSurfaceConvertor(geometryFactory, lineConvertor);

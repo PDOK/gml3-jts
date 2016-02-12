@@ -42,9 +42,9 @@ public final class ArcUtils {
 	}
 
 	public static CoordinateSequence densify(Coordinate[] coordinates, GeometryFactory factory) {
-		double tolerance = ExtendedGeometryFactory.DEFAULT_TOLERANCE;
+		double tolerance = ExtendedGeometryFactory.DEFAULT_MAXIMUM_ARC_APPROXIMATION_ERROR;
 		if(factory instanceof ExtendedGeometryFactory) {
-			tolerance = ((ExtendedGeometryFactory) factory).getTolerance();
+			tolerance = ((ExtendedGeometryFactory) factory).getMaximumArcApproximationError();
 		}
 		
 		LineString ls = factory.createLineString(coordinates);

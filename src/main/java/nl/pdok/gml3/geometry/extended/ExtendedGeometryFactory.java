@@ -11,8 +11,8 @@ public class ExtendedGeometryFactory extends GeometryFactory {
 	
 	private static final long serialVersionUID = 6752447631106671661L;
 	
-	public static final double DEFAULT_TOLERANCE = 0.001;
-	private double tolerance = DEFAULT_TOLERANCE;
+	public static final double DEFAULT_MAXIMUM_ARC_APPROXIMATION_ERROR = 0.001;
+	private double  maximumArcApproximationError = DEFAULT_MAXIMUM_ARC_APPROXIMATION_ERROR;
 	
 	public ExtendedGeometryFactory() {
 		super();
@@ -35,12 +35,12 @@ public class ExtendedGeometryFactory extends GeometryFactory {
 		super(precisionModel);
 	}
 	
-	public double getTolerance() {
-		return tolerance;
+	public double getMaximumArcApproximationError() {
+		return maximumArcApproximationError;
 	}
 	
-	public void setTolerance(double tolerance) {
-		this.tolerance = tolerance;
+	public void setMaximumArcApproximationError(double value) {
+		this.maximumArcApproximationError = value;
 	}
 
 }
