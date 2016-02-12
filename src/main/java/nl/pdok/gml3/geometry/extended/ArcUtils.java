@@ -3,16 +3,12 @@ package nl.pdok.gml3.geometry.extended;
 import com.vividsolutions.jts.algorithm.CGAlgorithms;
 import com.vividsolutions.jts.geom.*;
 import com.vividsolutions.jts.geom.impl.CoordinateArraySequence;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Utilities for handling arcs with JTS 
  * @author GinkeM
  */
 public final class ArcUtils {
-	
-	private static Logger log = LoggerFactory.getLogger(ArcUtils.class);
 	
 	private ArcUtils() {
 	}
@@ -56,12 +52,8 @@ public final class ArcUtils {
 		// bbox bepalen
 		double threshold = tolerance * 3;
 		if(envelope.getHeight() <= threshold || envelope.getWidth() <= threshold) {
-			if(log.isDebugEnabled()) {
-				log.debug("erg kleine arc aangeleverd, om floating point fouten te verkomen niet verstroken, "
-						+ "boundingbox hoogte {} breedte {}", envelope.getHeight(), envelope.getWidth());
-			}
-			
-			return new CoordinateArraySequence(coordinates);
+			// do nothing with small arc, to prevent floating point shizzle
+            return new CoordinateArraySequence(coordinates);
 		}
 		
 		// make sure the original coordinates are not changed
@@ -76,7 +68,6 @@ public final class ArcUtils {
 			CoordinateSequences.reverse(out);
 		}
 		
-		log.debug("arc verstrookt tot {} punten", out.size());
 		return out;
 		
 	}

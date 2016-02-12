@@ -15,8 +15,6 @@ import org.opengis.gml_3_1_1.SurfaceArrayPropertyType;
 import org.opengis.gml_3_1_1.SurfacePatchArrayPropertyType;
 import org.opengis.gml_3_1_1.SurfacePropertyType;
 import org.opengis.gml_3_1_1.SurfaceType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.vividsolutions.jts.algorithm.CGAlgorithms;
 import com.vividsolutions.jts.geom.Geometry;
@@ -35,7 +33,6 @@ import nl.pdok.gml3.exceptions.UnsupportedGeometrySpecificationException;
  */
 public class GMLToSurfaceConvertor {
 
-		private Logger log = LoggerFactory.getLogger(getClass());
 		private GeometryFactory geometryFactory;
 		private GMLToLineConvertor gmlToLineConvertor;
 
@@ -92,7 +89,6 @@ public class GMLToSurfaceConvertor {
 				}
 			}
 			
-			log.warn("gml surface element in collection did not contain surface element");
 			return null;
 		}
 		
