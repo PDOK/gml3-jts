@@ -1,4 +1,4 @@
-package nl.pdok.gml3.exceptions;
+package nl.pdok.gml3_1_1_2.exceptions;
 
 /**
  * Er is een geometry gespecificeerd via een deprecated constructie die nog in GML 3.1.1 aanwezig 

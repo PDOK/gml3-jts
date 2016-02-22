@@ -18,12 +18,12 @@ import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.PrecisionModel;
 import com.vividsolutions.jts.io.WKTWriter;
 
-import nl.pdok.gml3.convertors.GMLToJTSGeometryConvertor;
-import nl.pdok.gml3.convertors.GMLToLineConvertor;
-import nl.pdok.gml3.convertors.GMLToPointConvertor;
-import nl.pdok.gml3.convertors.GMLToSurfaceConvertor;
-import nl.pdok.gml3.exceptions.GeometryException;
-import nl.pdok.gml3.geometry.extended.ExtendedGeometryFactory;
+import nl.pdok.gml3_1_1_2.convertors.GMLToJTSGeometryConvertor;
+import nl.pdok.gml3_1_1_2.convertors.GMLToLineConvertor;
+import nl.pdok.gml3_1_1_2.convertors.GMLToPointConvertor;
+import nl.pdok.gml3_1_1_2.convertors.GMLToSurfaceConvertor;
+import nl.pdok.gml3_1_1_2.exceptions.GeometryException;
+import nl.pdok.gml3_1_1_2.geometry.extended.ExtendedGeometryFactory;
 
 /*
 Not threadsafe.

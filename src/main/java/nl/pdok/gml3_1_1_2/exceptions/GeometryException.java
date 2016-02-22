@@ -1,4 +1,4 @@
-package nl.pdok.gml3.exceptions;
+package nl.pdok.gml3_1_1_2.exceptions;
 
 /**
  * @author GinkeM
