@@ -1,101 +1,38 @@
 package nl.pdok.gml3;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.StringReader;
-
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.transform.Source;
-import javax.xml.transform.stream.StreamSource;
-
-import org.apache.commons.io.FileUtils;
-import org.opengis.gml_3_1_1.AbstractGeometryType;
-
+import nl.pdok.gml3.exceptions.GML3ParseException;
 import com.vividsolutions.jts.geom.Geometry;
-import com.vividsolutions.jts.geom.PrecisionModel;
-import com.vividsolutions.jts.io.WKTWriter;
+import java.io.Reader;
 
-import nl.pdok.gml3_1_1_2.convertors.GMLToJTSGeometryConvertor;
-import nl.pdok.gml3_1_1_2.convertors.GMLToLineConvertor;
-import nl.pdok.gml3_1_1_2.convertors.GMLToPointConvertor;
-import nl.pdok.gml3_1_1_2.convertors.GMLToSurfaceConvertor;
-import nl.pdok.gml3_1_1_2.exceptions.GeometryException;
-import nl.pdok.gml3_1_1_2.geometry.extended.ExtendedGeometryFactory;
+/**
+ *
+ * Parses sources/ string to GML3 (either 3.1.1 or GML 3.2.1)
+ */
+public interface GML3Parser {
 
-/*
-Not threadsafe.
-*/
-public class GML3Parser {
-	
-	private final GMLToJTSGeometryConvertor gmlToJtsGeoConvertor;
-    private final Unmarshaller unmarshaller;
-	
-	public static void main(String[] args) throws IOException {
-		
-		String geoString = FileUtils.readFileToString(new File(args[0]));
-		System.out.println("geo-string -->> \n" + geoString);
-		
-		GML3Parser gml3ToGeometry = new GML3Parser();
-		Geometry geo = gml3ToGeometry.toJTSGeometry(geoString);
-		
-		System.out.println("wkt -->> \n" + new WKTWriter().writeFormatted(geo));
-
-	}
+    /**
+     * Default SRID (28992: Amersfoort RD/ new)
+     */
+    static final int DEFAULT_SRID = 28992;
     
-    public GML3Parser() {
-        this(0.01);
-    }
+    /**
+     * Default  default arc approximation error
+     */
+    static final double ARC_APPROXIMATION_ERROR = 0.01;
     
-	public GML3Parser(double maximumArcApproximationError){
-		
-		try {
+    /**
+     *
+     * @param reader
+     * @return The Geometry object in the reader
+     * @throws GML3ParseException When no geometry could be created
+     */
+    Geometry toJTSGeometry(Reader reader) throws GML3ParseException;
 
-			JAXBContext jaxbContext = JAXBContext.newInstance(AbstractGeometryType.class);
-			ExtendedGeometryFactory geometryFactory = new ExtendedGeometryFactory(new PrecisionModel(), 28992);
-            geometryFactory.setMaximumArcApproximationError(maximumArcApproximationError);
-			GMLToPointConvertor pointConvertor = new GMLToPointConvertor(geometryFactory);
-			GMLToLineConvertor lineConvertor = new GMLToLineConvertor(geometryFactory, pointConvertor);
-			GMLToSurfaceConvertor surfaceConvertor = new GMLToSurfaceConvertor(geometryFactory, lineConvertor);
-			
-			gmlToJtsGeoConvertor = new GMLToJTSGeometryConvertor();
-			gmlToJtsGeoConvertor.setGmlToPointConvertor(pointConvertor);
-			gmlToJtsGeoConvertor.setGmlToLineConvertor(lineConvertor);
-			gmlToJtsGeoConvertor.setGmlToSurfaceConvertor(surfaceConvertor);
-            
-            unmarshaller = jaxbContext.createUnmarshaller();
-		
-		} catch (JAXBException e) {
-			throw new IllegalStateException("Object cannot be created. Cause: "+ e.getMessage());
-		}
-	}
-	
-	public Geometry toJTSGeometry(String gml)  {
-		AbstractGeometryType abstractGeometryType;
-		try {
-			abstractGeometryType = parseGeometryFromGML(gml);
-			return gmlToJtsGeoConvertor.convertGeometry(abstractGeometryType);
-		} catch (JAXBException jaxbException) {
-			throw new IllegalArgumentException("Input cannot be serialized to gml3-objects, gml: " + gml + ". " +
-											   "Cause: " + jaxbException.getMessage());
-		} catch (GeometryException geometryException) {
-			throw new IllegalArgumentException("Input is not a valid geometry (gml3), gml: " + gml + ". " +
-					   "Cause: " + geometryException.getMessage());		}
-	}
-	
-	private AbstractGeometryType parseGeometryFromGML(String gml) throws JAXBException {
-		StringReader reader = new StringReader(gml);
-		Source source = new StreamSource(reader);
-		
-		Object o = unmarshaller.unmarshal(source);
-		if ((o.getClass() == JAXBElement.class)) {
-			@SuppressWarnings("rawtypes")
-			JAXBElement jbe = (JAXBElement) o;
-			o = jbe.getValue();
-		}
-		
-		return (AbstractGeometryType) o;
-	}
+    /**
+     *
+     * @param gml
+     * @return The Geometry object represented by the string
+     * @throws GML3ParseException When no geometry could be created
+     */
+    Geometry toJTSGeometry(String gml) throws GML3ParseException;
 }

@@ -23,10 +23,10 @@ import com.vividsolutions.jts.geom.LinearRing;
 import com.vividsolutions.jts.geom.MultiPolygon;
 import com.vividsolutions.jts.geom.Polygon;
 
-import nl.pdok.gml3_1_1_2.exceptions.GeometryException;
-import nl.pdok.gml3_1_1_2.exceptions.GeometryValidationErrorType;
-import nl.pdok.gml3_1_1_2.exceptions.InvalidGeometryException;
-import nl.pdok.gml3_1_1_2.exceptions.UnsupportedGeometrySpecificationException;
+import nl.pdok.gml3.exceptions.GeometryException;
+import nl.pdok.gml3.exceptions.GeometryValidationErrorType;
+import nl.pdok.gml3.exceptions.InvalidGeometryException;
+import nl.pdok.gml3.exceptions.UnsupportedGeometrySpecificationException;
 
 /**
  * @author GinkeM

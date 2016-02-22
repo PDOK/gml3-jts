@@ -17,11 +17,11 @@ import com.vividsolutions.jts.geom.MultiPoint;
 import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.geom.impl.CoordinateArraySequence;
 
-import nl.pdok.gml3_1_1_2.exceptions.CoordinateMaxScaleExceededException;
-import nl.pdok.gml3_1_1_2.exceptions.DeprecatedGeometrySpecificationException;
-import nl.pdok.gml3_1_1_2.exceptions.GeometryException;
-import nl.pdok.gml3_1_1_2.exceptions.GeometryValidationErrorType;
-import nl.pdok.gml3_1_1_2.exceptions.InvalidGeometryException;
+import nl.pdok.gml3.exceptions.CoordinateMaxScaleExceededException;
+import nl.pdok.gml3.exceptions.DeprecatedGeometrySpecificationException;
+import nl.pdok.gml3.exceptions.GeometryException;
+import nl.pdok.gml3.exceptions.GeometryValidationErrorType;
+import nl.pdok.gml3.exceptions.InvalidGeometryException;
 
 /**
  * @author GinkeM

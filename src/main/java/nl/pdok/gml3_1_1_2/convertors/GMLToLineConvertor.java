@@ -7,14 +7,14 @@ import com.vividsolutions.jts.geom.LineString;
 import com.vividsolutions.jts.geom.LinearRing;
 import com.vividsolutions.jts.geom.impl.CoordinateArraySequence;
 
-import nl.pdok.gml3_1_1_2.exceptions.DeprecatedGeometrySpecificationException;
-import nl.pdok.gml3_1_1_2.exceptions.GeometryException;
-import nl.pdok.gml3_1_1_2.exceptions.GeometryValidationErrorType;
-import nl.pdok.gml3_1_1_2.exceptions.InvalidGeometryException;
-import nl.pdok.gml3_1_1_2.exceptions.UnsupportedGeometrySpecificationException;
-import nl.pdok.gml3_1_1_2.geometry.extended.ArcLineString;
-import nl.pdok.gml3_1_1_2.geometry.extended.CompoundLineString;
-import nl.pdok.gml3_1_1_2.geometry.extended.Ring;
+import nl.pdok.gml3.exceptions.DeprecatedGeometrySpecificationException;
+import nl.pdok.gml3.exceptions.GeometryException;
+import nl.pdok.gml3.exceptions.GeometryValidationErrorType;
+import nl.pdok.gml3.exceptions.InvalidGeometryException;
+import nl.pdok.gml3.exceptions.UnsupportedGeometrySpecificationException;
+import nl.pdok.gml3.geometry.extended.ArcLineString;
+import nl.pdok.gml3.geometry.extended.CompoundLineString;
+import nl.pdok.gml3.geometry.extended.Ring;
 
 import org.opengis.gml_3_1_1.*;
 
