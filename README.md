@@ -1,5 +1,5 @@
-# gml311-jts
-Converts GML 3.1.1 to JTS.
+# gml3-jts
+Converts GML to JTS. For now GML 3.1.1.2 and 3.2.1 are supported.
 
 # Import into Eclipse
 1. This project can be imported into Eclipse through the 'default' methodes import>Existing maven project>..
