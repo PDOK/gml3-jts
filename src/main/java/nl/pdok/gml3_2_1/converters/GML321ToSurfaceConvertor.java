@@ -7,6 +7,8 @@ import java.util.List;
 import javax.xml.bind.JAXBElement;
 
 import com.vividsolutions.jts.algorithm.CGAlgorithms;
+import com.vividsolutions.jts.geom.CoordinateSequence;
+import com.vividsolutions.jts.geom.CoordinateSequenceFactory;
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.LinearRing;
@@ -71,8 +73,7 @@ public class GML321ToSurfaceConvertor {
         } else if (polygons.size() == 1) {
             return polygons.get(0);
         } else {
-            MultiPolygon multi = new MultiPolygon(
-                    polygons.toArray(new Polygon[]{}), geometryFactory);
+            MultiPolygon multi = new MultiPolygon(polygons.toArray(new Polygon[]{}), geometryFactory);
             return multi;
         }
     }
@@ -157,8 +158,13 @@ public class GML321ToSurfaceConvertor {
         AbstractRingPropertyType abstractRing = polygonPatch.getExterior();
         LinearRing exteriorShell = gmlToLineConvertor.translateAbstractRing(abstractRing);
         if (!CGAlgorithms.isCCW(exteriorShell.getCoordinates())) {
-            throw new InvalidGeometryException(
-                    GeometryValidationErrorType.OUTER_RING_IS_NOT_CCW, null);
+
+            // Try to reverse it and try again
+            exteriorShell = reverseRing(exteriorShell);
+            if (!CGAlgorithms.isCCW(exteriorShell.getCoordinates())) {
+                throw new InvalidGeometryException(
+                        GeometryValidationErrorType.OUTER_RING_IS_NOT_CCW, null);
+            }
         }
 
         LinearRing[] innerRings = new LinearRing[polygonPatch.getInterior().size()];
@@ -175,4 +181,31 @@ public class GML321ToSurfaceConvertor {
         return geometryFactory.createPolygon(exteriorShell, innerRings);
     }
 
+    /**
+     * Does what it says, reverses the order of the Coordinates in the ring.
+     * <p>
+     * This is different then lr.reverses() in that a copy is produced using a
+     * new coordinate sequence.
+     * </p>
+     *
+     * @param lr The ring to reverse.
+     * @return A new ring with the reversed Coordinates.
+     */
+    public static final LinearRing reverseRing(LinearRing lr) {
+        GeometryFactory gf = lr.getFactory();
+        CoordinateSequenceFactory csf = gf.getCoordinateSequenceFactory();
+
+        CoordinateSequence csOrig = lr.getCoordinateSequence();
+        int numPoints = csOrig.size();
+        int dimensions = csOrig.getDimension();
+        CoordinateSequence csNew = csf.create(numPoints, dimensions);
+
+        for (int i = 0; i < numPoints; i++) {
+            for (int j = 0; j < dimensions; j++) {
+                csNew.setOrdinate(numPoints - 1 - i, j, csOrig.getOrdinate(i, j));
+            }
+        }
+
+        return gf.createLinearRing(csNew);
+    }
 }

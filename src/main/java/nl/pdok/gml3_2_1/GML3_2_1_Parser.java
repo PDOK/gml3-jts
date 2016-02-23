@@ -16,6 +16,7 @@ import nl.pdok.gml3.exceptions.GML3ParseException;
 import nl.pdok.gml3.GML3Parser;
 
 import nl.pdok.gml3.exceptions.GeometryException;
+import nl.pdok.gml3.exceptions.InvalidGeometryException;
 import nl.pdok.gml3.geometry.extended.ExtendedGeometryFactory;
 import nl.pdok.gml3_2_1.converters.GML321ToJTSGeometryConvertor;
 import org.slf4j.Logger;
@@ -56,8 +57,12 @@ public class GML3_2_1_Parser implements GML3Parser {
             LOGGER.error(jaxbException.getMessage(),jaxbException);
             throw new GML3ParseException("Input cannot be serialized to gml3-objects. "
                     + "Cause: " + jaxbException.getMessage(), jaxbException);
+        } catch (InvalidGeometryException invalidGeometryException){
+            LOGGER.error(invalidGeometryException.getMessage(), invalidGeometryException);
+            throw new GML3ParseException("Input is not a valid geometry (gml3). "
+                    + "Cause: " + invalidGeometryException.getErrorType(), invalidGeometryException);
         } catch (GeometryException geometryException) {
-            LOGGER.error(geometryException.getMessage(),geometryException);
+            LOGGER.error(geometryException.getMessage(), geometryException);
             throw new GML3ParseException("Input is not a valid geometry (gml3). "
                     + "Cause: " + geometryException.getMessage(), geometryException);
         }

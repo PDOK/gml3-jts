@@ -35,7 +35,6 @@ public class GML321ToJTSGeometryConvertor {
             return gmlToPointConvertor.convertMultiPoint((MultiPointType) abstractGeometryType);
         } else if (abstractGeometryType instanceof PointType) {
             return gmlToPointConvertor.convertPoint((PointType) abstractGeometryType);
-
         } else if (abstractGeometryType instanceof AbstractCurveType) {
             return gmlToLineConvertor.convertAbstractCurve((AbstractCurveType) abstractGeometryType);
         } else if (abstractGeometryType instanceof MultiSurfaceType) {
