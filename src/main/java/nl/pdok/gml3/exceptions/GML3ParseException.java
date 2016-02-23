@@ -10,7 +10,11 @@ package nl.pdok.gml3.exceptions;
  * @author niek
  */
 public class GML3ParseException extends Exception {
-
+    
+    public GML3ParseException(String msg) {
+        super(msg);
+    }
+    
     public GML3ParseException(String message, Throwable cause) {
         super(message, cause);
     }

@@ -54,15 +54,12 @@ public class GML3_1_1_2_Parser implements GML3Parser {
             AbstractGeometryType abstractGeometryType = parseGeometryFromGML(reader);
             return threadLocalConverter.get().convertGeometry(abstractGeometryType);
         } catch (JAXBException jaxbException) {
-            LOGGER.error(jaxbException.getMessage(), jaxbException);
             throw new GML3ParseException("Input cannot be serialized to gml3-objects. "
                     + "Cause: " + jaxbException.getMessage(), jaxbException);
         } catch (InvalidGeometryException invalidGeometryException) {
-            LOGGER.error(invalidGeometryException.getMessage(), invalidGeometryException);
             throw new GML3ParseException("Input is not a valid geometry (gml3). "
                     + "Reason: " + invalidGeometryException.getErrorType(), invalidGeometryException);
         } catch (GeometryException geometryException) {
-            LOGGER.error(geometryException.getMessage(), geometryException);
             throw new GML3ParseException("Input is not a valid geometry (gml3). "
                     + "Cause: " + geometryException.getMessage(), geometryException);
         }
@@ -76,5 +73,10 @@ public class GML3_1_1_2_Parser implements GML3Parser {
     private AbstractGeometryType parseGeometryFromGML(Reader reader) throws JAXBException {
         JAXBElement unmarshalled = (JAXBElement) threadLocalUnmarshaller.get().unmarshal(new StreamSource(reader));
         return (AbstractGeometryType) unmarshalled.getValue();
+    }
+
+    @Override
+    public String toString() {
+        return "GML3_1_1_2_Parser";
     }
 }

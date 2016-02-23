@@ -150,9 +150,9 @@
     </dependencies>
 	
     <scm>
-        <url>http://github.so.kadaster.nl/PDOK/gml311-jts</url>
-        <connection>scm:git:http://github.so.kadaster.nl/PDOK/gml311-jts.git</connection>
-        <developerConnection>scm:git:git@github.so.kadaster.nl:PDOK/gml311-jts.git</developerConnection>
+        <url>http://github.so.kadaster.nl/PDOK/gml3-jts</url>
+        <connection>scm:git:http://github.so.kadaster.nl/PDOK/gml3-jts.git</connection>
+        <developerConnection>scm:git:git@github.so.kadaster.nl:PDOK/gml3-jts.git</developerConnection>
     </scm>
 
     <distributionManagement>
