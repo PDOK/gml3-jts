@@ -1,4 +1,4 @@
-package nl.pdok.gml3_1_1_2.convertors;
+package nl.pdok.gml3.gml3_1_1_2.convertors;
 
 import com.vividsolutions.jts.algorithm.CGAlgorithms;
 import com.vividsolutions.jts.geom.Coordinate;

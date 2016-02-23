@@ -1,32 +1,30 @@
-package nl.pdok.gml3_1_1_2.convertors;
-
-import org.opengis.gml_3_1_1.AbstractCurveType;
-import org.opengis.gml_3_1_1.AbstractGeometryType;
-import org.opengis.gml_3_1_1.AbstractSurfaceType;
-import org.opengis.gml_3_1_1.MultiPointType;
-import org.opengis.gml_3_1_1.MultiSurfaceType;
-import org.opengis.gml_3_1_1.PointType;
+package nl.pdok.gml3.gml3_2_1.converters;
 
 import com.vividsolutions.jts.geom.Geometry;
-
+import net.opengis.gml.v_3_2_1.AbstractCurveType;
+import net.opengis.gml.v_3_2_1.AbstractGeometryType;
+import net.opengis.gml.v_3_2_1.AbstractSurfaceType;
+import net.opengis.gml.v_3_2_1.MultiPointType;
+import net.opengis.gml.v_3_2_1.MultiSurfaceType;
+import net.opengis.gml.v_3_2_1.PointType;
 import nl.pdok.gml3.exceptions.GeometryException;
 import nl.pdok.gml3.geometry.extended.ExtendedGeometryFactory;
 
 /**
- * Converteerd van gml3.1.1 naar JTS polygoon
+ * Converteerd van gml3.2.1 naar JTS polygoon
  *
  * @author GinkeM
  */
-public class GMLToJTSGeometryConvertor {
+public class GML321ToJTSGeometryConvertor {
 
-    private final GMLToPointConvertor gmlToPointConvertor;
-    private final GMLToSurfaceConvertor gmlToSurfaceConvertor;
-    private final GMLToLineConvertor gmlToLineConvertor;
+    private final GML321ToPointConvertor gmlToPointConvertor;
+    private final GML321ToSurfaceConvertor gmlToSurfaceConvertor;
+    private final GML321ToLineConvertor gmlToLineConvertor;
 
-    public GMLToJTSGeometryConvertor(ExtendedGeometryFactory geometryFactory) {
-        gmlToPointConvertor = new GMLToPointConvertor(geometryFactory);
-        gmlToLineConvertor = new GMLToLineConvertor(geometryFactory, gmlToPointConvertor);
-        gmlToSurfaceConvertor = new GMLToSurfaceConvertor(geometryFactory, gmlToLineConvertor);
+    public GML321ToJTSGeometryConvertor(ExtendedGeometryFactory geometryFactory) {
+        gmlToPointConvertor = new GML321ToPointConvertor(geometryFactory);
+        gmlToLineConvertor = new GML321ToLineConvertor(geometryFactory, gmlToPointConvertor);
+        gmlToSurfaceConvertor = new GML321ToSurfaceConvertor(geometryFactory, gmlToLineConvertor);
     }
 
     public Geometry convertGeometry(AbstractGeometryType abstractGeometryType) throws GeometryException {
@@ -37,7 +35,6 @@ public class GMLToJTSGeometryConvertor {
             return gmlToPointConvertor.convertMultiPoint((MultiPointType) abstractGeometryType);
         } else if (abstractGeometryType instanceof PointType) {
             return gmlToPointConvertor.convertPoint((PointType) abstractGeometryType);
-
         } else if (abstractGeometryType instanceof AbstractCurveType) {
             return gmlToLineConvertor.convertAbstractCurve((AbstractCurveType) abstractGeometryType);
         } else if (abstractGeometryType instanceof MultiSurfaceType) {

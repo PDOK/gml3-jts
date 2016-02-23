@@ -1,4 +1,4 @@
-package nl.pdok.gml3_1_1_2.convertors;
+package nl.pdok.gml3.gml3_1_1_2.convertors;
 
 	import java.util.ArrayList;
 import java.util.List;

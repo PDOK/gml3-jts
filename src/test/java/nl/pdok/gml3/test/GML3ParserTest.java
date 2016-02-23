@@ -13,8 +13,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import nl.pdok.gml3.exceptions.GML3ParseException;
 import nl.pdok.gml3.GML3Parser;
-import nl.pdok.gml3_1_1_2.GML3_1_1_2_Parser;
-import nl.pdok.gml3_2_1.GML3_2_1_Parser;
+import nl.pdok.gml3.gml3_1_1_2.GML3_1_1_2_Parser;
+import nl.pdok.gml3.gml3_2_1.GML3_2_1_Parser;
 
 public class GML3ParserTest {
 
