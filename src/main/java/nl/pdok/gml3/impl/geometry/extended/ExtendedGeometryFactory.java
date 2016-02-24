@@ -1,4 +1,4 @@
-package nl.pdok.gml3.geometry.extended;
+package nl.pdok.gml3.impl.geometry.extended;
 
 import com.vividsolutions.jts.geom.CoordinateSequenceFactory;
 import com.vividsolutions.jts.geom.GeometryFactory;

@@ -1,4 +1,4 @@
-package nl.pdok.gml3.gml3_1_1_2.convertors;
+package nl.pdok.gml3.impl.gml3_1_1_2.convertors;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

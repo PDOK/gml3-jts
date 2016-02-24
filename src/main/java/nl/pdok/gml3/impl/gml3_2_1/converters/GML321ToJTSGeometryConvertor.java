@@ -1,4 +1,4 @@
-package nl.pdok.gml3.gml3_2_1.converters;
+package nl.pdok.gml3.impl.gml3_2_1.converters;
 
 import com.vividsolutions.jts.geom.Geometry;
 import net.opengis.gml.v_3_2_1.AbstractCurveType;
@@ -8,7 +8,7 @@ import net.opengis.gml.v_3_2_1.MultiPointType;
 import net.opengis.gml.v_3_2_1.MultiSurfaceType;
 import net.opengis.gml.v_3_2_1.PointType;
 import nl.pdok.gml3.exceptions.GeometryException;
-import nl.pdok.gml3.geometry.extended.ExtendedGeometryFactory;
+import nl.pdok.gml3.impl.geometry.extended.ExtendedGeometryFactory;
 
 /**
  * Converteerd van gml3.2.1 naar JTS polygoon

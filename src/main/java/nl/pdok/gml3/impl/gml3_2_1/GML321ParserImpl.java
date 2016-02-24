@@ -1,4 +1,4 @@
-package nl.pdok.gml3.gml3_2_1;
+package nl.pdok.gml3.impl.gml3_2_1;
 
 import java.io.StringReader;
 
@@ -13,27 +13,27 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Unmarshaller;
 import net.opengis.gml.v_3_2_1.AbstractGeometryType;
 import nl.pdok.gml3.exceptions.GML3ParseException;
-import nl.pdok.gml3.GML3Parser;
+import nl.pdok.gml3.GMLParser;
 
 import nl.pdok.gml3.exceptions.GeometryException;
 import nl.pdok.gml3.exceptions.InvalidGeometryException;
-import nl.pdok.gml3.geometry.extended.ExtendedGeometryFactory;
-import nl.pdok.gml3.gml3_2_1.converters.GML321ToJTSGeometryConvertor;
+import nl.pdok.gml3.impl.geometry.extended.ExtendedGeometryFactory;
+import nl.pdok.gml3.impl.gml3_2_1.converters.GML321ToJTSGeometryConvertor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class GML3_2_1_Parser implements GML3Parser {
+public class GML321ParserImpl implements GMLParser {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(GML3_2_1_Parser.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(GML321ParserImpl.class);
 
     private final ThreadLocal<GML321ToJTSGeometryConvertor> threadLocalConverter = new ThreadLocal<>();
     private final ThreadLocal<Unmarshaller> threadLocalUnmarshaller = new ThreadLocal<>();
 
-    public GML3_2_1_Parser() {
-        this(GML3Parser.ARC_APPROXIMATION_ERROR, GML3Parser.DEFAULT_SRID);
+    public GML321ParserImpl() {
+        this(GMLParser.ARC_APPROXIMATION_ERROR, GMLParser.DEFAULT_SRID);
     }
 
-    public GML3_2_1_Parser(double maximumArcApproximationError, final int srid) {
+    public GML321ParserImpl(double maximumArcApproximationError, final int srid) {
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(AbstractGeometryType.class);
             this.threadLocalUnmarshaller.set(jaxbContext.createUnmarshaller());

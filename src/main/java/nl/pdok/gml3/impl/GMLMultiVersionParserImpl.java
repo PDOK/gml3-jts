@@ -1,13 +1,14 @@
-package nl.pdok.gml3;
+package nl.pdok.gml3.impl;
 
 import com.vividsolutions.jts.geom.Geometry;
 import java.io.Reader;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import nl.pdok.gml3.GMLParser;
 import nl.pdok.gml3.exceptions.GML3ParseException;
-import nl.pdok.gml3.gml3_1_1_2.GML3_1_1_2_Parser;
-import nl.pdok.gml3.gml3_2_1.GML3_2_1_Parser;
+import nl.pdok.gml3.impl.gml3_1_1_2.GML3112ParserImpl;
+import nl.pdok.gml3.impl.gml3_2_1.GML321ParserImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,31 +16,31 @@ import org.slf4j.LoggerFactory;
  *
  * @author Niek Hoogma
  *
- * Parser which tries parsers for various versions. 
+ * Parser which tries parsers for various GML versions. 
  * It tries the last success full parser first in order to speed up batch processing.
  *
  * This class is not thread-safe.
  */
-public class GML3_x_x_Parser implements GML3Parser {
+public class GMLMultiVersionParserImpl implements GMLParser {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(GML3_x_x_Parser.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(GMLMultiVersionParserImpl.class);
 
-    private final Set<GML3Parser> parsers;
-    private GML3Parser lastUsedParser;
+    private final Set<GMLParser> parsers;
+    private GMLParser lastUsedParser;
 
-    public GML3_x_x_Parser() {
-        this(GML3Parser.ARC_APPROXIMATION_ERROR, GML3Parser.DEFAULT_SRID);
+    public GMLMultiVersionParserImpl() {
+        this(GMLParser.ARC_APPROXIMATION_ERROR, GMLParser.DEFAULT_SRID);
     }
 
-    public GML3_x_x_Parser(double maximumArcApproximationError, final int srid) {
+    public GMLMultiVersionParserImpl(double maximumArcApproximationError, final int srid) {
         this.parsers = new HashSet<>();
-        this.parsers.add(new GML3_1_1_2_Parser(maximumArcApproximationError, srid));
-        this.parsers.add(new GML3_2_1_Parser(maximumArcApproximationError, srid));
+        this.parsers.add(new GML3112ParserImpl(maximumArcApproximationError, srid));
+        this.parsers.add(new GML321ParserImpl(maximumArcApproximationError, srid));
     }
 
     @Override
     public Geometry toJTSGeometry(Reader reader) throws GML3ParseException {
-        GML3Parser parserToTry = lastUsedParser;
+        GMLParser parserToTry = lastUsedParser;
         if (parserToTry == null) {
             parserToTry = parsers.iterator().next();
         }
@@ -49,10 +50,10 @@ public class GML3_x_x_Parser implements GML3Parser {
         } catch (GML3ParseException ex) {
             LOGGER.info("Not parseable using {}. Trying other GML parser versions. {} : {}", parserToTry, parserToTry, ex.getMessage());
 
-            Iterator<GML3Parser> it = parsers.iterator();
+            Iterator<GMLParser> it = parsers.iterator();
 
             while (it.hasNext()) {
-                GML3Parser parser = it.next();
+                GMLParser parser = it.next();
                 if (!parser.equals(parserToTry)) {
 
                     try {
@@ -75,7 +76,7 @@ public class GML3_x_x_Parser implements GML3Parser {
 
     @Override
     public Geometry toJTSGeometry(String gml) throws GML3ParseException {
-        GML3Parser parserToTry = lastUsedParser;
+        GMLParser parserToTry = lastUsedParser;
         if (parserToTry == null) {
             parserToTry = parsers.iterator().next();
         }
@@ -85,10 +86,10 @@ public class GML3_x_x_Parser implements GML3Parser {
         } catch (GML3ParseException ex) {
             LOGGER.info("Not parseable using last-used parser {}. Trying other GML parser versions. {} : {}", parserToTry, parserToTry, ex.getMessage());
 
-            Iterator<GML3Parser> it = parsers.iterator();
+            Iterator<GMLParser> it = parsers.iterator();
 
             while (it.hasNext()) {
-                GML3Parser parser = it.next();
+                GMLParser parser = it.next();
                 if (!parser.equals(parserToTry)) {
 
                     try {

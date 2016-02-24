@@ -1,4 +1,4 @@
-package nl.pdok.gml3.gml3_1_1_2.convertors;
+package nl.pdok.gml3.impl.gml3_1_1_2.convertors;
 
 import com.vividsolutions.jts.algorithm.CGAlgorithms;
 import com.vividsolutions.jts.geom.Coordinate;
@@ -12,9 +12,9 @@ import nl.pdok.gml3.exceptions.GeometryException;
 import nl.pdok.gml3.exceptions.GeometryValidationErrorType;
 import nl.pdok.gml3.exceptions.InvalidGeometryException;
 import nl.pdok.gml3.exceptions.UnsupportedGeometrySpecificationException;
-import nl.pdok.gml3.geometry.extended.ArcLineString;
-import nl.pdok.gml3.geometry.extended.CompoundLineString;
-import nl.pdok.gml3.geometry.extended.Ring;
+import nl.pdok.gml3.impl.geometry.extended.ArcLineString;
+import nl.pdok.gml3.impl.geometry.extended.CompoundLineString;
+import nl.pdok.gml3.impl.geometry.extended.Ring;
 
 import org.opengis.gml_3_1_1.*;
 

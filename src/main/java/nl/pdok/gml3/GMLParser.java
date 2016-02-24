@@ -8,7 +8,7 @@ import java.io.Reader;
  *
  * Parses sources/ string to GML3 (either 3.1.1 or GML 3.2.1)
  */
-public interface GML3Parser {
+public interface GMLParser {
 
     /**
      * Default SRID (28992: Amersfoort RD/ new)

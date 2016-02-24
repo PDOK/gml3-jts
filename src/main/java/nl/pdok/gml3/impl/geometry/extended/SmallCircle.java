@@ -18,7 +18,7 @@
  *  License along with this library; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-package nl.pdok.gml3.geometry.extended;
+package nl.pdok.gml3.impl.geometry.extended;
 
 
 import com.vividsolutions.jts.geom.Coordinate;

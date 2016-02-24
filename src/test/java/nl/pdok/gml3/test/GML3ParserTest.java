@@ -12,10 +12,10 @@ import com.vividsolutions.jts.geom.Geometry;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import nl.pdok.gml3.exceptions.GML3ParseException;
-import nl.pdok.gml3.GML3Parser;
-import nl.pdok.gml3.GML3_x_x_Parser;
-import nl.pdok.gml3.gml3_1_1_2.GML3_1_1_2_Parser;
-import nl.pdok.gml3.gml3_2_1.GML3_2_1_Parser;
+import nl.pdok.gml3.GMLParser;
+import nl.pdok.gml3.impl.GMLMultiVersionParserImpl;
+import nl.pdok.gml3.impl.gml3_1_1_2.GML3112ParserImpl;
+import nl.pdok.gml3.impl.gml3_2_1.GML321ParserImpl;
 
 public class GML3ParserTest {
 
@@ -35,28 +35,28 @@ public class GML3ParserTest {
 
     @Test
     public void top10LinearRing() throws GML3ParseException {
-        GML3Parser parser = new GML3_1_1_2_Parser(0.001, 28992);
+        GMLParser parser = new GML3112ParserImpl(0.001, 28992);
         Geometry geometry = parser.toJTSGeometry(GML3_1_1_POLYGON);
         assertNotNull(geometry);
     }
 
     @Test(expected = GML3ParseException.class)
     public void testGML_3_1_1_2_Parser_with_3_2_1_geom() throws GML3ParseException {
-        GML3Parser parser = new GML3_1_1_2_Parser();
+        GMLParser parser = new GML3112ParserImpl();
         Geometry geometry = parser.toJTSGeometry(GML3_2_1_SURFACE);
         assertNotNull(geometry);
     }
 
     @Test
     public void testGML3_2_1_Multisurface() throws GML3ParseException {
-        GML3Parser parser = new GML3_2_1_Parser();
+        GMLParser parser = new GML321ParserImpl();
         Geometry geometry = parser.toJTSGeometry(GML3_2_1_SURFACE);
         assertNotNull(geometry);
     }
 
     @Test(expected = GML3ParseException.class)
     public void testGML_3_2_1_Parser_with_3_1_1_geom() throws GML3ParseException {
-        GML3Parser parser = new GML3_2_1_Parser();
+        GMLParser parser = new GML321ParserImpl();
         Geometry geometry = parser.toJTSGeometry(GML3_1_1_POLYGON);
         assertNotNull(geometry);
     }
@@ -64,14 +64,14 @@ public class GML3ParserTest {
     @Test(expected = GML3ParseException.class)
     public void invalidInputString() throws GML3ParseException {
         String gml = "<gml:Polygon xmlns:gml=\"http://www.opengis.net/gml\" srsName=\"urn:ogc:def:crs:EPSG::28992\"><gml:exterior><gml:LinearRing><gml:posList srsDimension=\"2\" count=\"67\">116055.50175 488633.817954607 116055.900101069 488633.836930407 116056.294844608 488633.89368596 116056.682405761 488633.987707278 116057.059274711 488634.11814289 116057.422038477 488634.283811551 116057.767411813 488634.483212939 116058.092266965 488634.714541246 116058.393661994 488634.975701525 116058.66886742 488635.264328669 116058.915390941 488635.577808826 116059.131 488635.913303071 116059.313742009 488636.267773117 116059.461962029 488636.638008826 116059.574317755 488637.020657289 116059.649791677 488637.41225318 116059.687700291 488637.809250147 116059.687700291 488638.208052924 116059.649791677 488638.605049891 116059.574317755 488638.996645783 116059.461962029 488639.379294245 116059.313742009 488639.749529955 116059.131 488640.104 116058.915390941 488640.439494245 116058.66886742 488640.752974402 116058.393661994 488641.041601547 116058.092266965 488641.302761826 116057.767411813 488641.534090132 116057.422038477 488641.733491521 116057.059274711 488641.899160181 116056.682405761 488642.029595794 116056.294844608 488642.123617112 116055.900101069 488642.180372664 116055.50175 488642.199348465 116055.103398931 488642.180372664 116054.708655391 488642.123617112 116054.321094239 488642.029595794 116053.944225288 488641.899160181 116053.581461523 488641.733491521 116053.236088187 488641.534090132 116052.911233035 488641.302761826 116052.609838006 488641.041601547 116052.33463258 488640.752974402 116052.088109059 488640.439494245 116051.8725 488640.104 116051.689757991 488639.749529955 116051.541537971 488639.379294245 116051.429182245 488638.996645783 116051.353708323 488638.605049891 116051.315799709 488638.208052924 116051.315799709 488637.809250147 116051.353708323 488637.41225318 116051.42";
-        GML3Parser parser = new GML3_1_1_2_Parser(0.001, 28992);
+        GMLParser parser = new GML3112ParserImpl(0.001, 28992);
         Geometry geometry = parser.toJTSGeometry(gml);
         assertNotNull(geometry);
     }
 
     @Test
     public void testGMl3xxParser() throws GML3ParseException {
-        GML3Parser parser = new GML3_x_x_Parser(0.001, 28992);
+        GMLParser parser = new GMLMultiVersionParserImpl(0.001, 28992);
 
         assertNotNull(parser.toJTSGeometry(GML3_1_1_POLYGON));
         assertNotNull(parser.toJTSGeometry(GML3_2_1_SURFACE));
@@ -82,14 +82,14 @@ public class GML3ParserTest {
 
     @Test(expected = GML3ParseException.class)
     public void testGMl3xxParserWithGml2Polygon() throws GML3ParseException {
-        GML3Parser parser = new GML3_x_x_Parser(0.001, 28992);
+        GMLParser parser = new GMLMultiVersionParserImpl(0.001, 28992);
         parser.toJTSGeometry(GML2_MULTIPOLYGON);
     }
 
     @Test
     public void testLandsgrensBestuurlijkeGrenzen() throws IOException, GML3ParseException {
         String gml = FileUtils.readFileToString(new File(GML3ParserTest.class.getResource("/landsgrens.gml").getFile()));
-        GML3Parser parser = new GML3_2_1_Parser(0.001, 28992);
+        GMLParser parser = new GML321ParserImpl(0.001, 28992);
         Geometry geometry = parser.toJTSGeometry(gml);
         assertNotNull(geometry);
     }
@@ -102,7 +102,7 @@ public class GML3ParserTest {
     }
 
     private String gml_3_1_1_ToWkt(InputStream withGMLArcs) throws IOException, GML3ParseException {
-        GML3Parser gml3Parser = new GML3_1_1_2_Parser(0.001, 28992);
+        GMLParser gml3Parser = new GML3112ParserImpl(0.001, 28992);
         Geometry geo = gml3Parser.toJTSGeometry(new InputStreamReader(withGMLArcs));
         return geo.toText();
     }
