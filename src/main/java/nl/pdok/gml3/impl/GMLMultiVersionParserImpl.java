@@ -9,6 +9,7 @@ import nl.pdok.gml3.GMLParser;
 import nl.pdok.gml3.exceptions.GML3ParseException;
 import nl.pdok.gml3.impl.gml3_1_1_2.GML3112ParserImpl;
 import nl.pdok.gml3.impl.gml3_2_1.GML321ParserImpl;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,6 +37,8 @@ public class GMLMultiVersionParserImpl implements GMLParser {
         this.parsers = new HashSet<>();
         this.parsers.add(new GML3112ParserImpl(maximumArcApproximationError, srid));
         this.parsers.add(new GML321ParserImpl(maximumArcApproximationError, srid));
+        
+        LOGGER.info("{}: Supported gml versions 3.1.1.2, 3.2.1.", getClass().getSimpleName());
     }
 
     @Override
@@ -76,6 +79,10 @@ public class GMLMultiVersionParserImpl implements GMLParser {
 
     @Override
     public Geometry toJTSGeometry(String gml) throws GML3ParseException {
+        if(StringUtils.isBlank(gml)) {
+            throw new GML3ParseException("Emtpy GML-string provided");
+        }
+        
         GMLParser parserToTry = lastUsedParser;
         if (parserToTry == null) {
             parserToTry = parsers.iterator().next();
