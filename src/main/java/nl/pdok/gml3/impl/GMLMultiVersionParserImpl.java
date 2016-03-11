@@ -37,6 +37,7 @@ public class GMLMultiVersionParserImpl implements GMLParser {
         this.parsers = new HashSet<>();
         this.parsers.add(new GML3112ParserImpl(maximumArcApproximationError, srid));
         this.parsers.add(new GML321ParserImpl(maximumArcApproximationError, srid));
+        // GML321GeotoolsParserImpl have a different arcApproximationError and is therefore not used here.
         
         LOGGER.info("{}: Supported gml versions 3.1.1.2, 3.2.1.", getClass().getSimpleName());
     }
