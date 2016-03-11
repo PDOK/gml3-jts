@@ -175,7 +175,7 @@
           <repository>
             <id>boundless-repo</id>
             <name>Geotools Repo</name>
-            <url>http://boundless.artifactoryonline.com/boundless/release/</url>
+            <url>http://download.osgeo.org/webdav/geotools</url>
         </repository>
     </repositories>
     <distributionManagement>
