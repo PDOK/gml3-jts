@@ -21,7 +21,7 @@ public class PerformanceTest {
     
     @Test
     public void performanceTest() throws GML3ParseException {
-        final int iterations = 10000;
+        final int iterations = 1000;
         gml321PerformanceTest(new GML321GeotoolsParserImpl(), iterations);
         gml321PerformanceTest(new GML321ParserImpl(), iterations);
     }
@@ -32,7 +32,7 @@ public class PerformanceTest {
         for (int i = 0; i < iterations; i++) {
             Geometry geometry = parser.toJTSGeometry(GML3_2_1_SURFACE);
             Assert.assertNotNull(geometry);
-            if (i % 1000 == 0) {
+            if (iterations % 100 == 0 && iterations > 0) {
                 LOGGER.debug("{} done", i);
             }
         }
