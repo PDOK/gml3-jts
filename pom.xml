@@ -8,6 +8,11 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+  <parent>
+    <groupId>nl.kadaster.java-expertise</groupId>
+    <artifactId>java-parent-pom</artifactId>
+    <version>1.1.9</version>
+  </parent>
   <build>
     <pluginManagement>
       <plugins>
@@ -171,11 +176,4 @@
     <connection>scm:git:http://github.so.kadaster.nl/PDOK/gml3-jts.git</connection>
     <developerConnection>scm:git:git@github.so.kadaster.nl:PDOK/gml3-jts.git</developerConnection>
   </scm>
-  <distributionManagement>
-    <repository>
-      <id>releases-repo</id>
-      <name>Nexus Releases Repo</name>
-      <url>http://mvnrepository.so.kadaster.nl:8081/nexus/content/repositories/releases/</url>
-    </repository>
-  </distributionManagement>
 </project>
