@@ -7,6 +7,7 @@ import nl.pdok.gml3.impl.gml3_2_1.GML321GeotoolsParserImpl;
 import nl.pdok.gml3.impl.gml3_2_1.GML321ParserImpl;
 import static nl.pdok.gml3.test.GML3ParserTest.GML3_2_1_SURFACE;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +16,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author niek
  */
+@Ignore
 public class PerformanceTest {
    
     private static final Logger LOGGER = LoggerFactory.getLogger(GMLGeotoolsParserTest.class);
