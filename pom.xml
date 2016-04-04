@@ -8,6 +8,13 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+  <repositories>
+    <repository>
+      <id>boundless-repo</id>
+      <name>Geotools Repo</name>
+      <url>http://download.osgeo.org/webdav/geotools</url>
+    </repository>
+  </repositories>
   <build>
     <pluginManagement>
       <plugins>
