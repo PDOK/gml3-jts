@@ -1,0 +1,7 @@
+<servers>
+    <server>
+      <id>bintray-pdok-maven</id>
+      <username>${BINTRAY_USER}</username>
+      <password>${BINTRAY_API_KEY}</password>
+    </server>
+  </servers>
