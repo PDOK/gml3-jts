@@ -4,10 +4,34 @@
   <groupId>nl.pdok</groupId>
   <artifactId>gml3-jts</artifactId>
   <version>0.1.1-SNAPSHOT</version>
-  <name>gml3-jts</name>
+  <name>${project.artifactId}</name>
+  <url>https://github.com/PDOK/gml3-jts</url>
+
+  <licenses>
+    <license>
+      <name>LGPL license, Version 3.0</name>
+      <url>https://www.gnu.org/licenses/lgpl.txt</url>
+    </license>
+  </licenses>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+
+  <scm>
+    <connection>scm:git:git@github.com:PDOK/gml3-jts.git</connection>
+    <developerConnection>scm:git:git@github.com:PDOK/gml3-jts.git</developerConnection>
+    <url>https://github.com/PDOK/gml3-jts</url>
+  </scm>
+
+  <distributionManagement>
+    <repository>
+      <id>bintray-pdok-maven</id>
+      <name>pdok-maven</name>
+      <url>https://api.bintray.com/maven/pdok/maven/gml3-jts/;publish=1</url>
+    </repository>
+  </distributionManagement>
+
   <repositories>
     <repository>
       <id>boundless-repo</id>
@@ -47,7 +71,7 @@
         <configuration>
           <remoteTagging>true</remoteTagging>
           <preparationGoals>clean</preparationGoals>
-          <autoVersionSubmodules>true</autoVersionSubmodules>
+          <pushChanges>false</pushChanges>
         </configuration>
       </plugin>
       <plugin>
