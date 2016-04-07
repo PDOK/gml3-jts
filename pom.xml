@@ -71,7 +71,6 @@
         <configuration>
           <remoteTagging>true</remoteTagging>
           <preparationGoals>clean</preparationGoals>
-          <pushChanges>false</pushChanges>
         </configuration>
       </plugin>
       <plugin>
