@@ -90,7 +90,6 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
         <configuration>
-          <failOnError>false</failOnError>
           <excludePackageNames>org.opengis.*:org.w3.*</excludePackageNames>
         </configuration>
         <executions>

@@ -3,7 +3,10 @@ package nl.pdok.gml3.exceptions;
 import com.vividsolutions.jts.operation.valid.TopologyValidationError;
 
 /**
+ * <p>GeometryValidationErrorType class.</p>
+ *
  * @author GinkeM
+ * @version $Id: $Id
  */
 public enum GeometryValidationErrorType {
 	
@@ -46,10 +49,21 @@ public enum GeometryValidationErrorType {
 		this.jtsConstant = jtsConstant;
 	}
 
+	/**
+	 * <p>Getter for the field <code>jtsConstant</code>.</p>
+	 *
+	 * @return a int.
+	 */
 	public int getJtsConstant() {
 		return jtsConstant;
 	}
 	
+	/**
+	 * <p>getGeometryValidationErrorType.</p>
+	 *
+	 * @param jts a int.
+	 * @return a {@link nl.pdok.gml3.exceptions.GeometryValidationErrorType} object.
+	 */
 	public static GeometryValidationErrorType getGeometryValidationErrorType(int jts) {
 		for(GeometryValidationErrorType type : GeometryValidationErrorType.values()) {
 			if(type.getJtsConstant() == jts) {

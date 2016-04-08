@@ -14,13 +14,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * <p>GMLMultiVersionParserImpl class.</p>
  *
  * @author Niek Hoogma
  *
- * Parser which tries parsers for various GML versions. 
+ * Parser which tries parsers for various GML versions.
  * It tries the last success full parser first in order to speed up batch processing.
  *
  * This class is not thread-safe.
+ * @version $Id: $Id
  */
 public class GMLMultiVersionParserImpl implements GMLParser {
 
@@ -29,10 +31,19 @@ public class GMLMultiVersionParserImpl implements GMLParser {
     private final Set<GMLParser> parsers;
     private GMLParser lastUsedParser;
 
+    /**
+     * <p>Constructor for GMLMultiVersionParserImpl.</p>
+     */
     public GMLMultiVersionParserImpl() {
         this(GMLParser.ARC_APPROXIMATION_ERROR, GMLParser.DEFAULT_SRID);
     }
 
+    /**
+     * <p>Constructor for GMLMultiVersionParserImpl.</p>
+     *
+     * @param maximumArcApproximationError a double.
+     * @param srid a int.
+     */
     public GMLMultiVersionParserImpl(double maximumArcApproximationError, final int srid) {
         this.parsers = new HashSet<>();
         this.parsers.add(new GML3112ParserImpl(maximumArcApproximationError, srid));
@@ -42,6 +53,7 @@ public class GMLMultiVersionParserImpl implements GMLParser {
         LOGGER.info("{}: Supported gml versions 3.1.1.2, 3.2.1.", getClass().getSimpleName());
     }
 
+    /** {@inheritDoc} */
     @Override
     public Geometry toJTSGeometry(Reader reader) throws GML3ParseException {
         GMLParser parserToTry = lastUsedParser;
@@ -78,6 +90,7 @@ public class GMLMultiVersionParserImpl implements GMLParser {
         }
     }
 
+    /** {@inheritDoc} */
     @Override
     public Geometry toJTSGeometry(String gml) throws GML3ParseException {
         if(StringUtils.isBlank(gml)) {

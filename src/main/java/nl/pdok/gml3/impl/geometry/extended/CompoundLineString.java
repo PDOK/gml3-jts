@@ -8,23 +8,43 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
+ * <p>CompoundLineString class.</p>
+ *
  * @author GinkeM
+ * @version $Id: $Id
  */
 public class CompoundLineString extends LineString {
 	
 	private static final long serialVersionUID = -1458579454263430369L;
 	private LineString[] segments;
 
+	/**
+	 * <p>Constructor for CompoundLineString.</p>
+	 *
+	 * @param coordinates a {@link com.vividsolutions.jts.geom.CoordinateSequence} object.
+	 * @param factory a {@link com.vividsolutions.jts.geom.GeometryFactory} object.
+	 * @param segments a {@link com.vividsolutions.jts.geom.LineString} object.
+	 */
 	protected CompoundLineString(CoordinateSequence coordinates, GeometryFactory factory,
                                  LineString... segments) {
 		super(coordinates, factory);
 		this.segments = segments;
 	}
 
+	/**
+	 * <p>getGeometryType.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getGeometryType() {
 		return "CompoundLineString";
 	}
 
+	/**
+	 * <p>reverse.</p>
+	 *
+	 * @return a {@link com.vividsolutions.jts.geom.Geometry} object.
+	 */
 	public Geometry reverse() {
 		LineString[] seg = new LineString[segments.length];
 		for(int i=seg.length, j=0; i>=0 && j<seg.length; i--, j++) {
@@ -35,10 +55,22 @@ public class CompoundLineString extends LineString {
 		return createCompoundLineString(factory, seg);
 	}
 	
+	/**
+	 * <p>Getter for the field <code>segments</code>.</p>
+	 *
+	 * @return an array of {@link com.vividsolutions.jts.geom.LineString} objects.
+	 */
 	public LineString[] getSegments() {
 		return segments;
 	}
 	
+	/**
+	 * <p>createCompoundLineString.</p>
+	 *
+	 * @param factory a {@link com.vividsolutions.jts.geom.GeometryFactory} object.
+	 * @param segments a {@link com.vividsolutions.jts.geom.LineString} object.
+	 * @return a {@link nl.pdok.gml3.impl.geometry.extended.CompoundLineString} object.
+	 */
 	public static CompoundLineString createCompoundLineString(GeometryFactory factory,
 			LineString... segments) {
 		List<Coordinate> coordinates = new ArrayList<Coordinate>();

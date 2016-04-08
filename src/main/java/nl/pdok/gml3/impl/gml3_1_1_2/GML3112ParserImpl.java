@@ -24,6 +24,12 @@ import org.opengis.gml_3_1_1.AbstractGeometryType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * <p>GML3112ParserImpl class.</p>
+ *
+ * @author raymond
+ * @version $Id: $Id
+ */
 public class GML3112ParserImpl implements GMLParser {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GML3112ParserImpl.class);
@@ -53,10 +59,19 @@ public class GML3112ParserImpl implements GMLParser {
 
     private final GMLToJTSGeometryConvertor gmlToJTSGeometryConvertor;
 
+    /**
+     * <p>Constructor for GML3112ParserImpl.</p>
+     */
     public GML3112ParserImpl() {
         this(GMLParser.ARC_APPROXIMATION_ERROR, GMLParser.DEFAULT_SRID);
     }
 
+    /**
+     * <p>Constructor for GML3112ParserImpl.</p>
+     *
+     * @param maximumArcApproximationError a double.
+     * @param srid a int.
+     */
     public GML3112ParserImpl(final double maximumArcApproximationError, final int srid) {
         ExtendedGeometryFactory geometryFactory = new ExtendedGeometryFactory(new PrecisionModel(), srid);
         geometryFactory.setMaximumArcApproximationError(maximumArcApproximationError);
@@ -65,6 +80,7 @@ public class GML3112ParserImpl implements GMLParser {
         LOGGER.info("Created a GML 3.1.1.2 parser for SRID {} with MaximumArcApproximationError {}", srid, maximumArcApproximationError);
     }
 
+    /** {@inheritDoc} */
     @Override
     public Geometry toJTSGeometry(Reader reader) throws GML3ParseException {
         try {
@@ -82,6 +98,7 @@ public class GML3112ParserImpl implements GMLParser {
         }
     }
 
+    /** {@inheritDoc} */
     @Override
     public Geometry toJTSGeometry(String gml) throws GML3ParseException {
         if (StringUtils.isBlank(gml)) {
@@ -95,6 +112,7 @@ public class GML3112ParserImpl implements GMLParser {
         return (AbstractGeometryType) unmarshalled.getValue();
     }
 
+    /** {@inheritDoc} */
     @Override
     public String toString() {
         return "GML3_1_1_2_Parser";

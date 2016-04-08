@@ -23,6 +23,12 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * <p>GML321ParserImpl class.</p>
+ *
+ * @author raymond
+ * @version $Id: $Id
+ */
 public class GML321ParserImpl implements GMLParser {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GML321ParserImpl.class);
@@ -52,10 +58,19 @@ public class GML321ParserImpl implements GMLParser {
 
     private final GML321ToJTSGeometryConvertor gml321ToJTSGeometryConvertor;
 
+    /**
+     * <p>Constructor for GML321ParserImpl.</p>
+     */
     public GML321ParserImpl() {
         this(GMLParser.ARC_APPROXIMATION_ERROR, GMLParser.DEFAULT_SRID);
     }
 
+    /**
+     * <p>Constructor for GML321ParserImpl.</p>
+     *
+     * @param maximumArcApproximationError a double.
+     * @param srid a int.
+     */
     public GML321ParserImpl(final double maximumArcApproximationError, final int srid) {
         ExtendedGeometryFactory geometryFactory = new ExtendedGeometryFactory(new PrecisionModel(), srid);
         geometryFactory.setMaximumArcApproximationError(maximumArcApproximationError);
@@ -64,6 +79,7 @@ public class GML321ParserImpl implements GMLParser {
         LOGGER.info("Created a GML 3.2.1 parser for SRID {} with MaximumArcApproximationError {}", srid, maximumArcApproximationError);
     }
 
+    /** {@inheritDoc} */
     @Override
     public Geometry toJTSGeometry(Reader reader) throws GML3ParseException {
         try {
@@ -81,6 +97,7 @@ public class GML321ParserImpl implements GMLParser {
         }
     }
 
+    /** {@inheritDoc} */
     @Override
     public Geometry toJTSGeometry(String gml) throws GML3ParseException {
         if (StringUtils.isBlank(gml)) {
@@ -94,6 +111,7 @@ public class GML321ParserImpl implements GMLParser {
         return (AbstractGeometryType) unmarshalled.getValue();
     }
 
+    /** {@inheritDoc} */
     @Override
     public String toString() {
         return "GML3_2_1_Parser";

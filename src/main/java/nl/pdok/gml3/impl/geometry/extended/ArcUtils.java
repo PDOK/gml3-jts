@@ -5,8 +5,10 @@ import com.vividsolutions.jts.geom.*;
 import com.vividsolutions.jts.geom.impl.CoordinateArraySequence;
 
 /**
- * Utilities for handling arcs with JTS 
+ * Utilities for handling arcs with JTS
+ *
  * @author GinkeM
+ * @version $Id: $Id
  */
 public final class ArcUtils {
 	
@@ -41,6 +43,13 @@ public final class ArcUtils {
 
 	}
 
+	/**
+	 * <p>densify.</p>
+	 *
+	 * @param coordinates an array of {@link com.vividsolutions.jts.geom.Coordinate} objects.
+	 * @param factory a {@link com.vividsolutions.jts.geom.GeometryFactory} object.
+	 * @return a {@link com.vividsolutions.jts.geom.CoordinateSequence} object.
+	 */
 	public static CoordinateSequence densify(Coordinate[] coordinates, GeometryFactory factory) {
 		double tolerance = ExtendedGeometryFactory.DEFAULT_MAXIMUM_ARC_APPROXIMATION_ERROR;
 		if(factory instanceof ExtendedGeometryFactory) {
@@ -72,6 +81,13 @@ public final class ArcUtils {
 		
 	}
 	
+	/**
+	 * <p>add.</p>
+	 *
+	 * @param c1 an array of {@link com.vividsolutions.jts.geom.Coordinate} objects.
+	 * @param c2 an array of {@link com.vividsolutions.jts.geom.Coordinate} objects.
+	 * @return an array of {@link com.vividsolutions.jts.geom.Coordinate} objects.
+	 */
 	public static Coordinate[] add(Coordinate[] c1, Coordinate[] c2) {
 		if (c1 == null) {
             return c2;

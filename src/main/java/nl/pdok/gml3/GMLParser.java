@@ -7,6 +7,9 @@ import java.io.Reader;
 /**
  *
  * Parses sources/ string to GML3 (either 3.1.1 or GML 3.2.1)
+ *
+ * @author raymond
+ * @version $Id: $Id
  */
 public interface GMLParser {
 
@@ -21,18 +24,20 @@ public interface GMLParser {
     static final double ARC_APPROXIMATION_ERROR = 0.01;
     
     /**
+     * <p>toJTSGeometry.</p>
      *
-     * @param reader
+     * @param reader a {@link java.io.Reader} object.
      * @return The Geometry object in the reader
-     * @throws GML3ParseException When no geometry could be created
+     * @throws nl.pdok.gml3.exceptions.GML3ParseException When no geometry could be created
      */
     Geometry toJTSGeometry(Reader reader) throws GML3ParseException;
 
     /**
+     * <p>toJTSGeometry.</p>
      *
-     * @param gml
+     * @param gml a {@link java.lang.String} object.
      * @return The Geometry object represented by the string
-     * @throws GML3ParseException When no geometry could be created
+     * @throws nl.pdok.gml3.exceptions.GML3ParseException When no geometry could be created
      */
     Geometry toJTSGeometry(String gml) throws GML3ParseException;
 }

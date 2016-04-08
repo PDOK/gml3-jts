@@ -30,10 +30,11 @@ import java.util.List;
 /**
  * This class provides operations for handling the usage of Circles and arcs in
  * Geometries.
- * <p/>
+ *
  * Date: Oct 15, 2007
  *
  * @author Tom Acree
+ * @version $Id: $Id
  */
 public class SmallCircle {
     private Coordinate center = new Coordinate(0.0, 0.0);
@@ -79,10 +80,10 @@ public class SmallCircle {
      * To this end, we check the box and set the side of the box to the larger
      * dimension of the rectangle
      *
-     * @param xLeft
-     * @param yUpper
-     * @param xRight
-     * @param yLower
+     * @param xLeft a double.
+     * @param yUpper a double.
+     * @param xRight a double.
+     * @param yLower a double.
      */
     public SmallCircle(double xLeft, double yUpper, double xRight, double yLower) {
         double side = Math.min(
@@ -100,9 +101,9 @@ public class SmallCircle {
      * Three point method of circle construction. All three points must be on
      * the circumference of the circle.
      *
-     * @param point1
-     * @param point2
-     * @param point3
+     * @param point1 a {@link com.vividsolutions.jts.geom.Coordinate} object.
+     * @param point2 a {@link com.vividsolutions.jts.geom.Coordinate} object.
+     * @param point3 a {@link com.vividsolutions.jts.geom.Coordinate} object.
      */
     public SmallCircle(Coordinate point1, Coordinate point2, Coordinate point3) {
         initThreePointCircle(point1, point2, point3);
@@ -112,12 +113,12 @@ public class SmallCircle {
      * Three point method of circle construction. All three points must be on
      * the circumference of the circle.
      *
-     * @param x1
-     * @param y1
-     * @param x2
-     * @param y2
-     * @param x3
-     * @param y3
+     * @param x1 a double.
+     * @param y1 a double.
+     * @param x2 a double.
+     * @param y2 a double.
+     * @param x3 a double.
+     * @param y3 a double.
      */
     public SmallCircle(double x1, double y1, double x2, double y2, double x3,
                   double y3) {
@@ -131,6 +132,9 @@ public class SmallCircle {
 
     /**
      * shift the center of the circle by delta X and delta Y
+     *
+     * @param deltaX a double.
+     * @param deltaY a double.
      */
     public void shift(double deltaX, double deltaY) {
         this.center.x = this.center.x + deltaX;
@@ -139,6 +143,9 @@ public class SmallCircle {
 
     /**
      * Move the circle to a new center
+     *
+     * @param x a double.
+     * @param y a double.
      */
     public void move(double x, double y) {
         this.center.x = x;
@@ -194,10 +201,20 @@ public class SmallCircle {
         this.radius = rad;
     }
 
+    /**
+     * <p>Getter for the field <code>center</code>.</p>
+     *
+     * @return a {@link com.vividsolutions.jts.geom.Coordinate} object.
+     */
     public Coordinate getCenter() {
         return this.center;
     }
 
+    /**
+     * <p>Getter for the field <code>radius</code>.</p>
+     *
+     * @return a double.
+     */
     public double getRadius() {
         return this.radius;
     }
@@ -324,6 +341,7 @@ public class SmallCircle {
         return coordinates;
     }
 
+    /** {@inheritDoc} */
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -343,6 +361,11 @@ public class SmallCircle {
         return true;
     }
 
+    /**
+     * <p>toString.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String toString() {
         return "Circle with Radius = " + this.radius
                 + " and a center at the coordinates (" + this.center.x + ", "
@@ -387,6 +410,12 @@ public class SmallCircle {
         return angle;
     }
 
+    /**
+     * <p>getPoint.</p>
+     *
+     * @param angle a double.
+     * @return a {@link com.vividsolutions.jts.geom.Coordinate} object.
+     */
     public Coordinate getPoint(final double angle) {
         double x = Math.cos(angle) * this.radius;
         x = x + this.center.x;
@@ -399,6 +428,8 @@ public class SmallCircle {
     }
 
     /**
+     * <p>distanceFromCenter.</p>
+     *
      * @param p A point in space
      * @return The distance the point is from the center of the circle
      */
@@ -406,6 +437,14 @@ public class SmallCircle {
         return Math.abs(this.center.distance(p));
     }
 
+    /**
+     * <p>createArc.</p>
+     *
+     * @param p1 a {@link com.vividsolutions.jts.geom.Coordinate} object.
+     * @param p2 a {@link com.vividsolutions.jts.geom.Coordinate} object.
+     * @param p3 a {@link com.vividsolutions.jts.geom.Coordinate} object.
+     * @return a {@link nl.pdok.gml3.impl.geometry.extended.SmallCircle.Arc} object.
+     */
     public Arc createArc(Coordinate p1, Coordinate p2, Coordinate p3) {
         return new Arc(p1, p2, p3);
     }

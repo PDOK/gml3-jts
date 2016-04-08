@@ -17,19 +17,30 @@ import org.xml.sax.SAXException;
 
 /**
  * A GML 3.2.1 based on Geotools. Note this parser is less accurate than GML321ParserImpl for arcs
- * 
+ *
  * @author niek
+ * @version $Id: $Id
  */
 public class GML321GeotoolsParserImpl implements GMLParser {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GML321GeotoolsParserImpl.class);
     private final ThreadLocal<Parser> parserThreadLocal;
 
+    /**
+     * <p>Constructor for GML321GeotoolsParserImpl.</p>
+     */
     public GML321GeotoolsParserImpl() {
         // By default, do not use strict validating/ parsing to improve performance
         this(GMLParser.DEFAULT_SRID, false, false);
     }
 
+    /**
+     * <p>Constructor for GML321GeotoolsParserImpl.</p>
+     *
+     * @param SRID a int.
+     * @param strictParsing a boolean.
+     * @param strictValidating a boolean.
+     */
     public GML321GeotoolsParserImpl(final int SRID, final boolean strictParsing, final boolean strictValidating) {
         this.parserThreadLocal = new ThreadLocal<Parser>() {
 
@@ -51,6 +62,7 @@ public class GML321GeotoolsParserImpl implements GMLParser {
         return parser;
     }
 
+    /** {@inheritDoc} */
     @Override
     public Geometry toJTSGeometry(Reader reader) throws GML3ParseException {
         try {
@@ -65,6 +77,7 @@ public class GML321GeotoolsParserImpl implements GMLParser {
         }
     }
 
+    /** {@inheritDoc} */
     @Override
     public Geometry toJTSGeometry(String gml) throws GML3ParseException {
         return toJTSGeometry(new StringReader(gml));

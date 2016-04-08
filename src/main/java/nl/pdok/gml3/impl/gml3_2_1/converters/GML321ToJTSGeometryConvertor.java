@@ -14,6 +14,7 @@ import nl.pdok.gml3.impl.geometry.extended.ExtendedGeometryFactory;
  * Converteerd van gml3.2.1 naar JTS polygoon
  *
  * @author GinkeM
+ * @version $Id: $Id
  */
 public class GML321ToJTSGeometryConvertor {
 
@@ -21,12 +22,24 @@ public class GML321ToJTSGeometryConvertor {
     private final GML321ToSurfaceConvertor gmlToSurfaceConvertor;
     private final GML321ToLineConvertor gmlToLineConvertor;
 
+    /**
+     * <p>Constructor for GML321ToJTSGeometryConvertor.</p>
+     *
+     * @param geometryFactory a {@link nl.pdok.gml3.impl.geometry.extended.ExtendedGeometryFactory} object.
+     */
     public GML321ToJTSGeometryConvertor(ExtendedGeometryFactory geometryFactory) {
         gmlToPointConvertor = new GML321ToPointConvertor(geometryFactory);
         gmlToLineConvertor = new GML321ToLineConvertor(geometryFactory, gmlToPointConvertor);
         gmlToSurfaceConvertor = new GML321ToSurfaceConvertor(geometryFactory, gmlToLineConvertor);
     }
 
+    /**
+     * <p>convertGeometry.</p>
+     *
+     * @param abstractGeometryType a {@link net.opengis.gml.v_3_2_1.AbstractGeometryType} object.
+     * @return a {@link com.vividsolutions.jts.geom.Geometry} object.
+     * @throws nl.pdok.gml3.exceptions.GeometryException if any.
+     */
     public Geometry convertGeometry(AbstractGeometryType abstractGeometryType) throws GeometryException {
         if (abstractGeometryType instanceof AbstractSurfaceType) {
             return gmlToSurfaceConvertor.convertSurface((AbstractSurfaceType) abstractGeometryType);

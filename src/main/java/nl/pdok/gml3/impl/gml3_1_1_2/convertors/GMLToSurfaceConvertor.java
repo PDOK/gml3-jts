@@ -29,19 +29,35 @@ import nl.pdok.gml3.exceptions.InvalidGeometryException;
 import nl.pdok.gml3.exceptions.UnsupportedGeometrySpecificationException;
 
 /**
+ * <p>GMLToSurfaceConvertor class.</p>
+ *
  * @author GinkeM
+ * @version $Id: $Id
  */
 public class GMLToSurfaceConvertor {
 
 		private GeometryFactory geometryFactory;
 		private GMLToLineConvertor gmlToLineConvertor;
 
+		/**
+		 * <p>Constructor for GMLToSurfaceConvertor.</p>
+		 *
+		 * @param geometryFactory a {@link com.vividsolutions.jts.geom.GeometryFactory} object.
+		 * @param gmlToLineConvertor a {@link nl.pdok.gml3.impl.gml3_1_1_2.convertors.GMLToLineConvertor} object.
+		 */
 		public GMLToSurfaceConvertor(GeometryFactory geometryFactory, GMLToLineConvertor 
 				gmlToLineConvertor) {
 			this.geometryFactory = geometryFactory;
 			this.gmlToLineConvertor = gmlToLineConvertor;
 		}
 		
+		/**
+		 * <p>convertMultiSurface.</p>
+		 *
+		 * @param surfaces a {@link org.opengis.gml_3_1_1.MultiSurfaceType} object.
+		 * @return a {@link com.vividsolutions.jts.geom.Geometry} object.
+		 * @throws nl.pdok.gml3.exceptions.GeometryException if any.
+		 */
 		public Geometry convertMultiSurface(MultiSurfaceType surfaces) throws GeometryException {
 			List<Polygon> polygons = new ArrayList<Polygon>();
 			for(SurfacePropertyType surface : surfaces.getSurfaceMember()) {
@@ -107,6 +123,13 @@ public class GMLToSurfaceConvertor {
 		}
 		
 
+		/**
+		 * <p>convertSurface.</p>
+		 *
+		 * @param abstractSurface a {@link org.opengis.gml_3_1_1.AbstractSurfaceType} object.
+		 * @return a {@link com.vividsolutions.jts.geom.Geometry} object.
+		 * @throws nl.pdok.gml3.exceptions.GeometryException if any.
+		 */
 		public Geometry convertSurface(AbstractSurfaceType abstractSurface)
 				throws GeometryException {
 			if (abstractSurface instanceof SurfaceType) {
@@ -154,6 +177,13 @@ public class GMLToSurfaceConvertor {
 
 		}
 
+		/**
+		 * <p>convertPolygonPatch.</p>
+		 *
+		 * @param polygonPatch a {@link org.opengis.gml_3_1_1.PolygonPatchType} object.
+		 * @return a {@link com.vividsolutions.jts.geom.Polygon} object.
+		 * @throws nl.pdok.gml3.exceptions.GeometryException if any.
+		 */
 		public Polygon convertPolygonPatch(PolygonPatchType polygonPatch)
 				throws GeometryException {
 			if(polygonPatch.getExterior() == null) {

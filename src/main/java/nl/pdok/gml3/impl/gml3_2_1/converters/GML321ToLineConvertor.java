@@ -37,7 +37,10 @@ import nl.pdok.gml3.impl.geometry.extended.CompoundLineString;
 import nl.pdok.gml3.impl.geometry.extended.Ring;
 
 /**
+ * <p>GML321ToLineConvertor class.</p>
+ *
  * @author GinkeM
+ * @version $Id: $Id
  */
 public class GML321ToLineConvertor {
 
@@ -48,12 +51,25 @@ public class GML321ToLineConvertor {
     private final GeometryFactory geometryFactory;
     private final GML321ToPointConvertor gmlToPointConvertor;
 
+    /**
+     * <p>Constructor for GML321ToLineConvertor.</p>
+     *
+     * @param geometryFactory a {@link com.vividsolutions.jts.geom.GeometryFactory} object.
+     * @param gmlToPointConvertor a {@link nl.pdok.gml3.impl.gml3_2_1.converters.GML321ToPointConvertor} object.
+     */
     public GML321ToLineConvertor(GeometryFactory geometryFactory,
             GML321ToPointConvertor gmlToPointConvertor) {
         this.geometryFactory = geometryFactory;
         this.gmlToPointConvertor = gmlToPointConvertor;
     }
 
+    /**
+     * <p>translateAbstractRing.</p>
+     *
+     * @param abstractRingPropertyType a {@link net.opengis.gml.v_3_2_1.AbstractRingPropertyType} object.
+     * @return a {@link com.vividsolutions.jts.geom.LinearRing} object.
+     * @throws nl.pdok.gml3.exceptions.GeometryException if any.
+     */
     public LinearRing translateAbstractRing(AbstractRingPropertyType abstractRingPropertyType) throws GeometryException {
         AbstractRingType abstractRing = abstractRingPropertyType.getAbstractRing().getValue();
         if (abstractRing instanceof LinearRingType) {
@@ -125,6 +141,13 @@ public class GML321ToLineConvertor {
         }
     }
 
+    /**
+     * <p>translateCurveTypeToSegments.</p>
+     *
+     * @param curve a {@link net.opengis.gml.v_3_2_1.CurveType} object.
+     * @return a {@link java.util.List} object.
+     * @throws nl.pdok.gml3.exceptions.GeometryException if any.
+     */
     public List<LineString> translateCurveTypeToSegments(CurveType curve) throws GeometryException {
         List<LineString> list = new ArrayList<>();
         CurveSegmentArrayPropertyType array = curve.getSegments();
@@ -251,6 +274,13 @@ public class GML321ToLineConvertor {
 
     }
 
+    /**
+     * <p>convertAbstractCurve.</p>
+     *
+     * @param abstractGeometryType a {@link net.opengis.gml.v_3_2_1.AbstractCurveType} object.
+     * @return a {@link com.vividsolutions.jts.geom.LineString} object.
+     * @throws nl.pdok.gml3.exceptions.GeometryException if any.
+     */
     public LineString convertAbstractCurve(AbstractCurveType abstractGeometryType) throws GeometryException {
         if (abstractGeometryType instanceof LineStringType) {
             return convertLineString((LineStringType) abstractGeometryType);

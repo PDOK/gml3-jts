@@ -24,7 +24,10 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
+ * <p>GMLToLineConvertor class.</p>
+ *
  * @author GinkeM
+ * @version $Id: $Id
  */
 public class GMLToLineConvertor {
 	
@@ -34,12 +37,25 @@ public class GMLToLineConvertor {
 	private GeometryFactory geometryFactory;
 	private GMLToPointConvertor gmlToPointConvertor;
 	
+	/**
+	 * <p>Constructor for GMLToLineConvertor.</p>
+	 *
+	 * @param geometryFactory a {@link com.vividsolutions.jts.geom.GeometryFactory} object.
+	 * @param gmlToPointConvertor a {@link nl.pdok.gml3.impl.gml3_1_1_2.convertors.GMLToPointConvertor} object.
+	 */
 	public GMLToLineConvertor(GeometryFactory geometryFactory, 
 			GMLToPointConvertor gmlToPointConvertor) {
 		this.geometryFactory = geometryFactory;
 		this.gmlToPointConvertor = gmlToPointConvertor;
 	}
 	
+	/**
+	 * <p>translateAbstractRing.</p>
+	 *
+	 * @param abstractRingPropertyType a {@link org.opengis.gml_3_1_1.AbstractRingPropertyType} object.
+	 * @return a {@link com.vividsolutions.jts.geom.LinearRing} object.
+	 * @throws nl.pdok.gml3.exceptions.GeometryException if any.
+	 */
 	public LinearRing translateAbstractRing(AbstractRingPropertyType abstractRingPropertyType) throws GeometryException {
 		AbstractRingType abstractRing = abstractRingPropertyType.getRing().getValue(); 
 		if (abstractRing instanceof LinearRingType) {
@@ -115,6 +131,13 @@ public class GMLToLineConvertor {
 		}
 	}
 
+	/**
+	 * <p>translateCurveTypeToSegments.</p>
+	 *
+	 * @param curve a {@link org.opengis.gml_3_1_1.CurveType} object.
+	 * @return a {@link java.util.List} object.
+	 * @throws nl.pdok.gml3.exceptions.GeometryException if any.
+	 */
 	public List<LineString> translateCurveTypeToSegments(CurveType curve) throws GeometryException {
 		List<LineString> list = new ArrayList<LineString>();
 		CurveSegmentArrayPropertyType array = curve.getSegments();
@@ -246,6 +269,13 @@ public class GMLToLineConvertor {
 		
 	}
 
+	/**
+	 * <p>convertAbstractCurve.</p>
+	 *
+	 * @param abstractGeometryType a {@link org.opengis.gml_3_1_1.AbstractCurveType} object.
+	 * @return a {@link com.vividsolutions.jts.geom.LineString} object.
+	 * @throws nl.pdok.gml3.exceptions.GeometryException if any.
+	 */
 	public LineString convertAbstractCurve(AbstractCurveType abstractGeometryType) throws GeometryException {
 		if(abstractGeometryType instanceof LineStringType) {
 			return convertLineString((LineStringType) abstractGeometryType);

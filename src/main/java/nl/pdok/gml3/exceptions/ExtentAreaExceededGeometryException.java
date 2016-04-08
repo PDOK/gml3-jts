@@ -1,7 +1,10 @@
 package nl.pdok.gml3.exceptions;
 
 /**
+ * <p>ExtentAreaExceededGeometryException class.</p>
+ *
  * @author GinkeM
+ * @version $Id: $Id
  */
 public class ExtentAreaExceededGeometryException extends Exception {
 

@@ -23,13 +23,21 @@ import nl.pdok.gml3.exceptions.GeometryValidationErrorType;
 import nl.pdok.gml3.exceptions.InvalidGeometryException;
 
 /**
+ * <p>GML321ToPointConvertor class.</p>
+ *
  * @author GinkeM
+ * @version $Id: $Id
  */
 public class GML321ToPointConvertor {
 
     private static final int REQUIRED_NUMBER_OF_ORDINATES = 2; // 2 ordinaten (2D)
     private GeometryFactory geometryFactory;
 
+    /**
+     * <p>Constructor for GML321ToPointConvertor.</p>
+     *
+     * @param geometryFactory a {@link com.vividsolutions.jts.geom.GeometryFactory} object.
+     */
     public GML321ToPointConvertor(GeometryFactory geometryFactory) {
         this.geometryFactory = geometryFactory;
     }
@@ -38,6 +46,14 @@ public class GML321ToPointConvertor {
         return (numOrdinates % REQUIRED_NUMBER_OF_ORDINATES == 0);
     }
 
+    /**
+     * <p>translateOrdinates.</p>
+     *
+     * @param ordinates a {@link java.util.List} object.
+     * @return a {@link com.vividsolutions.jts.geom.impl.CoordinateArraySequence} object.
+     * @throws nl.pdok.gml3.exceptions.InvalidGeometryException if any.
+     * @throws nl.pdok.gml3.exceptions.CoordinateMaxScaleExceededException if any.
+     */
     public CoordinateArraySequence translateOrdinates(List<Double> ordinates)
             throws InvalidGeometryException, CoordinateMaxScaleExceededException {
         if (ordinates == null || ordinates.size() < REQUIRED_NUMBER_OF_ORDINATES) {
@@ -66,6 +82,13 @@ public class GML321ToPointConvertor {
         return new Coordinate(ordinates.get(0), ordinates.get(1));
     }
 
+    /**
+     * <p>convertPoint.</p>
+     *
+     * @param point a {@link net.opengis.gml.v_3_2_1.PointType} object.
+     * @return a {@link com.vividsolutions.jts.geom.Point} object.
+     * @throws nl.pdok.gml3.exceptions.GeometryException if any.
+     */
     public Point convertPoint(PointType point) throws GeometryException {
         DirectPositionType pos = point.getPos();
         if (point.getPos() == null) {
@@ -81,6 +104,13 @@ public class GML321ToPointConvertor {
         return geometryFactory.createPoint(sequence);
     }
 
+    /**
+     * <p>convertMultiPoint.</p>
+     *
+     * @param multipointType a {@link net.opengis.gml.v_3_2_1.MultiPointType} object.
+     * @return a {@link com.vividsolutions.jts.geom.Geometry} object.
+     * @throws nl.pdok.gml3.exceptions.GeometryException if any.
+     */
     public Geometry convertMultiPoint(MultiPointType multipointType) throws GeometryException {
         List<Point> points = new ArrayList<>();
         PointArrayPropertyType array = multipointType.getPointMembers();
