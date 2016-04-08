@@ -5,6 +5,7 @@
   <artifactId>gml3-jts</artifactId>
   <version>0.1.4-SNAPSHOT</version>
   <name>${project.artifactId}</name>
+  <description>Conversion library from gml3 to JTS objects</description>
   <url>https://github.com/PDOK/gml3-jts</url>
 
   <licenses>
@@ -13,6 +14,15 @@
       <url>https://www.gnu.org/licenses/lgpl.txt</url>
     </license>
   </licenses>
+
+  <developers>
+    <developer>
+      <name>PDOK dev team</name>
+      <email>pdok@kadaster.nl</email>
+      <organization>PDOK</organization>
+      <organizationUrl>http://www.pdok.nl</organizationUrl>
+    </developer>
+  </developers>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
