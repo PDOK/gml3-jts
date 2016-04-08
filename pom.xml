@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>nl.pdok</groupId>
   <artifactId>gml3-jts</artifactId>
-  <version>0.1.3</version>
+  <version>0.1.4-SNAPSHOT</version>
   <name>${project.artifactId}</name>
   <url>https://github.com/PDOK/gml3-jts</url>
 
