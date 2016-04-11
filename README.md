@@ -1,4 +1,4 @@
-# gml3-jts [![Build Status](https://travis-ci.org/PDOK/gml3-jts.svg?branch=master)](https://travis-ci.org/PDOK/gml3-jts)[ ![Download](https://api.bintray.com/packages/pdok/maven/gml3-jts/images/download.svg) ](https://bintray.com/pdok/maven/gml3-jts/_latestVersion)
+# gml3-jts [![Build Status](https://travis-ci.org/PDOK/gml3-jts.svg?branch=master)](https://travis-ci.org/PDOK/gml3-jts) [![Maven Central](https://img.shields.io/maven-central/v/nl.pdok/gml3-jts.svg)]()
 Converts GML to JTS. For now GML 3.1.1.2 and 3.2.1 are supported.
 
 # Import into Eclipse
