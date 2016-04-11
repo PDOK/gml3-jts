@@ -36,9 +36,8 @@
 
   <distributionManagement>
     <repository>
-      <id>bintray-pdok-maven</id>
-      <name>pdok-maven</name>
-      <url>https://api.bintray.com/maven/pdok/maven/gml3-jts/;publish=1</url>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
     </repository>
   </distributionManagement>
 

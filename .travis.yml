@@ -6,7 +6,7 @@ jdk:
 
 deploy:
   provider: script
-  script: mvn -Dmaven.test.skip=true deploy --settings travis-settings.xml
+  script: mvn -Dmaven.test.skip=true release:perform --settings travis-settings.xml
   on:
     tags: true
     jdk: oraclejdk7
