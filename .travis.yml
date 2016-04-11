@@ -6,10 +6,14 @@ jdk:
 
 deploy:
   provider: script
-  script: mvn -Dmaven.test.skip=true release:perform --settings travis-settings.xml
+  script: mvn -Dmaven.test.skip=true -Pgpg release:perform --settings travis-settings.xml
   on:
     tags: true
     jdk: oraclejdk7
+
+before_deploy:
+  - openssl aes-256-cbc -K $encrypted_32643128bc40_key -iv $encrypted_32643128bc40_iv -in codesigning.asc.enc -out codesigning.asc -d
+  - gpg --fast-import codesigning.asc
 
 cache:
   directories:

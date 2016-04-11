@@ -17,46 +17,13 @@
 
   <profiles>
     <profile>
-      <id>release-ossrh</id>
-      <distributionManagement>
-        <repository>
-          <id>ossrh</id>
-          <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-      </distributionManagement>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-gpg-plugin</artifactId>
-            <version>1.5</version>
-            <executions>
-              <execution>
-                <id>sign-artifacts</id>
-                <phase>verify</phase>
-                <goals>
-                  <goal>sign</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-    <profile>
-      <id>release-bintray</id>
-      <distributionManagement>
-        <repository>
-          <id>bintray-pdok-maven</id>
-          <name>pdok-maven</name>
-          <url>https://api.bintray.com/maven/pdok/maven/gml3-jts/;publish=1</url>
-        </repository>
-      </distributionManagement>
+      <id>gpg</id>
+      <properties>
+        <gpg.executable>gpg</gpg.executable>
+        <gpg.keyname>${GPG_KEY_NAME}</gpg.keyname>
+        <gpg.passphrase>${GPG_PASSPHRASE}</gpg.passphrase>
+      </properties>
     </profile>
   </profiles>
-
-  <activeProfiles>
-    <activeProfile>release-ossrh</activeProfile>
-  </activeProfiles>
 
 </settings>
