@@ -43,10 +43,7 @@
 
   <profiles>
     <profile>
-      <id>release-ossrh</id>
-      <activation>
-        <activeByDefault>true</activeByDefault>
-      </activation>
+      <id>release</id>
       <build>
         <plugins>
           <plugin>

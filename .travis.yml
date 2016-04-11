@@ -6,7 +6,7 @@ jdk:
 
 deploy:
   provider: script
-  script: mvn -Dmaven.test.skip=true -Pgpg release:perform --settings travis-settings.xml
+  script: mvn -Dmaven.test.skip=true -Prelease,gpg clean deploy --settings travis-settings.xml
   on:
     tags: true
     jdk: oraclejdk7
