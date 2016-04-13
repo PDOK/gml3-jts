@@ -34,16 +34,15 @@
     <url>https://github.com/PDOK/gml3-jts</url>
   </scm>
 
-  <distributionManagement>
-    <repository>
-      <id>ossrh</id>
-      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-    </repository>
-  </distributionManagement>
-
   <profiles>
     <profile>
       <id>release</id>
+      <distributionManagement>
+        <repository>
+          <id>ossrh</id>
+          <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+      </distributionManagement>
       <build>
         <plugins>
           <plugin>
@@ -76,6 +75,13 @@
     </profile>
     <profile>
       <id>release-bintray</id>
+      <distributionManagement>
+        <repository>
+          <id>bintray-pdok-maven</id>
+          <name>pdok-maven</name>
+          <url>https://api.bintray.com/maven/pdok/maven/gml3-jts/;publish=1</url>
+        </repository>
+      </distributionManagement>
       <build>
         <plugins>
           <plugin>
