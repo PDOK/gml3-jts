@@ -17,4 +17,4 @@ before_deploy:
 
 cache:
   directories:
-  - $HOME/.m2
+    - $HOME/.m2
