@@ -103,7 +103,8 @@ public class GMLMultiVersionParserImpl implements GMLParser {
         }
 
         try {
-            return parserToTry.toJTSGeometry(gml);
+            Geometry result = parserToTry.toJTSGeometry(gml);
+            return result;
         } catch (GML3ParseException ex) {
             LOGGER.info("Not parseable using last-used parser {}. Trying other GML parser versions. {} : {}", parserToTry, parserToTry, ex.getMessage());
 

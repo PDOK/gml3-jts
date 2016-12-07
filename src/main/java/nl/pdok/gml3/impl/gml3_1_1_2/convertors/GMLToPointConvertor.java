@@ -4,11 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.opengis.gml_3_1_1.DirectPositionType;
-import org.opengis.gml_3_1_1.MultiPointType;
-import org.opengis.gml_3_1_1.PointArrayPropertyType;
-import org.opengis.gml_3_1_1.PointPropertyType;
-import org.opengis.gml_3_1_1.PointType;
+import org.opengis.gml_3_1_1.*;
 
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.Geometry;
@@ -31,7 +27,6 @@ import nl.pdok.gml3.exceptions.InvalidGeometryException;
  */
 public class GMLToPointConvertor {
 
-	private static final int REQUIRED_NUMBER_OF_ORDINATES = 2; // 2 ordinaten (2D)
 	private GeometryFactory geometryFactory;
 
 	/**
@@ -42,35 +37,31 @@ public class GMLToPointConvertor {
 	public GMLToPointConvertor(GeometryFactory geometryFactory) {
 		this.geometryFactory = geometryFactory;
 	}
-	
-	private boolean ordinatesArePairs(int numOrdinates) {
-		return (numOrdinates%REQUIRED_NUMBER_OF_ORDINATES == 0);
-	}
 
 	/**
 	 * <p>translateOrdinates.</p>
 	 *
-	 * @param ordinates a {@link java.util.List} object.
+	 * @param coordinates a {@link java.util.List} object.
 	 * @return a {@link com.vividsolutions.jts.geom.impl.CoordinateArraySequence} object.
 	 * @throws nl.pdok.gml3.exceptions.InvalidGeometryException if any.
 	 * @throws nl.pdok.gml3.exceptions.CoordinateMaxScaleExceededException if any.
 	 */
-	public CoordinateArraySequence translateOrdinates(List<String> ordinates)
+	public CoordinateArraySequence translateOrdinates(List<String> coordinates, int dimension)
 			throws InvalidGeometryException, CoordinateMaxScaleExceededException {
-		if (ordinates == null || ordinates.size() < REQUIRED_NUMBER_OF_ORDINATES) {
+		if (coordinates == null || coordinates.size() < dimension) {
 			throw new InvalidGeometryException(GeometryValidationErrorType.EMPTY_GEOMETRY, null);
 		}
 		
-		if(!ordinatesArePairs(ordinates.size())) {
-			throw new InvalidGeometryException(GeometryValidationErrorType.INVALID_COORDINATE, createCoordinateFromFirstTwoOrdinates(ordinates));
+		if(coordinates.size()%dimension != 0) {
+			throw new InvalidGeometryException(GeometryValidationErrorType.INVALID_COORDINATE, null);
 		}
 
-		CoordinateArraySequence sequence = new CoordinateArraySequence(ordinates.size() / 2);
+		CoordinateArraySequence sequence = new CoordinateArraySequence(coordinates.size() / dimension);
 		int i = 0;
-		for (String ordinate : ordinates) {
+		for (String ordinate : coordinates) {
 			BigDecimal bd = new BigDecimal(ordinate);
-			int ordinateIndex = i % 2;
-			int index = (i / 2);
+			int ordinateIndex = i % dimension;
+			int index = (i / dimension);
 			sequence.setOrdinate(index, ordinateIndex, bd.doubleValue());
 			i++;
 		}
@@ -79,8 +70,10 @@ public class GMLToPointConvertor {
 
 	}
 
-	private Coordinate createCoordinateFromFirstTwoOrdinates(List<String> ordinates) {
-		return new Coordinate(Double.valueOf(ordinates.get(0)), Double.valueOf(ordinates.get(1)));
+	public CoordinateArraySequence translateOrdinates(DirectPositionListType posList) throws CoordinateMaxScaleExceededException, InvalidGeometryException {
+		int dimension = posList.getSrsDimension() != null ? posList.getSrsDimension() : 2;
+
+		return translateOrdinates(posList.getValue(), dimension);
 	}
 
 	/**
@@ -92,16 +85,17 @@ public class GMLToPointConvertor {
 	 */
 	public Point convertPoint(PointType point) throws GeometryException {
 		DirectPositionType pos = point.getPos();
+		int dimension = pos.getSrsDimension() != null ? pos.getSrsDimension() : 2;
 		if(point.getPos() == null) {
 			throw new DeprecatedGeometrySpecificationException(
 				"Geen post list voor ring gespecificeerd");
 		}
 		List<String> values = pos.getValue();
-		if(values.size() != REQUIRED_NUMBER_OF_ORDINATES) {
+		if(values.size() != dimension) {
 			throw new InvalidGeometryException(GeometryValidationErrorType.POINT_INVALID_NUMBER_OF_ORDINATES, null);
 		}
 		
-		CoordinateArraySequence sequence = translateOrdinates(values);
+		CoordinateArraySequence sequence = translateOrdinates(values, dimension);
 		return geometryFactory.createPoint(sequence);
 	}
 
@@ -114,6 +108,7 @@ public class GMLToPointConvertor {
 	 */
 	public Geometry convertMultiPoint(MultiPointType multipointType) throws GeometryException {
 		List<Point> points = new ArrayList<Point>();
+
 		PointArrayPropertyType array = multipointType.getPointMembers();
 		if(array != null) {
 			for(PointType point : array.getPoint()) {
