@@ -1,32 +1,15 @@
 package nl.pdok.gml3.impl.gml3_2_1.converters;
 
 import com.vividsolutions.jts.algorithm.CGAlgorithms;
-import com.vividsolutions.jts.geom.Coordinate;
-import com.vividsolutions.jts.geom.GeometryFactory;
-import com.vividsolutions.jts.geom.LineString;
-import com.vividsolutions.jts.geom.LinearRing;
+import com.vividsolutions.jts.geom.*;
 import com.vividsolutions.jts.geom.impl.CoordinateArraySequence;
 
 import javax.xml.bind.JAXBElement;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import net.opengis.gml.v_3_2_1.AbstractCurveSegmentType;
-import net.opengis.gml.v_3_2_1.AbstractCurveType;
-import net.opengis.gml.v_3_2_1.AbstractRingPropertyType;
-import net.opengis.gml.v_3_2_1.AbstractRingType;
-import net.opengis.gml.v_3_2_1.ArcStringType;
-import net.opengis.gml.v_3_2_1.ArcType;
-import net.opengis.gml.v_3_2_1.CircleType;
-import net.opengis.gml.v_3_2_1.CurveInterpolationType;
-import net.opengis.gml.v_3_2_1.CurvePropertyType;
-import net.opengis.gml.v_3_2_1.CurveSegmentArrayPropertyType;
-import net.opengis.gml.v_3_2_1.CurveType;
-import net.opengis.gml.v_3_2_1.DirectPositionType;
-import net.opengis.gml.v_3_2_1.LineStringSegmentType;
-import net.opengis.gml.v_3_2_1.LineStringType;
-import net.opengis.gml.v_3_2_1.LinearRingType;
-import net.opengis.gml.v_3_2_1.RingType;
+
+import net.opengis.gml.v_3_2_1.*;
 import nl.pdok.gml3.exceptions.DeprecatedGeometrySpecificationException;
 import nl.pdok.gml3.exceptions.GeometryException;
 import nl.pdok.gml3.exceptions.GeometryValidationErrorType;
@@ -294,4 +277,36 @@ public class GML321ToLineConvertor {
         }
 
     }
+
+    public LineString convertMultiCurve(MultiCurveType abstractGeometryType) throws GeometryException {
+        if (abstractGeometryType instanceof MultiCurveType) {
+            List<LineString> segments = translateMultiCurveTypeToSegments((MultiCurveType) abstractGeometryType);
+            LineString[] array = segments.toArray(new LineString[]{});
+            return CompoundLineString.createCompoundLineString(geometryFactory, array);
+        } else {
+            throw new UnsupportedGeometrySpecificationException(
+                    "Only linestring are supported within a Curve segment");
+        }
+
+    }
+
+    public List<LineString> translateMultiCurveTypeToSegments(MultiCurveType multiCurveType) throws GeometryException {
+
+        List<LineString> list = new ArrayList<>();
+
+        List<CurvePropertyType> curvePropertyTypes = multiCurveType.getCurveMember();
+
+        for (CurvePropertyType curve : curvePropertyTypes) {
+            JAXBElement<? extends AbstractCurveType> element = curve.getAbstractCurve();
+
+            LineStringType lineStringType = (LineStringType) element.getValue();
+
+            LineString lineString = convertLineString((LineStringType) lineStringType);
+
+            list.add(lineString);
+        }
+
+        return list;
+    }
+
 }

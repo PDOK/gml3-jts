@@ -1,14 +1,10 @@
 package nl.pdok.gml3.impl.gml3_2_1.converters;
 
 import com.vividsolutions.jts.geom.Geometry;
-import net.opengis.gml.v_3_2_1.AbstractCurveType;
-import net.opengis.gml.v_3_2_1.AbstractGeometryType;
-import net.opengis.gml.v_3_2_1.AbstractSurfaceType;
-import net.opengis.gml.v_3_2_1.MultiPointType;
-import net.opengis.gml.v_3_2_1.MultiSurfaceType;
-import net.opengis.gml.v_3_2_1.PointType;
+import net.opengis.gml.v_3_2_1.*;
 import nl.pdok.gml3.exceptions.GeometryException;
 import nl.pdok.gml3.impl.geometry.extended.ExtendedGeometryFactory;
+import org.geotools.geometry.jts.MultiCurve;
 
 /**
  * Converteerd van gml3.2.1 naar JTS polygoon
@@ -52,6 +48,8 @@ public class GML321ToJTSGeometryConvertor {
             return gmlToLineConvertor.convertAbstractCurve((AbstractCurveType) abstractGeometryType);
         } else if (abstractGeometryType instanceof MultiSurfaceType) {
             return gmlToSurfaceConvertor.convertMultiSurface((MultiSurfaceType) abstractGeometryType);
+        } else if (abstractGeometryType instanceof MultiCurveType) {
+            return gmlToLineConvertor.convertMultiCurve((MultiCurveType) abstractGeometryType);
         } else {
             throw new IllegalArgumentException("Geometry type not supported: "
                     + abstractGeometryType.getClass());
