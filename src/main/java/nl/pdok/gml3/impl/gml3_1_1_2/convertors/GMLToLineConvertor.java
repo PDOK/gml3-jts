@@ -33,7 +33,7 @@ public class GMLToLineConvertor {
 	
 	private static final int NUMBER_OF_COORDINATES_NEEDED_FOR_ARC = 3;
 	private static final int NUMBER_OF_COORDINATES_NEEDED_FOR_RING = 4;
-	private static final int NUMBER_OF_ORDINATES_NEEDED_FOR_LINE = 4;
+	private static final int NUMBER_OF_ORDINATES_NEEDED_FOR_LINE_PER_DIMENSION = 2;
 	private GeometryFactory geometryFactory;
 	private GMLToPointConvertor gmlToPointConvertor;
 	
@@ -96,8 +96,10 @@ public class GMLToLineConvertor {
 			
 		}
 
+		int dimension = ring.getSrsDimension() != null ? ring.getSrsDimension() : 2;
+
 		LineString[] array = segments.toArray(new LineString[] {});
-		if (!isClosed(array)) {
+		if (!isClosed(array, dimension)) {
             Coordinate firstCoordinate = array.length == 0 ? null : array[0].getCoordinate();
 			throw new InvalidGeometryException(GeometryValidationErrorType.RING_NOT_CLOSED, firstCoordinate);
 		}
@@ -109,7 +111,8 @@ public class GMLToLineConvertor {
 		if (ring.getPosList() == null) {
 			throw new DeprecatedGeometrySpecificationException("Geen post list voor ring gespecificeerd");
 		}
-		CoordinateArraySequence sequence = gmlToPointConvertor.translateOrdinates(ring.getPosList().getValue());
+
+		CoordinateArraySequence sequence = gmlToPointConvertor.translateOrdinates(ring.getPosList());
 		int length = sequence.size();
         Coordinate firstCoordinate = length == 0 ? null : sequence.getCoordinate(0);
 
@@ -154,7 +157,7 @@ public class GMLToLineConvertor {
 							"Geen poslist voor linestringsegment binnen curve gespecificeerd");
 				}
 				
-				CoordinateArraySequence sequence = gmlToPointConvertor.translateOrdinates(line.getPosList().getValue());
+				CoordinateArraySequence sequence = gmlToPointConvertor.translateOrdinates(line.getPosList());
 				LineString lineString = new LineString(sequence, geometryFactory);
 				list.add(lineString);
 			} 
@@ -184,7 +187,7 @@ public class GMLToLineConvertor {
 
     private CoordinateArraySequence getCoordinatesForArc(ArcType arc) throws GeometryException {
         if(arc.getPosList() != null) {
-            return gmlToPointConvertor.translateOrdinates(arc.getPosList().getValue());
+            return gmlToPointConvertor.translateOrdinates(arc.getPosList());
         }
         else if(arc.getPosOrPointPropertyOrPointRep() != null &&
                 arc.getPosOrPointPropertyOrPointRep().size() > 0) {
@@ -201,7 +204,7 @@ public class GMLToLineConvertor {
                             "Geen poslist voor arc binnen curve gespecificeerd");
                 }
             }
-            return gmlToPointConvertor.translateOrdinates(values);
+            return gmlToPointConvertor.translateOrdinates(values, 2); // could be 3 too?
         }
         else {
             throw new DeprecatedGeometrySpecificationException("Geen poslist voor arc binnen curve gespecificeerd");
@@ -222,7 +225,7 @@ public class GMLToLineConvertor {
 		}
 	}
 
-	private boolean isClosed(LineString[] array) throws InvalidGeometryException {
+	private boolean isClosed(LineString[] array, int dimension) throws InvalidGeometryException {
 		int length = array.length;
 		int ordinatesLength = 0;
 		
@@ -248,6 +251,7 @@ public class GMLToLineConvertor {
 
 	private boolean isClosed(CoordinateArraySequence sequence) {
 		int length = sequence.size();
+
 		if (length < NUMBER_OF_COORDINATES_NEEDED_FOR_RING) {
 			return false;
 		}
@@ -258,13 +262,15 @@ public class GMLToLineConvertor {
 		if (lineStringType.getPosList() == null) {
 			throw new DeprecatedGeometrySpecificationException("Geen poslist voor lineString gespecificeerd");
 		}
-		
+
+		int dimension = lineStringType.getSrsDimension() != null ? lineStringType.getSrsDimension() : 2;
+
 		List<String> posList = lineStringType.getPosList().getValue();
-		if(posList.size() < NUMBER_OF_ORDINATES_NEEDED_FOR_LINE) {
+		if(posList.size() < NUMBER_OF_ORDINATES_NEEDED_FOR_LINE_PER_DIMENSION * dimension) {
 			throw new InvalidGeometryException(GeometryValidationErrorType.TOO_FEW_POINTS, null);
 		}
 		
-		CoordinateArraySequence sequence = gmlToPointConvertor.translateOrdinates(posList);
+		CoordinateArraySequence sequence = gmlToPointConvertor.translateOrdinates(lineStringType.getPosList());
 		return new LineString(sequence, geometryFactory);
 		
 	}
