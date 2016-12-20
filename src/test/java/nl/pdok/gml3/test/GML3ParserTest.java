@@ -1,21 +1,21 @@
 package nl.pdok.gml3.test;
 
-import static org.junit.Assert.*;
-
-import java.io.File;
-import java.io.IOException;
-
-import org.apache.commons.io.FileUtils;
-import org.junit.Test;
-
 import com.vividsolutions.jts.geom.Geometry;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import nl.pdok.gml3.exceptions.GML3ParseException;
 import nl.pdok.gml3.GMLParser;
+import nl.pdok.gml3.exceptions.GML3ParseException;
 import nl.pdok.gml3.impl.GMLMultiVersionParserImpl;
 import nl.pdok.gml3.impl.gml3_1_1_2.GML3112ParserImpl;
 import nl.pdok.gml3.impl.gml3_2_1.GML321ParserImpl;
+import org.apache.commons.io.FileUtils;
+import org.junit.Test;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class GML3ParserTest {
 
@@ -25,6 +25,16 @@ public class GML3ParserTest {
     public static final String GML3_2_1_MULTICURVE = "<gml:MultiCurve xmlns:gml=\"http://www.opengis.net/gml/3.2\" gml:id=\"GEOMETRY_955ec3f8-18e0-43c9-8904-9b5d2617d708\" srsName=\"urn:ocg:def:crs:EPSG::28992\"><gml:curveMember><gml:LineString gml:id=\"GEOMETRY_b93ff03b-c9a0-4ba8-a11d-dd02fead53c8\" srsName=\"urn:ocg:def:crs:EPSG::28992\"><gml:posList>264901.354000 564810.248000 264925.225000 564798.040000</gml:posList></gml:LineString></gml:curveMember></gml:MultiCurve>";
 
     public static String BAG_PAND_POLYGON = "<gml:Polygon xmlns:gml=\"http://www.opengis.net/gml\" srsName=\"urn:ogc:def:crs:EPSG::28992\"><gml:exterior><gml:LinearRing><gml:posList srsDimension=\"3\" count=\"5\">253855.133 593180.537 0.0 253854.579 593177.588 0.0 253856.544 593177.219 0.0 253857.098 593180.167 0.0 253855.133 593180.537 0.0</gml:posList></gml:LinearRing></gml:exterior></gml:Polygon>";
+
+    public static String GML3_1_1_POINT_3D = "<gml:Point xmlns:gml=\"http://www.opengis.net/gml\" srsName=\"urn:ogc:def:crs:EPSG::28992\"><gml:pos>255842.0 572888.0 0.0</gml:pos></gml:Point>";
+
+    public static String GML3_1_1_POINT_2D = "<gml:Point xmlns:gml=\"http://www.opengis.net/gml\" srsName=\"urn:ogc:def:crs:EPSG::28992\"><gml:pos>255842.0 572888.0</gml:pos></gml:Point>";
+
+    public static String GML3_2_1_POINT_3D = "<gml:Point xmlns:gml=\"http://www.opengis.net/gml/3.2\" gml:id=\"GEOMETRY_bf8088bb-e9ac-4a42-8536-fd1f2829405c\" srsName=\"urn:ogc:def:crs:EPSG::28992\"><gml:pos>255842.0 572888.0 0.0</gml:pos></gml:Point>";
+
+    public static String GML3_2_1_POINT_2D = "<gml:Point xmlns:gml=\"http://www.opengis.net/gml/3.2\" gml:id=\"GEOMETRY_bf8088bb-e9ac-4a42-8536-fd1f2829405c\" srsName=\"urn:ogc:def:crs:EPSG::28992\"><gml:pos>255842.0 572888.0</gml:pos></gml:Point>";
+
+    public static String GML3_2_1_POLYGON_3D = "<gml:Polygon xmlns:gml=\"http://www.opengis.net/gml/3.2\" gml:id=\"GEOMETRY_6429d89b-5b8c-4000-91b0-0868e2cc8ed6\"><gml:exterior><gml:LinearRing><gml:posList srsDimension=\"3\" srsName=\"urn:ogc:def:crs:EPSG::28992\">253855.133 593180.537 1.234 253854.579 593177.588 0.0 253856.544 593177.219 0.0 253857.098 593180.167 0.0 253856.096 593180.317 0.0 253855.133 593180.537 1.234</gml:posList></gml:LinearRing></gml:exterior></gml:Polygon>";
 
     @Test
     public void testArcs() throws IOException, GML3ParseException {
@@ -80,15 +90,26 @@ public class GML3ParserTest {
     }
 
     @Test
+    public void testGML3xxPoints() throws GML3ParseException {
+        GMLParser parser = new GMLMultiVersionParserImpl(0.001, 28992);
+
+        assertNotNull(parser.toJTSGeometry(GML3_1_1_POINT_3D));
+        assertNotNull(parser.toJTSGeometry(GML3_1_1_POINT_2D));
+        assertNotNull(parser.toJTSGeometry(GML3_2_1_POINT_3D));
+        assertNotNull(parser.toJTSGeometry(GML3_2_1_POINT_2D));
+    }
+
+    @Test
     public void testGMl3xxParser() throws GML3ParseException {
         GMLParser parser = new GMLMultiVersionParserImpl(0.001, 28992);
 
         assertNotNull(parser.toJTSGeometry(GML3_1_1_POLYGON));
-        assertNotNull(parser.toJTSGeometry(GML3_2_1_SURFACE));
+        assertNotNull(parser.toJTSGeometry(GML3_1_1_POLYGON));
         assertNotNull(parser.toJTSGeometry(GML3_2_1_SURFACE));
         assertNotNull(parser.toJTSGeometry(GML3_1_1_POLYGON));
         assertNotNull(parser.toJTSGeometry(GML3_2_1_MULTICURVE));
         assertNotNull(parser.toJTSGeometry(BAG_PAND_POLYGON));
+        assertNotNull(parser.toJTSGeometry(GML3_2_1_POLYGON_3D));
     }
 
     @Test(expected = GML3ParseException.class)
