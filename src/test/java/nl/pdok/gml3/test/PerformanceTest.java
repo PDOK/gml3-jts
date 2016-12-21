@@ -34,7 +34,7 @@ public class PerformanceTest {
         for (int i = 0; i < iterations; i++) {
             Geometry geometry = parser.toJTSGeometry(GML3_2_1_SURFACE);
             Assert.assertNotNull(geometry);
-            if (iterations % 100 == 0 && iterations > 0) {
+            if (i % 100 == 0 && i > 0) {
                 LOGGER.debug("{} done", i);
             }
         }
