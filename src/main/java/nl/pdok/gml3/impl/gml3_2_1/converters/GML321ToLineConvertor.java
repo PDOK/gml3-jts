@@ -1,23 +1,21 @@
 package nl.pdok.gml3.impl.gml3_2_1.converters;
 
 import com.vividsolutions.jts.algorithm.CGAlgorithms;
-import com.vividsolutions.jts.geom.*;
+import com.vividsolutions.jts.geom.Coordinate;
+import com.vividsolutions.jts.geom.GeometryFactory;
+import com.vividsolutions.jts.geom.LineString;
+import com.vividsolutions.jts.geom.LinearRing;
 import com.vividsolutions.jts.geom.impl.CoordinateArraySequence;
+import net.opengis.gml.v_3_2_1.*;
+import nl.pdok.gml3.exceptions.*;
+import nl.pdok.gml3.impl.geometry.extended.ArcLineString;
+import nl.pdok.gml3.impl.geometry.extended.CompoundLineString;
+import nl.pdok.gml3.impl.geometry.extended.Ring;
 
 import javax.xml.bind.JAXBElement;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import net.opengis.gml.v_3_2_1.*;
-import nl.pdok.gml3.exceptions.DeprecatedGeometrySpecificationException;
-import nl.pdok.gml3.exceptions.GeometryException;
-import nl.pdok.gml3.exceptions.GeometryValidationErrorType;
-import nl.pdok.gml3.exceptions.InvalidGeometryException;
-import nl.pdok.gml3.exceptions.UnsupportedGeometrySpecificationException;
-import nl.pdok.gml3.impl.geometry.extended.ArcLineString;
-import nl.pdok.gml3.impl.geometry.extended.CompoundLineString;
-import nl.pdok.gml3.impl.geometry.extended.Ring;
 
 /**
  * <p>GML321ToLineConvertor class.</p>
@@ -102,7 +100,7 @@ public class GML321ToLineConvertor {
         if (ring.getPosList() == null) {
             throw new DeprecatedGeometrySpecificationException("Geen post list voor ring gespecificeerd");
         }
-        CoordinateArraySequence sequence = gmlToPointConvertor.translateOrdinates(ring.getPosList().getValue());
+        CoordinateArraySequence sequence = gmlToPointConvertor.translateOrdinates(ring.getPosList());
         int length = sequence.size();
         Coordinate firstCoordinate = length == 0 ? null : sequence.getCoordinate(0);
 
@@ -147,7 +145,7 @@ public class GML321ToLineConvertor {
                             "Geen poslist voor linestringsegment binnen curve gespecificeerd");
                 }
 
-                CoordinateArraySequence sequence = gmlToPointConvertor.translateOrdinates(line.getPosList().getValue());
+                CoordinateArraySequence sequence = gmlToPointConvertor.translateOrdinates(line.getPosList());
                 LineString lineString = new LineString(sequence, geometryFactory);
                 list.add(lineString);
             } else if (curveProperty instanceof ArcType && !(curveProperty instanceof CircleType)) {
@@ -175,7 +173,7 @@ public class GML321ToLineConvertor {
 
     private CoordinateArraySequence getCoordinatesForArc(ArcType arc) throws GeometryException {
         if (arc.getPosList() != null) {
-            return gmlToPointConvertor.translateOrdinates(arc.getPosList().getValue());
+            return gmlToPointConvertor.translateOrdinates(arc.getPosList());
         } else if (arc.getPosOrPointPropertyOrPointRep() != null
                 && arc.getPosOrPointPropertyOrPointRep().size() > 0) {
             List<Double> values = new ArrayList<>();
@@ -184,13 +182,19 @@ public class GML321ToLineConvertor {
                 Object value = iterator.next().getValue();
                 if (value instanceof DirectPositionType) {
                     DirectPositionType position = (DirectPositionType) value;
+
                     values.addAll(position.getValue());
                 } else {
                     throw new DeprecatedGeometrySpecificationException(
                             "Geen poslist voor arc binnen curve gespecificeerd");
                 }
             }
-            return gmlToPointConvertor.translateOrdinates(values);
+            DirectPositionListType newDirectPositionList = new DirectPositionListType();
+            newDirectPositionList.withValue(values);
+            newDirectPositionList.setSrsDimension(arc.getPosList().getSrsDimension());
+            newDirectPositionList.setSrsName(arc.getPosList().getSrsName());
+            return gmlToPointConvertor.translateOrdinates(newDirectPositionList);
+
         } else {
             throw new DeprecatedGeometrySpecificationException("Geen poslist voor arc binnen curve gespecificeerd");
         }
@@ -252,7 +256,7 @@ public class GML321ToLineConvertor {
             throw new InvalidGeometryException(GeometryValidationErrorType.TOO_FEW_POINTS, null);
         }
 
-        CoordinateArraySequence sequence = gmlToPointConvertor.translateOrdinates(posList);
+        CoordinateArraySequence sequence = gmlToPointConvertor.translateOrdinates(lineStringType.getPosList());
         return new LineString(sequence, geometryFactory);
 
     }

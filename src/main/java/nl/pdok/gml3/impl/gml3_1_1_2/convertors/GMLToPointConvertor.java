@@ -85,7 +85,7 @@ public class GMLToPointConvertor {
 	 */
 	public Point convertPoint(PointType point) throws GeometryException {
 		DirectPositionType pos = point.getPos();
-		int dimension = pos.getSrsDimension() != null ? pos.getSrsDimension() : 2;
+		int dimension = pos.getSrsDimension() != null ? pos.getSrsDimension() : pos.getValue().size();
 		if(point.getPos() == null) {
 			throw new DeprecatedGeometrySpecificationException(
 				"Geen post list voor ring gespecificeerd");

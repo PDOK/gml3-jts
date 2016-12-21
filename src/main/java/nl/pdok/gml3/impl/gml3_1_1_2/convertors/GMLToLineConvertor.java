@@ -272,7 +272,6 @@ public class GMLToLineConvertor {
 		
 		CoordinateArraySequence sequence = gmlToPointConvertor.translateOrdinates(lineStringType.getPosList());
 		return new LineString(sequence, geometryFactory);
-		
 	}
 
 	/**
