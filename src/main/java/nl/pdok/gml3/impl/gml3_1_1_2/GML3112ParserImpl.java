@@ -12,6 +12,8 @@ import java.io.Reader;
 import java.util.logging.Level;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Unmarshaller;
+
+import net.opengis.gml.v_3_1_1.AbstractGeometryType;
 import nl.pdok.gml3.exceptions.GML3ParseException;
 import nl.pdok.gml3.GMLParser;
 
@@ -20,7 +22,6 @@ import nl.pdok.gml3.exceptions.GeometryException;
 import nl.pdok.gml3.exceptions.InvalidGeometryException;
 import nl.pdok.gml3.impl.geometry.extended.ExtendedGeometryFactory;
 import org.apache.commons.lang.StringUtils;
-import org.opengis.gml_3_1_1.AbstractGeometryType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

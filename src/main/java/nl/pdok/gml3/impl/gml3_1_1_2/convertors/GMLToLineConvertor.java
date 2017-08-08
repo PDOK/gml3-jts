@@ -7,6 +7,7 @@ import com.vividsolutions.jts.geom.LineString;
 import com.vividsolutions.jts.geom.LinearRing;
 import com.vividsolutions.jts.geom.impl.CoordinateArraySequence;
 
+import net.opengis.gml.v_3_1_1.*;
 import nl.pdok.gml3.exceptions.DeprecatedGeometrySpecificationException;
 import nl.pdok.gml3.exceptions.GeometryException;
 import nl.pdok.gml3.exceptions.GeometryValidationErrorType;
@@ -15,8 +16,6 @@ import nl.pdok.gml3.exceptions.UnsupportedGeometrySpecificationException;
 import nl.pdok.gml3.impl.geometry.extended.ArcLineString;
 import nl.pdok.gml3.impl.geometry.extended.CompoundLineString;
 import nl.pdok.gml3.impl.geometry.extended.Ring;
-
-import org.opengis.gml_3_1_1.*;
 
 import javax.xml.bind.JAXBElement;
 import java.util.ArrayList;
@@ -52,12 +51,12 @@ public class GMLToLineConvertor {
 	/**
 	 * <p>translateAbstractRing.</p>
 	 *
-	 * @param abstractRingPropertyType a {@link org.opengis.gml_3_1_1.AbstractRingPropertyType} object.
+	 * @param abstractRingPropertyType a {@link net.opengis.gml.v_3_1_1.AbstractRingPropertyType} object.
 	 * @return a {@link com.vividsolutions.jts.geom.LinearRing} object.
 	 * @throws nl.pdok.gml3.exceptions.GeometryException if any.
 	 */
 	public LinearRing translateAbstractRing(AbstractRingPropertyType abstractRingPropertyType) throws GeometryException {
-		AbstractRingType abstractRing = abstractRingPropertyType.getRing().getValue(); 
+		AbstractRingType abstractRing = abstractRingPropertyType.getRing().getValue();
 		if (abstractRing instanceof LinearRingType) {
 			return translateLinearRingType((LinearRingType) abstractRing);
 
@@ -96,7 +95,7 @@ public class GMLToLineConvertor {
 			
 		}
 
-		int dimension = ring.getSrsDimension() != null ? ring.getSrsDimension() : 2;
+		int dimension = ring.getSrsDimension() != null ? ring.getSrsDimension().intValue() : 2;
 
 		LineString[] array = segments.toArray(new LineString[] {});
 		if (!isClosed(array, dimension)) {
@@ -137,7 +136,7 @@ public class GMLToLineConvertor {
 	/**
 	 * <p>translateCurveTypeToSegments.</p>
 	 *
-	 * @param curve a {@link org.opengis.gml_3_1_1.CurveType} object.
+	 * @param curve a {@link net.opengis.gml.v_3_1_1.CurveType} object.
 	 * @return a {@link java.util.List} object.
 	 * @throws nl.pdok.gml3.exceptions.GeometryException if any.
 	 */
@@ -175,7 +174,7 @@ public class GMLToLineConvertor {
 	}
 	
 	private ArcLineString translateArc(ArcType arc) throws GeometryException {
-		if (arc.getInterpolation() != CurveInterpolationType.CIRCULAR_ARC_3_POINTS) {
+		if (CurveInterpolationType.CIRCULAR_ARC_3_POINTS != ArcStringType.INTERPOLATION) {
 			throw new UnsupportedGeometrySpecificationException(
 					"Het arc attribuut interpolation moet circularArc3Points zijn");
 		}
@@ -191,7 +190,7 @@ public class GMLToLineConvertor {
         }
         else if(arc.getPosOrPointPropertyOrPointRep() != null &&
                 arc.getPosOrPointPropertyOrPointRep().size() > 0) {
-            List<String> values = new ArrayList<String>();
+            List<Double> values = new ArrayList<Double>();
             Iterator<JAXBElement<?>> iterator = arc.getPosOrPointPropertyOrPointRep().iterator();
             while(iterator.hasNext()) {
                 Object value = iterator.next().getValue();
@@ -263,9 +262,9 @@ public class GMLToLineConvertor {
 			throw new DeprecatedGeometrySpecificationException("Geen poslist voor lineString gespecificeerd");
 		}
 
-		int dimension = lineStringType.getSrsDimension() != null ? lineStringType.getSrsDimension() : 2;
+		int dimension = lineStringType.getSrsDimension() != null ? lineStringType.getSrsDimension().intValue() : 2;
 
-		List<String> posList = lineStringType.getPosList().getValue();
+		List<Double> posList = lineStringType.getPosList().getValue();
 		if(posList.size() < NUMBER_OF_ORDINATES_NEEDED_FOR_LINE_PER_DIMENSION * dimension) {
 			throw new InvalidGeometryException(GeometryValidationErrorType.TOO_FEW_POINTS, null);
 		}
@@ -277,7 +276,7 @@ public class GMLToLineConvertor {
 	/**
 	 * <p>convertAbstractCurve.</p>
 	 *
-	 * @param abstractGeometryType a {@link org.opengis.gml_3_1_1.AbstractCurveType} object.
+	 * @param abstractGeometryType a {@link net.opengis.gml.v_3_1_1.AbstractCurveType} object.
 	 * @return a {@link com.vividsolutions.jts.geom.LineString} object.
 	 * @throws nl.pdok.gml3.exceptions.GeometryException if any.
 	 */

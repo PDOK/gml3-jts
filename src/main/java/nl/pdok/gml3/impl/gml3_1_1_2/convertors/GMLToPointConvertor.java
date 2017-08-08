@@ -4,15 +4,13 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.opengis.gml_3_1_1.*;
-
-import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.MultiPoint;
 import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.geom.impl.CoordinateArraySequence;
 
+import net.opengis.gml.v_3_1_1.*;
 import nl.pdok.gml3.exceptions.CoordinateMaxScaleExceededException;
 import nl.pdok.gml3.exceptions.DeprecatedGeometrySpecificationException;
 import nl.pdok.gml3.exceptions.GeometryException;
@@ -42,11 +40,12 @@ public class GMLToPointConvertor {
 	 * <p>translateOrdinates.</p>
 	 *
 	 * @param coordinates a {@link java.util.List} object.
+	 * @param dimension a {@link int}.
 	 * @return a {@link com.vividsolutions.jts.geom.impl.CoordinateArraySequence} object.
 	 * @throws nl.pdok.gml3.exceptions.InvalidGeometryException if any.
 	 * @throws nl.pdok.gml3.exceptions.CoordinateMaxScaleExceededException if any.
 	 */
-	public CoordinateArraySequence translateOrdinates(List<String> coordinates, int dimension)
+	public CoordinateArraySequence translateOrdinates(List<Double> coordinates, int dimension)
 			throws InvalidGeometryException, CoordinateMaxScaleExceededException {
 		if (coordinates == null || coordinates.size() < dimension) {
 			throw new InvalidGeometryException(GeometryValidationErrorType.EMPTY_GEOMETRY, null);
@@ -58,7 +57,7 @@ public class GMLToPointConvertor {
 
 		CoordinateArraySequence sequence = new CoordinateArraySequence(coordinates.size() / dimension);
 		int i = 0;
-		for (String ordinate : coordinates) {
+		for (Double ordinate : coordinates) {
 			BigDecimal bd = new BigDecimal(ordinate);
 			int ordinateIndex = i % dimension;
 			int index = (i / dimension);
@@ -71,7 +70,7 @@ public class GMLToPointConvertor {
 	}
 
 	public CoordinateArraySequence translateOrdinates(DirectPositionListType posList) throws CoordinateMaxScaleExceededException, InvalidGeometryException {
-		int dimension = posList.getSrsDimension() != null ? posList.getSrsDimension() : 2;
+		int dimension = posList.getSrsDimension() != null ? posList.getSrsDimension().intValue() : 2;
 
 		return translateOrdinates(posList.getValue(), dimension);
 	}
@@ -79,18 +78,18 @@ public class GMLToPointConvertor {
 	/**
 	 * <p>convertPoint.</p>
 	 *
-	 * @param point a {@link org.opengis.gml_3_1_1.PointType} object.
+	 * @param point a {@link net.opengis.gml.v_3_1_1.PointType} object.
 	 * @return a {@link com.vividsolutions.jts.geom.Point} object.
 	 * @throws nl.pdok.gml3.exceptions.GeometryException if any.
 	 */
 	public Point convertPoint(PointType point) throws GeometryException {
 		DirectPositionType pos = point.getPos();
-		int dimension = pos.getSrsDimension() != null ? pos.getSrsDimension() : pos.getValue().size();
+		int dimension = pos.getSrsDimension() != null ? pos.getSrsDimension().intValue() : pos.getValue().size();
 		if(point.getPos() == null) {
 			throw new DeprecatedGeometrySpecificationException(
 				"Geen post list voor ring gespecificeerd");
 		}
-		List<String> values = pos.getValue();
+		List<Double> values = pos.getValue();
 		if(values.size() != dimension) {
 			throw new InvalidGeometryException(GeometryValidationErrorType.POINT_INVALID_NUMBER_OF_ORDINATES, null);
 		}
@@ -102,7 +101,7 @@ public class GMLToPointConvertor {
 	/**
 	 * <p>convertMultiPoint.</p>
 	 *
-	 * @param multipointType a {@link org.opengis.gml_3_1_1.MultiPointType} object.
+	 * @param multipointType a {@link net.opengis.gml.v_3_1_1.MultiPointType} object.
 	 * @return a {@link com.vividsolutions.jts.geom.Geometry} object.
 	 * @throws nl.pdok.gml3.exceptions.GeometryException if any.
 	 */

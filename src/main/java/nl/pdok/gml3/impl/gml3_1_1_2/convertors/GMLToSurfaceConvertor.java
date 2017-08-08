@@ -5,17 +5,6 @@ import java.util.List;
 
 import javax.xml.bind.JAXBElement;
 
-import org.opengis.gml_3_1_1.AbstractRingPropertyType;
-import org.opengis.gml_3_1_1.AbstractSurfacePatchType;
-import org.opengis.gml_3_1_1.AbstractSurfaceType;
-import org.opengis.gml_3_1_1.MultiSurfaceType;
-import org.opengis.gml_3_1_1.PolygonPatchType;
-import org.opengis.gml_3_1_1.PolygonType;
-import org.opengis.gml_3_1_1.SurfaceArrayPropertyType;
-import org.opengis.gml_3_1_1.SurfacePatchArrayPropertyType;
-import org.opengis.gml_3_1_1.SurfacePropertyType;
-import org.opengis.gml_3_1_1.SurfaceType;
-
 import com.vividsolutions.jts.algorithm.CGAlgorithms;
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.GeometryFactory;
@@ -23,7 +12,8 @@ import com.vividsolutions.jts.geom.LinearRing;
 import com.vividsolutions.jts.geom.MultiPolygon;
 import com.vividsolutions.jts.geom.Polygon;
 
-import nl.pdok.gml3.exceptions.GeometryException;
+	import net.opengis.gml.v_3_1_1.*;
+	import nl.pdok.gml3.exceptions.GeometryException;
 import nl.pdok.gml3.exceptions.GeometryValidationErrorType;
 import nl.pdok.gml3.exceptions.InvalidGeometryException;
 import nl.pdok.gml3.exceptions.UnsupportedGeometrySpecificationException;
@@ -54,7 +44,7 @@ public class GMLToSurfaceConvertor {
 		/**
 		 * <p>convertMultiSurface.</p>
 		 *
-		 * @param surfaces a {@link org.opengis.gml_3_1_1.MultiSurfaceType} object.
+		 * @param surfaces a {@link net.opengis.gml.v_3_1_1.MultiSurfaceType} object.
 		 * @return a {@link com.vividsolutions.jts.geom.Geometry} object.
 		 * @throws nl.pdok.gml3.exceptions.GeometryException if any.
 		 */
@@ -126,7 +116,7 @@ public class GMLToSurfaceConvertor {
 		/**
 		 * <p>convertSurface.</p>
 		 *
-		 * @param abstractSurface a {@link org.opengis.gml_3_1_1.AbstractSurfaceType} object.
+		 * @param abstractSurface a {@link net.opengis.gml.v_3_1_1.AbstractSurfaceType} object.
 		 * @return a {@link com.vividsolutions.jts.geom.Geometry} object.
 		 * @throws nl.pdok.gml3.exceptions.GeometryException if any.
 		 */
@@ -180,7 +170,7 @@ public class GMLToSurfaceConvertor {
 		/**
 		 * <p>convertPolygonPatch.</p>
 		 *
-		 * @param polygonPatch a {@link org.opengis.gml_3_1_1.PolygonPatchType} object.
+		 * @param polygonPatch a {@link net.opengis.gml.v_3_1_1.PolygonPatchType} object.
 		 * @return a {@link com.vividsolutions.jts.geom.Polygon} object.
 		 * @throws nl.pdok.gml3.exceptions.GeometryException if any.
 		 */

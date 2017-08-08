@@ -1,14 +1,8 @@
 package nl.pdok.gml3.impl.gml3_1_1_2.convertors;
 
-import org.opengis.gml_3_1_1.AbstractCurveType;
-import org.opengis.gml_3_1_1.AbstractGeometryType;
-import org.opengis.gml_3_1_1.AbstractSurfaceType;
-import org.opengis.gml_3_1_1.MultiPointType;
-import org.opengis.gml_3_1_1.MultiSurfaceType;
-import org.opengis.gml_3_1_1.PointType;
-
 import com.vividsolutions.jts.geom.Geometry;
 
+import net.opengis.gml.v_3_1_1.*;
 import nl.pdok.gml3.exceptions.GeometryException;
 import nl.pdok.gml3.impl.geometry.extended.ExtendedGeometryFactory;
 
@@ -38,7 +32,7 @@ public class GMLToJTSGeometryConvertor {
     /**
      * <p>convertGeometry.</p>
      *
-     * @param abstractGeometryType a {@link org.opengis.gml_3_1_1.AbstractGeometryType} object.
+     * @param abstractGeometryType a {@link net.opengis.gml.v_3_1_1.AbstractGeometryType} object.
      * @return a {@link com.vividsolutions.jts.geom.Geometry} object.
      * @throws nl.pdok.gml3.exceptions.GeometryException if any.
      */
