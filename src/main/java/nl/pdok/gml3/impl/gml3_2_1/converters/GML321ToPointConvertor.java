@@ -32,6 +32,7 @@ public class GML321ToPointConvertor {
      * <p>translateOrdinates.</p>
      *
      * @param ordinates a {@link java.util.List} object.
+     * @param dimension a {@link int}.
      * @return a {@link com.vividsolutions.jts.geom.impl.CoordinateArraySequence} object.
      * @throws nl.pdok.gml3.exceptions.InvalidGeometryException if any.
      * @throws nl.pdok.gml3.exceptions.CoordinateMaxScaleExceededException if any.
