@@ -5,7 +5,9 @@ import com.vividsolutions.jts.geom.impl.CoordinateArraySequence;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * A ring contains LineStrings (which may also be Arcs). This construction extends LinearRing so it
@@ -71,13 +73,16 @@ public class Ring extends LinearRing {
 	 * @return a {@link nl.pdok.gml3.impl.geometry.extended.Ring} object.
 	 */
 	public static Ring createRing(GeometryFactory factory, LineString... segments) {
-		List<Coordinate> coordinates = new ArrayList<Coordinate>();
-		for(LineString segment : segments) {
-			coordinates.addAll(Arrays.asList(segment.getCoordinates()));
+		Set<Coordinate> coordinates = new LinkedHashSet<>();
+		for (LineString segment : segments) {
+		  coordinates.addAll(Arrays.asList(segment.getCoordinates()));
 		}
-		
-		CoordinateSequence coordinateSequence = new CoordinateArraySequence(
-				coordinates.toArray(new Coordinate[]{}));
+
+		List<Coordinate> coordsWithoutDuplicates = new ArrayList<>(coordinates);
+		coordsWithoutDuplicates.add(coordsWithoutDuplicates.get(0));
+
+		CoordinateSequence coordinateSequence =
+			new CoordinateArraySequence(coordsWithoutDuplicates.toArray(new Coordinate[] {}));
 		return new Ring(coordinateSequence, factory, segments);
 		
 	}
@@ -93,4 +98,3 @@ public class Ring extends LinearRing {
 	}
 
 }
-
