@@ -71,13 +71,16 @@ public class Ring extends LinearRing {
 	 * @return a {@link nl.pdok.gml3.impl.geometry.extended.Ring} object.
 	 */
 	public static Ring createRing(GeometryFactory factory, LineString... segments) {
-		List<Coordinate> coordinates = new ArrayList<Coordinate>();
-		for(LineString segment : segments) {
-			coordinates.addAll(Arrays.asList(segment.getCoordinates()));
+		Set<Coordinate> coordinates = new LinkedHashSet<>();
+		for (LineString segment : segments) {
+		coordinates.addAll(Arrays.asList(segment.getCoordinates()));
 		}
-		
-		CoordinateSequence coordinateSequence = new CoordinateArraySequence(
-				coordinates.toArray(new Coordinate[]{}));
+
+		List<Coordinate> coordsWithoutDuplicates = new ArrayList<>(coordinates);
+		coordsWithoutDuplicates.add(coordsWithoutDuplicates.get(0));
+
+		CoordinateSequence coordinateSequence =
+		new CoordinateArraySequence(coordsWithoutDuplicates.toArray(new Coordinate[] {}));
 		return new Ring(coordinateSequence, factory, segments);
 		
 	}
