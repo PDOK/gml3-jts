@@ -5,7 +5,9 @@ import com.vividsolutions.jts.geom.impl.CoordinateArraySequence;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * A ring contains LineStrings (which may also be Arcs). This construction extends LinearRing so it
