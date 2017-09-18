@@ -1,7 +1,6 @@
 language: java
 
 jdk:
-  - oraclejdk7
   - oraclejdk8
 
 deploy:
@@ -9,7 +8,7 @@ deploy:
   script: mvn -Dmaven.test.skip=true -Prelease,gpg clean deploy --settings travis-settings.xml
   on:
     tags: true
-    jdk: oraclejdk7
+    jdk: oraclejdk8
 
 before_deploy:
   - openssl aes-256-cbc -K $encrypted_32643128bc40_key -iv $encrypted_32643128bc40_iv -in codesigning.asc.enc -out codesigning.asc -d
