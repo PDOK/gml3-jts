@@ -9,16 +9,12 @@ import static nl.pdok.gml3.test.GML3ParserTest.GML3_2_1_SURFACE;
 import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author niek
  */
 public class GMLGeotoolsParserTest {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(GMLGeotoolsParserTest.class);
 
     @Test
     public void testGML3_2_1_Geotools_Multisurface() throws GML3ParseException {

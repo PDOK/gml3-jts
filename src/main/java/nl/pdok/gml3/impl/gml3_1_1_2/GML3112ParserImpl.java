@@ -9,7 +9,6 @@ import javax.xml.transform.stream.StreamSource;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.PrecisionModel;
 import java.io.Reader;
-import java.util.logging.Level;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Unmarshaller;
 
@@ -109,7 +108,7 @@ public class GML3112ParserImpl implements GMLParser {
     }
 
     private AbstractGeometryType parseGeometryFromGML(Reader reader) throws JAXBException {
-        JAXBElement unmarshalled = (JAXBElement) GML_3112_UNMARSHALLER.get().unmarshal(new StreamSource(reader));
+        JAXBElement<AbstractGeometryType> unmarshalled = (JAXBElement<AbstractGeometryType>) GML_3112_UNMARSHALLER.get().unmarshal(new StreamSource(reader));
         return (AbstractGeometryType) unmarshalled.getValue();
     }
 

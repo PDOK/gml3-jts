@@ -107,7 +107,7 @@ public class GML321ParserImpl implements GMLParser {
     }
 
     private AbstractGeometryType parseGeometryFromGML(Reader reader) throws JAXBException {
-        JAXBElement unmarshalled = (JAXBElement) GML_321_UNMARSHALLER.get().unmarshal(new StreamSource(reader));
+        JAXBElement<AbstractGeometryType> unmarshalled = (JAXBElement<AbstractGeometryType>) GML_321_UNMARSHALLER.get().unmarshal(new StreamSource(reader));
         return (AbstractGeometryType) unmarshalled.getValue();
     }
 
