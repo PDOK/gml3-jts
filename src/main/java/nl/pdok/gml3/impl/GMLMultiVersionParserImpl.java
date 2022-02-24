@@ -1,6 +1,6 @@
 package nl.pdok.gml3.impl;
 
-import com.vividsolutions.jts.geom.Geometry;
+import org.locationtech.jts.geom.Geometry;
 import java.io.Reader;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -9,7 +9,7 @@ import nl.pdok.gml3.GMLParser;
 import nl.pdok.gml3.exceptions.GML3ParseException;
 import nl.pdok.gml3.impl.gml3_1_1_2.GML3112ParserImpl;
 import nl.pdok.gml3.impl.gml3_2_1.GML321ParserImpl;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

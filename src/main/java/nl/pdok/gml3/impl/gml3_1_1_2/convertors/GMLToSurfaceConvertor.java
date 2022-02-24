@@ -5,12 +5,12 @@ import java.util.List;
 
 import javax.xml.bind.JAXBElement;
 
-import com.vividsolutions.jts.algorithm.CGAlgorithms;
-import com.vividsolutions.jts.geom.Geometry;
-import com.vividsolutions.jts.geom.GeometryFactory;
-import com.vividsolutions.jts.geom.LinearRing;
-import com.vividsolutions.jts.geom.MultiPolygon;
-import com.vividsolutions.jts.geom.Polygon;
+import org.locationtech.jts.algorithm.CGAlgorithms;
+import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.LinearRing;
+import org.locationtech.jts.geom.MultiPolygon;
+import org.locationtech.jts.geom.Polygon;
 
 	import net.opengis.gml.v_3_1_1.*;
 	import nl.pdok.gml3.exceptions.GeometryException;
@@ -32,7 +32,7 @@ public class GMLToSurfaceConvertor {
 		/**
 		 * <p>Constructor for GMLToSurfaceConvertor.</p>
 		 *
-		 * @param geometryFactory a {@link com.vividsolutions.jts.geom.GeometryFactory} object.
+		 * @param geometryFactory a {@link org.locationtech.jts.geom.GeometryFactory} object.
 		 * @param gmlToLineConvertor a {@link nl.pdok.gml3.impl.gml3_1_1_2.convertors.GMLToLineConvertor} object.
 		 */
 		public GMLToSurfaceConvertor(GeometryFactory geometryFactory, GMLToLineConvertor 
@@ -45,7 +45,7 @@ public class GMLToSurfaceConvertor {
 		 * <p>convertMultiSurface.</p>
 		 *
 		 * @param surfaces a {@link net.opengis.gml.v_3_1_1.MultiSurfaceType} object.
-		 * @return a {@link com.vividsolutions.jts.geom.Geometry} object.
+		 * @return a {@link org.locationtech.jts.geom.Geometry} object.
 		 * @throws nl.pdok.gml3.exceptions.GeometryException if any.
 		 */
 		public Geometry convertMultiSurface(MultiSurfaceType surfaces) throws GeometryException {
@@ -117,7 +117,7 @@ public class GMLToSurfaceConvertor {
 		 * <p>convertSurface.</p>
 		 *
 		 * @param abstractSurface a {@link net.opengis.gml.v_3_1_1.AbstractSurfaceType} object.
-		 * @return a {@link com.vividsolutions.jts.geom.Geometry} object.
+		 * @return a {@link org.locationtech.jts.geom.Geometry} object.
 		 * @throws nl.pdok.gml3.exceptions.GeometryException if any.
 		 */
 		public Geometry convertSurface(AbstractSurfaceType abstractSurface)
@@ -171,7 +171,7 @@ public class GMLToSurfaceConvertor {
 		 * <p>convertPolygonPatch.</p>
 		 *
 		 * @param polygonPatch a {@link net.opengis.gml.v_3_1_1.PolygonPatchType} object.
-		 * @return a {@link com.vividsolutions.jts.geom.Polygon} object.
+		 * @return a {@link org.locationtech.jts.geom.Polygon} object.
 		 * @throws nl.pdok.gml3.exceptions.GeometryException if any.
 		 */
 		public Polygon convertPolygonPatch(PolygonPatchType polygonPatch)

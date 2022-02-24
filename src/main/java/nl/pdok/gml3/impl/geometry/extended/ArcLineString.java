@@ -1,8 +1,8 @@
 package nl.pdok.gml3.impl.geometry.extended;
 
-import com.vividsolutions.jts.algorithm.CGAlgorithms;
-import com.vividsolutions.jts.geom.*;
-import com.vividsolutions.jts.geom.impl.CoordinateArraySequence;
+import org.locationtech.jts.algorithm.CGAlgorithms;
+import org.locationtech.jts.geom.*;
+import org.locationtech.jts.geom.impl.CoordinateArraySequence;
 
 /**
  * Subclass of line string for storing arcs. JTS does not support arcs, so when the JTS is used on
@@ -21,8 +21,8 @@ public class ArcLineString extends LineString {
 	/**
 	 * <p>Constructor for ArcLineString.</p>
 	 *
-	 * @param points a {@link com.vividsolutions.jts.geom.CoordinateSequence} object.
-	 * @param factory a {@link com.vividsolutions.jts.geom.GeometryFactory} object.
+	 * @param points a {@link org.locationtech.jts.geom.CoordinateSequence} object.
+	 * @param factory a {@link org.locationtech.jts.geom.GeometryFactory} object.
 	 */
 	public ArcLineString(CoordinateSequence points, GeometryFactory factory) {
 		super(points, factory);
@@ -31,7 +31,7 @@ public class ArcLineString extends LineString {
 	/**
 	 * Get the real non-densified points (densification is used to create
 	 *
-	 * @return an array of {@link com.vividsolutions.jts.geom.Coordinate} objects.
+	 * @return an array of {@link org.locationtech.jts.geom.Coordinate} objects.
 	 */
 	public Coordinate[] getArcCoordinates() {
 		return points.toCoordinateArray();
@@ -45,7 +45,7 @@ public class ArcLineString extends LineString {
 
 	/** {@inheritDoc} */
 	@Override
-	public Geometry reverse() {
+	public LineString reverse() {
 		CoordinateSequence seq = (CoordinateSequence) points.clone();
 		CoordinateSequences.reverse(seq);
 		return getFactory().createLineString(seq);
@@ -92,7 +92,7 @@ public class ArcLineString extends LineString {
 	 * Used instead of the call to points, so JTS thinks the arc is just a LineString with a lot of
 	 * points.
 	 *
-	 * @return a {@link com.vividsolutions.jts.geom.CoordinateSequence} object.
+	 * @return a {@link org.locationtech.jts.geom.CoordinateSequence} object.
 	 */
 	protected CoordinateSequence getDensifiedPoints() {
 		if(densifiedPoints == null) {

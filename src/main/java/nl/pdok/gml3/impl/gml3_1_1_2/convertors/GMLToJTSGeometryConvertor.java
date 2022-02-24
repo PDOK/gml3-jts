@@ -1,6 +1,6 @@
 package nl.pdok.gml3.impl.gml3_1_1_2.convertors;
 
-import com.vividsolutions.jts.geom.Geometry;
+import org.locationtech.jts.geom.Geometry;
 
 import net.opengis.gml.v_3_1_1.*;
 import nl.pdok.gml3.exceptions.GeometryException;
@@ -33,7 +33,7 @@ public class GMLToJTSGeometryConvertor {
      * <p>convertGeometry.</p>
      *
      * @param abstractGeometryType a {@link net.opengis.gml.v_3_1_1.AbstractGeometryType} object.
-     * @return a {@link com.vividsolutions.jts.geom.Geometry} object.
+     * @return a {@link org.locationtech.jts.geom.Geometry} object.
      * @throws nl.pdok.gml3.exceptions.GeometryException if any.
      */
     public Geometry convertGeometry(AbstractGeometryType abstractGeometryType) throws GeometryException {

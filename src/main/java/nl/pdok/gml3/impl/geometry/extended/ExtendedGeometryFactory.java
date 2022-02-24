@@ -1,8 +1,8 @@
 package nl.pdok.gml3.impl.geometry.extended;
 
-import com.vividsolutions.jts.geom.CoordinateSequenceFactory;
-import com.vividsolutions.jts.geom.GeometryFactory;
-import com.vividsolutions.jts.geom.PrecisionModel;
+import org.locationtech.jts.geom.CoordinateSequenceFactory;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.PrecisionModel;
 
 /**
  * <p>ExtendedGeometryFactory class.</p>
@@ -28,7 +28,7 @@ public class ExtendedGeometryFactory extends GeometryFactory {
 	/**
 	 * <p>Constructor for ExtendedGeometryFactory.</p>
 	 *
-	 * @param coordinateSequenceFactory a {@link com.vividsolutions.jts.geom.CoordinateSequenceFactory} object.
+	 * @param coordinateSequenceFactory a {@link org.locationtech.jts.geom.CoordinateSequenceFactory} object.
 	 */
 	public ExtendedGeometryFactory(CoordinateSequenceFactory coordinateSequenceFactory) {
 		super(coordinateSequenceFactory);
@@ -37,9 +37,9 @@ public class ExtendedGeometryFactory extends GeometryFactory {
 	/**
 	 * <p>Constructor for ExtendedGeometryFactory.</p>
 	 *
-	 * @param precisionModel a {@link com.vividsolutions.jts.geom.PrecisionModel} object.
+	 * @param precisionModel a {@link org.locationtech.jts.geom.PrecisionModel} object.
 	 * @param SRID a int.
-	 * @param coordinateSequenceFactory a {@link com.vividsolutions.jts.geom.CoordinateSequenceFactory} object.
+	 * @param coordinateSequenceFactory a {@link org.locationtech.jts.geom.CoordinateSequenceFactory} object.
 	 */
 	public ExtendedGeometryFactory(PrecisionModel precisionModel, int SRID,
                                    CoordinateSequenceFactory coordinateSequenceFactory) {
@@ -49,7 +49,7 @@ public class ExtendedGeometryFactory extends GeometryFactory {
 	/**
 	 * <p>Constructor for ExtendedGeometryFactory.</p>
 	 *
-	 * @param precisionModel a {@link com.vividsolutions.jts.geom.PrecisionModel} object.
+	 * @param precisionModel a {@link org.locationtech.jts.geom.PrecisionModel} object.
 	 * @param SRID a int.
 	 */
 	public ExtendedGeometryFactory(PrecisionModel precisionModel, int SRID) {
@@ -59,7 +59,7 @@ public class ExtendedGeometryFactory extends GeometryFactory {
 	/**
 	 * <p>Constructor for ExtendedGeometryFactory.</p>
 	 *
-	 * @param precisionModel a {@link com.vividsolutions.jts.geom.PrecisionModel} object.
+	 * @param precisionModel a {@link org.locationtech.jts.geom.PrecisionModel} object.
 	 */
 	public ExtendedGeometryFactory(PrecisionModel precisionModel) {
 		super(precisionModel);

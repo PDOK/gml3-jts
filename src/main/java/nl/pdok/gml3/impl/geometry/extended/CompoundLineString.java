@@ -1,7 +1,7 @@
 package nl.pdok.gml3.impl.geometry.extended;
 
-import com.vividsolutions.jts.geom.*;
-import com.vividsolutions.jts.geom.impl.CoordinateArraySequence;
+import org.locationtech.jts.geom.*;
+import org.locationtech.jts.geom.impl.CoordinateArraySequence;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,9 +21,9 @@ public class CompoundLineString extends LineString {
 	/**
 	 * <p>Constructor for CompoundLineString.</p>
 	 *
-	 * @param coordinates a {@link com.vividsolutions.jts.geom.CoordinateSequence} object.
-	 * @param factory a {@link com.vividsolutions.jts.geom.GeometryFactory} object.
-	 * @param segments a {@link com.vividsolutions.jts.geom.LineString} object.
+	 * @param coordinates a {@link org.locationtech.jts.geom.CoordinateSequence} object.
+	 * @param factory a {@link org.locationtech.jts.geom.GeometryFactory} object.
+	 * @param segments a {@link org.locationtech.jts.geom.LineString} object.
 	 */
 	protected CompoundLineString(CoordinateSequence coordinates, GeometryFactory factory,
                                  LineString... segments) {
@@ -43,9 +43,9 @@ public class CompoundLineString extends LineString {
 	/**
 	 * <p>reverse.</p>
 	 *
-	 * @return a {@link com.vividsolutions.jts.geom.Geometry} object.
+	 * @return a {@link org.locationtech.jts.geom.Geometry} object.
 	 */
-	public Geometry reverse() {
+	public CompoundLineString reverse() {
 		LineString[] seg = new LineString[segments.length];
 		for(int i=seg.length, j=0; i>=0 && j<seg.length; i--, j++) {
 			LineString segment = (LineString) segments[i].reverse();
@@ -58,7 +58,7 @@ public class CompoundLineString extends LineString {
 	/**
 	 * <p>Getter for the field <code>segments</code>.</p>
 	 *
-	 * @return an array of {@link com.vividsolutions.jts.geom.LineString} objects.
+	 * @return an array of {@link org.locationtech.jts.geom.LineString} objects.
 	 */
 	public LineString[] getSegments() {
 		return segments;
@@ -67,8 +67,8 @@ public class CompoundLineString extends LineString {
 	/**
 	 * <p>createCompoundLineString.</p>
 	 *
-	 * @param factory a {@link com.vividsolutions.jts.geom.GeometryFactory} object.
-	 * @param segments a {@link com.vividsolutions.jts.geom.LineString} object.
+	 * @param factory a {@link org.locationtech.jts.geom.GeometryFactory} object.
+	 * @param segments a {@link org.locationtech.jts.geom.LineString} object.
 	 * @return a {@link nl.pdok.gml3.impl.geometry.extended.CompoundLineString} object.
 	 */
 	public static CompoundLineString createCompoundLineString(GeometryFactory factory,

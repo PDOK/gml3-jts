@@ -6,8 +6,8 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.JAXBContext;
 import javax.xml.transform.stream.StreamSource;
 
-import com.vividsolutions.jts.geom.Geometry;
-import com.vividsolutions.jts.geom.PrecisionModel;
+import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.geom.PrecisionModel;
 import java.io.Reader;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Unmarshaller;
@@ -19,7 +19,7 @@ import nl.pdok.gml3.exceptions.GeometryException;
 import nl.pdok.gml3.exceptions.InvalidGeometryException;
 import nl.pdok.gml3.impl.geometry.extended.ExtendedGeometryFactory;
 import nl.pdok.gml3.impl.gml3_2_1.converters.GML321ToJTSGeometryConvertor;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

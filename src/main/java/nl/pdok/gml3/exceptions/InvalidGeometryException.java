@@ -1,6 +1,6 @@
 package nl.pdok.gml3.exceptions;
 
-import com.vividsolutions.jts.geom.Coordinate;
+import org.locationtech.jts.geom.Coordinate;
 
 /**
  * <p>InvalidGeometryException class.</p>
@@ -28,7 +28,7 @@ public class InvalidGeometryException extends GeometryException {
      * <p>Constructor for InvalidGeometryException.</p>
      *
      * @param errorType a {@link nl.pdok.gml3.exceptions.GeometryValidationErrorType} object.
-     * @param coordinate a {@link com.vividsolutions.jts.geom.Coordinate} object.
+     * @param coordinate a {@link org.locationtech.jts.geom.Coordinate} object.
      */
     public InvalidGeometryException(GeometryValidationErrorType errorType, Coordinate coordinate) {
         this(errorType, coordinate, null);
@@ -38,7 +38,7 @@ public class InvalidGeometryException extends GeometryException {
      * <p>Constructor for InvalidGeometryException.</p>
      *
      * @param errorType a {@link nl.pdok.gml3.exceptions.GeometryValidationErrorType} object.
-     * @param coordinate a {@link com.vividsolutions.jts.geom.Coordinate} object.
+     * @param coordinate a {@link org.locationtech.jts.geom.Coordinate} object.
      * @param message a {@link java.lang.String} object.
      */
     public InvalidGeometryException(GeometryValidationErrorType errorType, Coordinate coordinate,
@@ -60,7 +60,7 @@ public class InvalidGeometryException extends GeometryException {
     /**
      * <p>Getter for the field <code>coordinate</code>.</p>
      *
-     * @return a {@link com.vividsolutions.jts.geom.Coordinate} object.
+     * @return a {@link org.locationtech.jts.geom.Coordinate} object.
      */
     public Coordinate getCoordinate() {
         return coordinate;
