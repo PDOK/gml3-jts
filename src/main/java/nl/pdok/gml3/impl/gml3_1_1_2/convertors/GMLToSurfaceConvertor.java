@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.xml.bind.JAXBElement;
 
-import org.locationtech.jts.algorithm.CGAlgorithms;
+import org.locationtech.jts.algorithm.Orientation;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.LinearRing;
@@ -182,7 +182,7 @@ public class GMLToSurfaceConvertor {
 			
 			AbstractRingPropertyType abstractRing = polygonPatch.getExterior().getValue();
 			LinearRing exteriorShell = gmlToLineConvertor.translateAbstractRing(abstractRing);
-			if (!CGAlgorithms.isCCW(exteriorShell.getCoordinates())) {
+			if (!Orientation.isCCW(exteriorShell.getCoordinates())) {
 				throw new InvalidGeometryException(
 						GeometryValidationErrorType.OUTER_RING_IS_NOT_CCW, null);
 			}
@@ -191,7 +191,7 @@ public class GMLToSurfaceConvertor {
 			for (int i = 0; i < polygonPatch.getInterior().size(); i++) {
 				innerRings[i] = gmlToLineConvertor.translateAbstractRing(polygonPatch.getInterior()
 						.get(i).getValue());
-				if (CGAlgorithms.isCCW(innerRings[i].getCoordinates())) {
+				if (Orientation.isCCW(innerRings[i].getCoordinates())) {
 					throw new InvalidGeometryException(
 							GeometryValidationErrorType.INNER_RING_IS_CCW, null);
 				}

@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.xml.bind.JAXBElement;
 
-import org.locationtech.jts.algorithm.CGAlgorithms;
+import org.locationtech.jts.algorithm.Orientation;
 import org.locationtech.jts.geom.CoordinateSequence;
 import org.locationtech.jts.geom.CoordinateSequenceFactory;
 import org.locationtech.jts.geom.Geometry;
@@ -186,11 +186,11 @@ public class GML321ToSurfaceConvertor {
 
         AbstractRingPropertyType abstractRing = polygonPatch.getExterior();
         LinearRing exteriorShell = gmlToLineConvertor.translateAbstractRing(abstractRing);
-        if (!CGAlgorithms.isCCW(exteriorShell.getCoordinates())) {
+        if (!Orientation.isCCW(exteriorShell.getCoordinates())) {
 
             // Try to reverse it and try again
             exteriorShell = reverseRing(exteriorShell);
-            if (!CGAlgorithms.isCCW(exteriorShell.getCoordinates())) {
+            if (!Orientation.isCCW(exteriorShell.getCoordinates())) {
                 throw new InvalidGeometryException(
                         GeometryValidationErrorType.OUTER_RING_IS_NOT_CCW, null);
             }
@@ -200,7 +200,7 @@ public class GML321ToSurfaceConvertor {
         for (int i = 0; i < polygonPatch.getInterior().size(); i++) {
             innerRings[i] = gmlToLineConvertor.translateAbstractRing(polygonPatch.getInterior()
                     .get(i));
-            if (CGAlgorithms.isCCW(innerRings[i].getCoordinates())) {
+            if (Orientation.isCCW(innerRings[i].getCoordinates())) {
                 throw new InvalidGeometryException(
                         GeometryValidationErrorType.INNER_RING_IS_CCW, null);
             }

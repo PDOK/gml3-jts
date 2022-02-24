@@ -1,6 +1,6 @@
 package nl.pdok.gml3.impl.gml3_2_1.converters;
 
-import org.locationtech.jts.algorithm.CGAlgorithms;
+import org.locationtech.jts.algorithm.PointLocation;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.LineString;
@@ -207,7 +207,7 @@ public class GML321ToLineConvertor {
     }
 
     private void validateArcIsNotAStraightLine(CoordinateArraySequence sequence) throws GeometryException {
-        if (CGAlgorithms.isOnLine(sequence.getCoordinate(1),
+        if (PointLocation.isOnLine(sequence.getCoordinate(1),
                 new Coordinate[]{sequence.getCoordinate(0), sequence.getCoordinate(2)})) {
             throw new InvalidGeometryException(GeometryValidationErrorType.ARC_IS_A_STRAIGHT_LINE,
                     sequence.getCoordinate(1), "arc should not be a straight line");

@@ -1,6 +1,6 @@
 package nl.pdok.gml3.impl.geometry.extended;
 
-import org.locationtech.jts.algorithm.CGAlgorithms;
+import org.locationtech.jts.algorithm.Length;
 import org.locationtech.jts.geom.*;
 import org.locationtech.jts.geom.impl.CoordinateArraySequence;
 
@@ -46,7 +46,7 @@ public class ArcLineString extends LineString {
 	/** {@inheritDoc} */
 	@Override
 	public LineString reverse() {
-		CoordinateSequence seq = (CoordinateSequence) points.clone();
+		CoordinateSequence seq = (CoordinateSequence) points.copy();
 		CoordinateSequences.reverse(seq);
 		return getFactory().createLineString(seq);
 	}
@@ -83,8 +83,8 @@ public class ArcLineString extends LineString {
 	 * @return a {@link java.lang.Object} object.
 	 */
 	public Object clone() {
-		ArcLineString arc = (ArcLineString) super.clone();
-		arc.points = (CoordinateSequence) points.clone();
+		ArcLineString arc = (ArcLineString) super.copy();
+		arc.points = (CoordinateSequence) points.copy();
 		return arc;
 	}
 	
@@ -145,7 +145,7 @@ public class ArcLineString extends LineString {
 	/** {@inheritDoc} */
 	@Override
 	public double getLength() {
-		return CGAlgorithms.length(getDensifiedPoints());
+		return Length.ofLine(getDensifiedPoints());
 	}
 
 	/** {@inheritDoc} */
