@@ -105,10 +105,9 @@
 
   <repositories>
     <repository>
-      <id>boundless-repo</id>
-      <name>Geotools Repo</name>
-      <url>http://download.osgeo.org/webdav/geotools</url>
-    </repository>
+        <id>osgeo-release</id>
+        <url>https://repo.osgeo.org/repository/release/</url>
+      </repository>
   </repositories>
   <build>
     <pluginManagement>
