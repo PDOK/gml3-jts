@@ -120,14 +120,14 @@ public class GML3ParserTest {
 
     @Test
     public void testLandsgrensBestuurlijkeGrenzen() throws IOException, GML3ParseException {
-        String gml = FileUtils.readFileToString(new File(GML3ParserTest.class.getResource("/landsgrens.gml").getFile()));
+        String gml = FileUtils.readFileToString(new File(GML3ParserTest.class.getResource("/landsgrens.gml").getFile()), "UTF-8");
         GMLParser parser = new GML321ParserImpl(0.001, 28992);
         Geometry geometry = parser.toJTSGeometry(gml);
         assertNotNull(geometry);
     }
 
     private void assertGml3_1_1_AndWkt(String testGeometry) throws IOException, GML3ParseException {
-        String expectedWkt = FileUtils.readFileToString(new File(GML3ParserTest.class.getResource("/" + testGeometry + ".wkt").getFile()));
+        String expectedWkt = FileUtils.readFileToString(new File(GML3ParserTest.class.getResource("/" + testGeometry + ".wkt").getFile()), "UTF-8");
         InputStream withGMLArcs = GML3ParserTest.class.getResourceAsStream("/" + testGeometry + ".gml");
         String wkt = gml_3_1_1_ToWkt(withGMLArcs);
         assertEquals(expectedWkt, wkt);
