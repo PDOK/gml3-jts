@@ -1,6 +1,6 @@
 package nl.pdok.gml3.test;
 
-import com.vividsolutions.jts.geom.Geometry;
+import org.locationtech.jts.geom.Geometry;
 import nl.pdok.gml3.GMLParser;
 import nl.pdok.gml3.exceptions.GML3ParseException;
 import nl.pdok.gml3.impl.GMLMultiVersionParserImpl;

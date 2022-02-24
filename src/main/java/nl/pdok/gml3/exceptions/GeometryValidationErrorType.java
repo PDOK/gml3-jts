@@ -1,6 +1,6 @@
 package nl.pdok.gml3.exceptions;
 
-import com.vividsolutions.jts.operation.valid.TopologyValidationError;
+import org.locationtech.jts.operation.valid.TopologyValidationError;
 
 /**
  * <p>GeometryValidationErrorType class.</p>

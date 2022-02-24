@@ -1,8 +1,8 @@
 package nl.pdok.gml3.impl.geometry.extended;
 
-import com.vividsolutions.jts.algorithm.CGAlgorithms;
-import com.vividsolutions.jts.geom.*;
-import com.vividsolutions.jts.geom.impl.CoordinateArraySequence;
+import org.locationtech.jts.algorithm.CGAlgorithms;
+import org.locationtech.jts.geom.*;
+import org.locationtech.jts.geom.impl.CoordinateArraySequence;
 
 /**
  * Utilities for handling arcs with JTS
@@ -46,9 +46,9 @@ public final class ArcUtils {
 	/**
 	 * <p>densify.</p>
 	 *
-	 * @param coordinates an array of {@link com.vividsolutions.jts.geom.Coordinate} objects.
-	 * @param factory a {@link com.vividsolutions.jts.geom.GeometryFactory} object.
-	 * @return a {@link com.vividsolutions.jts.geom.CoordinateSequence} object.
+	 * @param coordinates an array of {@link org.locationtech.jts.geom.Coordinate} objects.
+	 * @param factory a {@link org.locationtech.jts.geom.GeometryFactory} object.
+	 * @return a {@link org.locationtech.jts.geom.CoordinateSequence} object.
 	 */
 	public static CoordinateSequence densify(Coordinate[] coordinates, GeometryFactory factory) {
 		double tolerance = ExtendedGeometryFactory.DEFAULT_MAXIMUM_ARC_APPROXIMATION_ERROR;
@@ -84,9 +84,9 @@ public final class ArcUtils {
 	/**
 	 * <p>add.</p>
 	 *
-	 * @param c1 an array of {@link com.vividsolutions.jts.geom.Coordinate} objects.
-	 * @param c2 an array of {@link com.vividsolutions.jts.geom.Coordinate} objects.
-	 * @return an array of {@link com.vividsolutions.jts.geom.Coordinate} objects.
+	 * @param c1 an array of {@link org.locationtech.jts.geom.Coordinate} objects.
+	 * @param c2 an array of {@link org.locationtech.jts.geom.Coordinate} objects.
+	 * @return an array of {@link org.locationtech.jts.geom.Coordinate} objects.
 	 */
 	public static Coordinate[] add(Coordinate[] c1, Coordinate[] c2) {
 		if (c1 == null) {

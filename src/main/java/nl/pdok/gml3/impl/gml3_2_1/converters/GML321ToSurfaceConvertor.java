@@ -5,14 +5,14 @@ import java.util.List;
 
 import javax.xml.bind.JAXBElement;
 
-import com.vividsolutions.jts.algorithm.CGAlgorithms;
-import com.vividsolutions.jts.geom.CoordinateSequence;
-import com.vividsolutions.jts.geom.CoordinateSequenceFactory;
-import com.vividsolutions.jts.geom.Geometry;
-import com.vividsolutions.jts.geom.GeometryFactory;
-import com.vividsolutions.jts.geom.LinearRing;
-import com.vividsolutions.jts.geom.MultiPolygon;
-import com.vividsolutions.jts.geom.Polygon;
+import org.locationtech.jts.algorithm.CGAlgorithms;
+import org.locationtech.jts.geom.CoordinateSequence;
+import org.locationtech.jts.geom.CoordinateSequenceFactory;
+import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.LinearRing;
+import org.locationtech.jts.geom.MultiPolygon;
+import org.locationtech.jts.geom.Polygon;
 import net.opengis.gml.v_3_2_1.AbstractRingPropertyType;
 import net.opengis.gml.v_3_2_1.AbstractSurfacePatchType;
 import net.opengis.gml.v_3_2_1.AbstractSurfaceType;
@@ -43,7 +43,7 @@ public class GML321ToSurfaceConvertor {
     /**
      * <p>Constructor for GML321ToSurfaceConvertor.</p>
      *
-     * @param geometryFactory a {@link com.vividsolutions.jts.geom.GeometryFactory} object.
+     * @param geometryFactory a {@link org.locationtech.jts.geom.GeometryFactory} object.
      * @param gmlToLineConvertor a {@link nl.pdok.gml3.impl.gml3_2_1.converters.GML321ToLineConvertor} object.
      */
     public GML321ToSurfaceConvertor(GeometryFactory geometryFactory, GML321ToLineConvertor gmlToLineConvertor) {
@@ -55,7 +55,7 @@ public class GML321ToSurfaceConvertor {
      * <p>convertMultiSurface.</p>
      *
      * @param surfaces a {@link net.opengis.gml.v_3_2_1.MultiSurfaceType} object.
-     * @return a {@link com.vividsolutions.jts.geom.Geometry} object.
+     * @return a {@link org.locationtech.jts.geom.Geometry} object.
      * @throws nl.pdok.gml3.exceptions.GeometryException if any.
      */
     public Geometry convertMultiSurface(MultiSurfaceType surfaces) throws GeometryException {
@@ -122,7 +122,7 @@ public class GML321ToSurfaceConvertor {
      * <p>convertSurface.</p>
      *
      * @param abstractSurface a {@link net.opengis.gml.v_3_2_1.AbstractSurfaceType} object.
-     * @return a {@link com.vividsolutions.jts.geom.Geometry} object.
+     * @return a {@link org.locationtech.jts.geom.Geometry} object.
      * @throws nl.pdok.gml3.exceptions.GeometryException if any.
      */
     public Geometry convertSurface(AbstractSurfaceType abstractSurface)
@@ -175,7 +175,7 @@ public class GML321ToSurfaceConvertor {
      * <p>convertPolygonPatch.</p>
      *
      * @param polygonPatch a {@link net.opengis.gml.v_3_2_1.PolygonPatchType} object.
-     * @return a {@link com.vividsolutions.jts.geom.Polygon} object.
+     * @return a {@link org.locationtech.jts.geom.Polygon} object.
      * @throws nl.pdok.gml3.exceptions.GeometryException if any.
      */
     public Polygon convertPolygonPatch(PolygonPatchType polygonPatch)

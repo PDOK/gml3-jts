@@ -4,11 +4,11 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.vividsolutions.jts.geom.Geometry;
-import com.vividsolutions.jts.geom.GeometryFactory;
-import com.vividsolutions.jts.geom.MultiPoint;
-import com.vividsolutions.jts.geom.Point;
-import com.vividsolutions.jts.geom.impl.CoordinateArraySequence;
+import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.MultiPoint;
+import org.locationtech.jts.geom.Point;
+import org.locationtech.jts.geom.impl.CoordinateArraySequence;
 
 import net.opengis.gml.v_3_1_1.*;
 import nl.pdok.gml3.exceptions.CoordinateMaxScaleExceededException;
@@ -30,7 +30,7 @@ public class GMLToPointConvertor {
 	/**
 	 * <p>Constructor for GMLToPointConvertor.</p>
 	 *
-	 * @param geometryFactory a {@link com.vividsolutions.jts.geom.GeometryFactory} object.
+	 * @param geometryFactory a {@link org.locationtech.jts.geom.GeometryFactory} object.
 	 */
 	public GMLToPointConvertor(GeometryFactory geometryFactory) {
 		this.geometryFactory = geometryFactory;
@@ -41,7 +41,7 @@ public class GMLToPointConvertor {
 	 *
 	 * @param coordinates a {@link java.util.List} object.
 	 * @param dimension a {@link int}.
-	 * @return a {@link com.vividsolutions.jts.geom.impl.CoordinateArraySequence} object.
+	 * @return a {@link org.locationtech.jts.geom.impl.CoordinateArraySequence} object.
 	 * @throws nl.pdok.gml3.exceptions.InvalidGeometryException if any.
 	 * @throws nl.pdok.gml3.exceptions.CoordinateMaxScaleExceededException if any.
 	 */
@@ -79,7 +79,7 @@ public class GMLToPointConvertor {
 	 * <p>convertPoint.</p>
 	 *
 	 * @param point a {@link net.opengis.gml.v_3_1_1.PointType} object.
-	 * @return a {@link com.vividsolutions.jts.geom.Point} object.
+	 * @return a {@link org.locationtech.jts.geom.Point} object.
 	 * @throws nl.pdok.gml3.exceptions.GeometryException if any.
 	 */
 	public Point convertPoint(PointType point) throws GeometryException {
@@ -102,7 +102,7 @@ public class GMLToPointConvertor {
 	 * <p>convertMultiPoint.</p>
 	 *
 	 * @param multipointType a {@link net.opengis.gml.v_3_1_1.MultiPointType} object.
-	 * @return a {@link com.vividsolutions.jts.geom.Geometry} object.
+	 * @return a {@link org.locationtech.jts.geom.Geometry} object.
 	 * @throws nl.pdok.gml3.exceptions.GeometryException if any.
 	 */
 	public Geometry convertMultiPoint(MultiPointType multipointType) throws GeometryException {

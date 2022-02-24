@@ -21,8 +21,8 @@
 package nl.pdok.gml3.impl.geometry.extended;
 
 
-import com.vividsolutions.jts.geom.Coordinate;
-import com.vividsolutions.jts.geom.PrecisionModel;
+import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.PrecisionModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,9 +101,9 @@ public class SmallCircle {
      * Three point method of circle construction. All three points must be on
      * the circumference of the circle.
      *
-     * @param point1 a {@link com.vividsolutions.jts.geom.Coordinate} object.
-     * @param point2 a {@link com.vividsolutions.jts.geom.Coordinate} object.
-     * @param point3 a {@link com.vividsolutions.jts.geom.Coordinate} object.
+     * @param point1 a {@link org.locationtech.jts.geom.Coordinate} object.
+     * @param point2 a {@link org.locationtech.jts.geom.Coordinate} object.
+     * @param point3 a {@link org.locationtech.jts.geom.Coordinate} object.
      */
     public SmallCircle(Coordinate point1, Coordinate point2, Coordinate point3) {
         initThreePointCircle(point1, point2, point3);
@@ -204,7 +204,7 @@ public class SmallCircle {
     /**
      * <p>Getter for the field <code>center</code>.</p>
      *
-     * @return a {@link com.vividsolutions.jts.geom.Coordinate} object.
+     * @return a {@link org.locationtech.jts.geom.Coordinate} object.
      */
     public Coordinate getCenter() {
         return this.center;
@@ -414,7 +414,7 @@ public class SmallCircle {
      * <p>getPoint.</p>
      *
      * @param angle a double.
-     * @return a {@link com.vividsolutions.jts.geom.Coordinate} object.
+     * @return a {@link org.locationtech.jts.geom.Coordinate} object.
      */
     public Coordinate getPoint(final double angle) {
         double x = Math.cos(angle) * this.radius;
@@ -440,9 +440,9 @@ public class SmallCircle {
     /**
      * <p>createArc.</p>
      *
-     * @param p1 a {@link com.vividsolutions.jts.geom.Coordinate} object.
-     * @param p2 a {@link com.vividsolutions.jts.geom.Coordinate} object.
-     * @param p3 a {@link com.vividsolutions.jts.geom.Coordinate} object.
+     * @param p1 a {@link org.locationtech.jts.geom.Coordinate} object.
+     * @param p2 a {@link org.locationtech.jts.geom.Coordinate} object.
+     * @param p3 a {@link org.locationtech.jts.geom.Coordinate} object.
      * @return a {@link nl.pdok.gml3.impl.geometry.extended.SmallCircle.Arc} object.
      */
     public Arc createArc(Coordinate p1, Coordinate p2, Coordinate p3) {
