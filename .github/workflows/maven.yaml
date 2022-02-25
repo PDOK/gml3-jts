@@ -6,7 +6,15 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Import GPG Key
+        uses: crazy-max/ghaction-import-gpg@v4
+        env:
+          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+          PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+
       - name: Set up Maven Central Repository
         uses: actions/setup-java@v2
         with:
@@ -15,6 +23,7 @@ jobs:
           server-id: ossrh
           server-username: MAVEN_USERNAME
           server-password: MAVEN_PASSWORD
+
       - name: Publish package
         run: mvn --batch-mode deploy
         env:
