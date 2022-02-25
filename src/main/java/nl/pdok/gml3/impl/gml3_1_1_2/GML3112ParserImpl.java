@@ -6,10 +6,9 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.JAXBContext;
 import javax.xml.transform.stream.StreamSource;
 
-import com.vividsolutions.jts.geom.Geometry;
-import com.vividsolutions.jts.geom.PrecisionModel;
+import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.geom.PrecisionModel;
 import java.io.Reader;
-import java.util.logging.Level;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Unmarshaller;
 
@@ -21,7 +20,7 @@ import nl.pdok.gml3.impl.gml3_1_1_2.convertors.GMLToJTSGeometryConvertor;
 import nl.pdok.gml3.exceptions.GeometryException;
 import nl.pdok.gml3.exceptions.InvalidGeometryException;
 import nl.pdok.gml3.impl.geometry.extended.ExtendedGeometryFactory;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -109,7 +108,7 @@ public class GML3112ParserImpl implements GMLParser {
     }
 
     private AbstractGeometryType parseGeometryFromGML(Reader reader) throws JAXBException {
-        JAXBElement unmarshalled = (JAXBElement) GML_3112_UNMARSHALLER.get().unmarshal(new StreamSource(reader));
+        JAXBElement<AbstractGeometryType> unmarshalled = (JAXBElement<AbstractGeometryType>) GML_3112_UNMARSHALLER.get().unmarshal(new StreamSource(reader));
         return (AbstractGeometryType) unmarshalled.getValue();
     }
 

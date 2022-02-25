@@ -1,11 +1,11 @@
 package nl.pdok.gml3.impl.gml3_2_1.converters;
 
-import com.vividsolutions.jts.algorithm.CGAlgorithms;
-import com.vividsolutions.jts.geom.Coordinate;
-import com.vividsolutions.jts.geom.GeometryFactory;
-import com.vividsolutions.jts.geom.LineString;
-import com.vividsolutions.jts.geom.LinearRing;
-import com.vividsolutions.jts.geom.impl.CoordinateArraySequence;
+import org.locationtech.jts.algorithm.PointLocation;
+import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.LineString;
+import org.locationtech.jts.geom.LinearRing;
+import org.locationtech.jts.geom.impl.CoordinateArraySequence;
 import net.opengis.gml.v_3_2_1.*;
 import nl.pdok.gml3.exceptions.*;
 import nl.pdok.gml3.impl.geometry.extended.ArcLineString;
@@ -35,7 +35,7 @@ public class GML321ToLineConvertor {
     /**
      * <p>Constructor for GML321ToLineConvertor.</p>
      *
-     * @param geometryFactory a {@link com.vividsolutions.jts.geom.GeometryFactory} object.
+     * @param geometryFactory a {@link org.locationtech.jts.geom.GeometryFactory} object.
      * @param gmlToPointConvertor a {@link nl.pdok.gml3.impl.gml3_2_1.converters.GML321ToPointConvertor} object.
      */
     public GML321ToLineConvertor(GeometryFactory geometryFactory,
@@ -48,7 +48,7 @@ public class GML321ToLineConvertor {
      * <p>translateAbstractRing.</p>
      *
      * @param abstractRingPropertyType a {@link net.opengis.gml.v_3_2_1.AbstractRingPropertyType} object.
-     * @return a {@link com.vividsolutions.jts.geom.LinearRing} object.
+     * @return a {@link org.locationtech.jts.geom.LinearRing} object.
      * @throws nl.pdok.gml3.exceptions.GeometryException if any.
      */
     public LinearRing translateAbstractRing(AbstractRingPropertyType abstractRingPropertyType) throws GeometryException {
@@ -207,7 +207,7 @@ public class GML321ToLineConvertor {
     }
 
     private void validateArcIsNotAStraightLine(CoordinateArraySequence sequence) throws GeometryException {
-        if (CGAlgorithms.isOnLine(sequence.getCoordinate(1),
+        if (PointLocation.isOnLine(sequence.getCoordinate(1),
                 new Coordinate[]{sequence.getCoordinate(0), sequence.getCoordinate(2)})) {
             throw new InvalidGeometryException(GeometryValidationErrorType.ARC_IS_A_STRAIGHT_LINE,
                     sequence.getCoordinate(1), "arc should not be a straight line");
@@ -265,7 +265,7 @@ public class GML321ToLineConvertor {
      * <p>convertAbstractCurve.</p>
      *
      * @param abstractGeometryType a {@link net.opengis.gml.v_3_2_1.AbstractCurveType} object.
-     * @return a {@link com.vividsolutions.jts.geom.LineString} object.
+     * @return a {@link org.locationtech.jts.geom.LineString} object.
      * @throws nl.pdok.gml3.exceptions.GeometryException if any.
      */
     public LineString convertAbstractCurve(AbstractCurveType abstractGeometryType) throws GeometryException {

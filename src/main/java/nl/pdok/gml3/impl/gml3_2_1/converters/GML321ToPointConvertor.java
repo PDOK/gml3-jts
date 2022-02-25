@@ -1,7 +1,7 @@
 package nl.pdok.gml3.impl.gml3_2_1.converters;
 
-import com.vividsolutions.jts.geom.*;
-import com.vividsolutions.jts.geom.impl.CoordinateArraySequence;
+import org.locationtech.jts.geom.*;
+import org.locationtech.jts.geom.impl.CoordinateArraySequence;
 import net.opengis.gml.v_3_2_1.*;
 import nl.pdok.gml3.exceptions.*;
 
@@ -22,7 +22,7 @@ public class GML321ToPointConvertor {
     /**
      * <p>Constructor for GML321ToPointConvertor.</p>
      *
-     * @param geometryFactory a {@link com.vividsolutions.jts.geom.GeometryFactory} object.
+     * @param geometryFactory a {@link org.locationtech.jts.geom.GeometryFactory} object.
      */
     public GML321ToPointConvertor(GeometryFactory geometryFactory) {
         this.geometryFactory = geometryFactory;
@@ -33,7 +33,7 @@ public class GML321ToPointConvertor {
      *
      * @param ordinates a {@link java.util.List} object.
      * @param dimension a {@link int}.
-     * @return a {@link com.vividsolutions.jts.geom.impl.CoordinateArraySequence} object.
+     * @return a {@link org.locationtech.jts.geom.impl.CoordinateArraySequence} object.
      * @throws nl.pdok.gml3.exceptions.InvalidGeometryException if any.
      * @throws nl.pdok.gml3.exceptions.CoordinateMaxScaleExceededException if any.
      */
@@ -75,7 +75,7 @@ public class GML321ToPointConvertor {
      * <p>convertPoint.</p>
      *
      * @param point a {@link net.opengis.gml.v_3_2_1.PointType} object.
-     * @return a {@link com.vividsolutions.jts.geom.Point} object.
+     * @return a {@link org.locationtech.jts.geom.Point} object.
      * @throws nl.pdok.gml3.exceptions.GeometryException if any.
      */
     public Point convertPoint(PointType point) throws GeometryException {
@@ -98,7 +98,7 @@ public class GML321ToPointConvertor {
      * <p>convertMultiPoint.</p>
      *
      * @param multipointType a {@link net.opengis.gml.v_3_2_1.MultiPointType} object.
-     * @return a {@link com.vividsolutions.jts.geom.Geometry} object.
+     * @return a {@link org.locationtech.jts.geom.Geometry} object.
      * @throws nl.pdok.gml3.exceptions.GeometryException if any.
      */
     public Geometry convertMultiPoint(MultiPointType multipointType) throws GeometryException {

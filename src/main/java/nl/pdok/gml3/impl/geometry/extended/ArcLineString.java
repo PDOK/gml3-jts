@@ -1,8 +1,8 @@
 package nl.pdok.gml3.impl.geometry.extended;
 
-import com.vividsolutions.jts.algorithm.CGAlgorithms;
-import com.vividsolutions.jts.geom.*;
-import com.vividsolutions.jts.geom.impl.CoordinateArraySequence;
+import org.locationtech.jts.algorithm.Length;
+import org.locationtech.jts.geom.*;
+import org.locationtech.jts.geom.impl.CoordinateArraySequence;
 
 /**
  * Subclass of line string for storing arcs. JTS does not support arcs, so when the JTS is used on
@@ -21,8 +21,8 @@ public class ArcLineString extends LineString {
 	/**
 	 * <p>Constructor for ArcLineString.</p>
 	 *
-	 * @param points a {@link com.vividsolutions.jts.geom.CoordinateSequence} object.
-	 * @param factory a {@link com.vividsolutions.jts.geom.GeometryFactory} object.
+	 * @param points a {@link org.locationtech.jts.geom.CoordinateSequence} object.
+	 * @param factory a {@link org.locationtech.jts.geom.GeometryFactory} object.
 	 */
 	public ArcLineString(CoordinateSequence points, GeometryFactory factory) {
 		super(points, factory);
@@ -31,7 +31,7 @@ public class ArcLineString extends LineString {
 	/**
 	 * Get the real non-densified points (densification is used to create
 	 *
-	 * @return an array of {@link com.vividsolutions.jts.geom.Coordinate} objects.
+	 * @return an array of {@link org.locationtech.jts.geom.Coordinate} objects.
 	 */
 	public Coordinate[] getArcCoordinates() {
 		return points.toCoordinateArray();
@@ -45,8 +45,8 @@ public class ArcLineString extends LineString {
 
 	/** {@inheritDoc} */
 	@Override
-	public Geometry reverse() {
-		CoordinateSequence seq = (CoordinateSequence) points.clone();
+	public LineString reverse() {
+		CoordinateSequence seq = (CoordinateSequence) points.copy();
 		CoordinateSequences.reverse(seq);
 		return getFactory().createLineString(seq);
 	}
@@ -83,8 +83,8 @@ public class ArcLineString extends LineString {
 	 * @return a {@link java.lang.Object} object.
 	 */
 	public Object clone() {
-		ArcLineString arc = (ArcLineString) super.clone();
-		arc.points = (CoordinateSequence) points.clone();
+		ArcLineString arc = (ArcLineString) super.copy();
+		arc.points = (CoordinateSequence) points.copy();
 		return arc;
 	}
 	
@@ -92,7 +92,7 @@ public class ArcLineString extends LineString {
 	 * Used instead of the call to points, so JTS thinks the arc is just a LineString with a lot of
 	 * points.
 	 *
-	 * @return a {@link com.vividsolutions.jts.geom.CoordinateSequence} object.
+	 * @return a {@link org.locationtech.jts.geom.CoordinateSequence} object.
 	 */
 	protected CoordinateSequence getDensifiedPoints() {
 		if(densifiedPoints == null) {
@@ -145,7 +145,7 @@ public class ArcLineString extends LineString {
 	/** {@inheritDoc} */
 	@Override
 	public double getLength() {
-		return CGAlgorithms.length(getDensifiedPoints());
+		return Length.ofLine(getDensifiedPoints());
 	}
 
 	/** {@inheritDoc} */

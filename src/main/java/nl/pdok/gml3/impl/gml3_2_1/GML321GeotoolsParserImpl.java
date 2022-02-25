@@ -1,8 +1,9 @@
 package nl.pdok.gml3.impl.gml3_2_1;
 
-import com.vividsolutions.jts.geom.Geometry;
-import com.vividsolutions.jts.geom.GeometryFactory;
-import com.vividsolutions.jts.geom.PrecisionModel;
+import org.geotools.xsd.Parser;
+import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.PrecisionModel;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
@@ -10,7 +11,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import nl.pdok.gml3.GMLParser;
 import nl.pdok.gml3.exceptions.GML3ParseException;
 import org.geotools.gml3.v3_2.GMLConfiguration;
-import org.geotools.xml.Parser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;

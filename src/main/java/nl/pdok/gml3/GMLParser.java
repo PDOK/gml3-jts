@@ -1,7 +1,7 @@
 package nl.pdok.gml3;
 
 import nl.pdok.gml3.exceptions.GML3ParseException;
-import com.vividsolutions.jts.geom.Geometry;
+import org.locationtech.jts.geom.Geometry;
 import java.io.Reader;
 
 /**

@@ -1,6 +1,6 @@
 package nl.pdok.gml3.test;
 
-import com.vividsolutions.jts.geom.Geometry;
+import org.locationtech.jts.geom.Geometry;
 import nl.pdok.gml3.GMLParser;
 import nl.pdok.gml3.exceptions.GML3ParseException;
 import nl.pdok.gml3.impl.GMLMultiVersionParserImpl;
@@ -120,14 +120,14 @@ public class GML3ParserTest {
 
     @Test
     public void testLandsgrensBestuurlijkeGrenzen() throws IOException, GML3ParseException {
-        String gml = FileUtils.readFileToString(new File(GML3ParserTest.class.getResource("/landsgrens.gml").getFile()));
+        String gml = FileUtils.readFileToString(new File(GML3ParserTest.class.getResource("/landsgrens.gml").getFile()), "UTF-8");
         GMLParser parser = new GML321ParserImpl(0.001, 28992);
         Geometry geometry = parser.toJTSGeometry(gml);
         assertNotNull(geometry);
     }
 
     private void assertGml3_1_1_AndWkt(String testGeometry) throws IOException, GML3ParseException {
-        String expectedWkt = FileUtils.readFileToString(new File(GML3ParserTest.class.getResource("/" + testGeometry + ".wkt").getFile()));
+        String expectedWkt = FileUtils.readFileToString(new File(GML3ParserTest.class.getResource("/" + testGeometry + ".wkt").getFile()), "UTF-8");
         InputStream withGMLArcs = GML3ParserTest.class.getResourceAsStream("/" + testGeometry + ".gml");
         String wkt = gml_3_1_1_ToWkt(withGMLArcs);
         assertEquals(expectedWkt, wkt);
