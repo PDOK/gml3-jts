@@ -8,9 +8,9 @@ jobs:
     steps:
       - name: Import GPG Key
         uses: crazy-max/ghaction-import-gpg@v4
-        env:
-          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
-          PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.PASSPHRASE }}
 
       - name: Check out Git repository
         uses: actions/checkout@v2
