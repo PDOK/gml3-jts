@@ -1,7 +1,7 @@
 # gml3-jts
 
 ![Build Status](https://github.com/PDOK/gml3-jts/actions/workflows/maven.yaml/badge.svg)
-![Maven Central](https://img.shields.io/maven-central/v/nl.pdok/gml3-jts.svg?maxAge=2592000)
+![Maven Central](https://maven-badges.herokuapp.com/maven-central/nl.pdok/gml3-jts/badge.svg?style=plastic)
 
 Converts GML to JTS. For now GML 3.1.1.2 and 3.2.1 are supported.
 
