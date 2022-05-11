@@ -5,6 +5,16 @@
 
 Converts GML to JTS. For now GML 3.1.1.2 and 3.2.1 are supported.
 
+## TL;DR
+
+```mvn
+<dependency>
+  <groupId>nl.pdok</groupId>
+  <artifactId>gml3-jts</artifactId>
+  <version>17.0.0</version>
+</dependency>
+```
+
 ## Note
 
 1. Needs Java 17, doesn't support Java 8, 11
