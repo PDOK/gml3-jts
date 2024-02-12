@@ -26,8 +26,8 @@ import nl.pdok.gml3.exceptions.UnsupportedGeometrySpecificationException;
  */
 public class GMLToSurfaceConvertor {
 
-		private GeometryFactory geometryFactory;
-		private GMLToLineConvertor gmlToLineConvertor;
+		private final GeometryFactory geometryFactory;
+		private final GMLToLineConvertor gmlToLineConvertor;
 
 		/**
 		 * <p>Constructor for GMLToSurfaceConvertor.</p>
@@ -35,12 +35,12 @@ public class GMLToSurfaceConvertor {
 		 * @param geometryFactory a {@link org.locationtech.jts.geom.GeometryFactory} object.
 		 * @param gmlToLineConvertor a {@link nl.pdok.gml3.impl.gml3_1_1_2.convertors.GMLToLineConvertor} object.
 		 */
-		public GMLToSurfaceConvertor(GeometryFactory geometryFactory, GMLToLineConvertor 
+		public GMLToSurfaceConvertor(GeometryFactory geometryFactory, GMLToLineConvertor
 				gmlToLineConvertor) {
 			this.geometryFactory = geometryFactory;
 			this.gmlToLineConvertor = gmlToLineConvertor;
 		}
-		
+
 		/**
 		 * <p>convertMultiSurface.</p>
 		 *
@@ -55,7 +55,7 @@ public class GMLToSurfaceConvertor {
 				Geometry result = convertElementContainingSurface(element);
 				addResultingPolygonsToList(result, polygons);
 			}
-			
+
 			SurfaceArrayPropertyType array = surfaces.getSurfaceMembers();
 			if(array != null) {
 				List<JAXBElement<? extends AbstractSurfaceType>> arraySurfaceMembers = array.getSurface();
@@ -66,26 +66,26 @@ public class GMLToSurfaceConvertor {
 					}
 				}
 			}
-			
+
 			return convertPolygonListToMuliPolygonOrSinglePolygon(polygons);
 		}
-		
+
 		private Geometry convertPolygonListToMuliPolygonOrSinglePolygon(List<Polygon> polygons)
 				throws GeometryException {
-			if(polygons.size() < 1) {
+			if(polygons.isEmpty()) {
 				throw new InvalidGeometryException(
 						GeometryValidationErrorType.MULTI_SURFACE_DID_NOT_CONTAIN_MEMBERS, null);
 			}
 			else if (polygons.size() == 1) {
 				return polygons.get(0);
-			} 
+			}
 			else {
 				MultiPolygon multi = new MultiPolygon(
 						polygons.toArray(new Polygon[] {}), geometryFactory);
 				return multi;
 			}
 		}
-		
+
 		private Geometry convertElementContainingSurface(
 				JAXBElement<? extends AbstractSurfaceType> surface) throws GeometryException {
 			if(surface != null) {
@@ -94,14 +94,13 @@ public class GMLToSurfaceConvertor {
 					return convertSurface(abstractSurfaceType);
 				}
 			}
-			
+
 			return null;
 		}
-		
+
 		private void addResultingPolygonsToList(Geometry geometry, List<Polygon> polygons) {
 			if(geometry != null) {
-				if(geometry instanceof MultiPolygon) {
-					MultiPolygon collection = (MultiPolygon) geometry;
+				if(geometry instanceof MultiPolygon collection) {
 					for(int i=0; i<collection.getNumGeometries(); i++) {
 						polygons.add((Polygon)collection.getGeometryN(i));
 					}
@@ -111,7 +110,7 @@ public class GMLToSurfaceConvertor {
 				}
 			}
 		}
-		
+
 
 		/**
 		 * <p>convertSurface.</p>
@@ -122,16 +121,14 @@ public class GMLToSurfaceConvertor {
 		 */
 		public Geometry convertSurface(AbstractSurfaceType abstractSurface)
 				throws GeometryException {
-			if (abstractSurface instanceof SurfaceType) {
-				List<Polygon> polygons = new ArrayList<Polygon>();
-				SurfaceType surface = (SurfaceType) abstractSurface;
+			if (abstractSurface instanceof SurfaceType surface) {
+				List<Polygon> polygons = new ArrayList<>();
 				SurfacePatchArrayPropertyType patches = surface.getPatches().getValue();
 				// opmerking multipliciteit 2 of meer is afgevangen door xsd
 				for (int i = 0; i < patches.getSurfacePatch().size(); i++) {
 					AbstractSurfacePatchType abstractPatch = patches
 							.getSurfacePatch().get(i).getValue();
-					if (abstractPatch instanceof PolygonPatchType) {
-						PolygonPatchType polygonPatch = (PolygonPatchType) abstractPatch;
+					if (abstractPatch instanceof PolygonPatchType polygonPatch) {
 						Polygon polygon = convertPolygonPatch(polygonPatch);
 						polygons.add(polygon);
 
@@ -142,13 +139,12 @@ public class GMLToSurfaceConvertor {
 				}
 
 				return convertPolygonListToMuliPolygonOrSinglePolygon(polygons);
-			} 
-			else if (abstractSurface instanceof PolygonType) {
-				PolygonType polygonType = (PolygonType) abstractSurface;
+			}
+			else if (abstractSurface instanceof PolygonType polygonType) {
 				if(polygonType.getExterior() == null) {
 					throw new InvalidGeometryException(GeometryValidationErrorType.POLYGON_HAS_NO_EXTERIOR, null);
 				}
-				
+
 				AbstractRingPropertyType abstractRing = polygonType.getExterior().getValue();
 				LinearRing shell = gmlToLineConvertor.translateAbstractRing(abstractRing);
 				LinearRing[] innerRings = new LinearRing[polygonType.getInterior().size()];
@@ -179,7 +175,7 @@ public class GMLToSurfaceConvertor {
 			if(polygonPatch.getExterior() == null) {
 				throw new InvalidGeometryException(GeometryValidationErrorType.POLYGON_HAS_NO_EXTERIOR, null);
 			}
-			
+
 			AbstractRingPropertyType abstractRing = polygonPatch.getExterior().getValue();
 			LinearRing exteriorShell = gmlToLineConvertor.translateAbstractRing(abstractRing);
 			if (!Orientation.isCCW(exteriorShell.getCoordinates())) {

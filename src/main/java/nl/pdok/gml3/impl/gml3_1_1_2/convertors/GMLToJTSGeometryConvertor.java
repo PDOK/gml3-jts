@@ -37,18 +37,18 @@ public class GMLToJTSGeometryConvertor {
      * @throws nl.pdok.gml3.exceptions.GeometryException if any.
      */
     public Geometry convertGeometry(AbstractGeometryType abstractGeometryType) throws GeometryException {
-        if (abstractGeometryType instanceof AbstractSurfaceType) {
-            return gmlToSurfaceConvertor.convertSurface((AbstractSurfaceType) abstractGeometryType);
+        if (abstractGeometryType instanceof AbstractSurfaceType abstractSurfaceType) {
+            return gmlToSurfaceConvertor.convertSurface(abstractSurfaceType);
 
-        } else if (abstractGeometryType instanceof MultiPointType) {
-            return gmlToPointConvertor.convertMultiPoint((MultiPointType) abstractGeometryType);
-        } else if (abstractGeometryType instanceof PointType) {
-            return gmlToPointConvertor.convertPoint((PointType) abstractGeometryType);
+        } else if (abstractGeometryType instanceof MultiPointType multiPointType) {
+            return gmlToPointConvertor.convertMultiPoint(multiPointType);
+        } else if (abstractGeometryType instanceof PointType pointType) {
+            return gmlToPointConvertor.convertPoint(pointType);
 
-        } else if (abstractGeometryType instanceof AbstractCurveType) {
-            return gmlToLineConvertor.convertAbstractCurve((AbstractCurveType) abstractGeometryType);
-        } else if (abstractGeometryType instanceof MultiSurfaceType) {
-            return gmlToSurfaceConvertor.convertMultiSurface((MultiSurfaceType) abstractGeometryType);
+        } else if (abstractGeometryType instanceof AbstractCurveType abstractCurveType) {
+            return gmlToLineConvertor.convertAbstractCurve(abstractCurveType);
+        } else if (abstractGeometryType instanceof MultiSurfaceType multiSurfaceType) {
+            return gmlToSurfaceConvertor.convertMultiSurface(multiSurfaceType);
         } else {
             throw new IllegalArgumentException("Geometry type not supported: "
                     + abstractGeometryType.getClass());

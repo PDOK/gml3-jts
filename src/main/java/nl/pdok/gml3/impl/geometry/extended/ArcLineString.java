@@ -1,5 +1,6 @@
 package nl.pdok.gml3.impl.geometry.extended;
 
+import java.io.Serial;
 import org.locationtech.jts.algorithm.Length;
 import org.locationtech.jts.geom.*;
 import org.locationtech.jts.geom.impl.CoordinateArraySequence;
@@ -14,6 +15,7 @@ import org.locationtech.jts.geom.impl.CoordinateArraySequence;
  */
 public class ArcLineString extends LineString {
 
+	@Serial
 	private static final long serialVersionUID = 5858160826964840982L;
 	private CoordinateSequence densifiedPoints = null;
 	private static final int NUMBER_OF_ORDINATES = 3;
@@ -27,7 +29,7 @@ public class ArcLineString extends LineString {
 	public ArcLineString(CoordinateSequence points, GeometryFactory factory) {
 		super(points, factory);
 	}
-	
+
 	/**
 	 * Get the real non-densified points (densification is used to create
 	 *
@@ -46,7 +48,7 @@ public class ArcLineString extends LineString {
 	/** {@inheritDoc} */
 	@Override
 	public LineString reverse() {
-		CoordinateSequence seq = (CoordinateSequence) points.copy();
+		CoordinateSequence seq = points.copy();
 		CoordinateSequences.reverse(seq);
 		return getFactory().createLineString(seq);
 	}
@@ -82,12 +84,13 @@ public class ArcLineString extends LineString {
 	 *
 	 * @return a {@link java.lang.Object} object.
 	 */
+	@Override
 	public Object clone() {
 		ArcLineString arc = (ArcLineString) super.copy();
-		arc.points = (CoordinateSequence) points.copy();
+		arc.points = points.copy();
 		return arc;
 	}
-	
+
 	/**
 	 * Used instead of the call to points, so JTS thinks the arc is just a LineString with a lot of
 	 * points.
@@ -98,7 +101,7 @@ public class ArcLineString extends LineString {
 		if(densifiedPoints == null) {
 			Coordinate[] points = getArcCoordinates();
 			Coordinate[] result = null;
-			
+
 			for(int i=0;i+NUMBER_OF_ORDINATES<=points.length;i=i+2) {
 				Coordinate[] arcItem = new Coordinate[NUMBER_OF_ORDINATES];
 				System.arraycopy(points, i, arcItem, 0, NUMBER_OF_ORDINATES);
@@ -108,7 +111,7 @@ public class ArcLineString extends LineString {
 
 			densifiedPoints = new CoordinateArraySequence(result);
 		}
-		
+
 		return densifiedPoints;
 	}
 
@@ -135,7 +138,7 @@ public class ArcLineString extends LineString {
 	public Point getPointN(int n) {
 		return getFactory().createPoint(getDensifiedPoints().getCoordinate(n));
 	}
-	
+
 	/** {@inheritDoc} */
 	@Override
 	public int getNumPoints() {
@@ -182,7 +185,7 @@ public class ArcLineString extends LineString {
 		if (getDensifiedPoints().size() == 0) {
 			return;
 		}
-		
+
 		for (int i = 0; i < getDensifiedPoints().size(); i++) {
 			filter.filter(getDensifiedPoints(), i);
 			if (filter.isDone()){
@@ -193,7 +196,7 @@ public class ArcLineString extends LineString {
 			geometryChanged();
 		}
 	}
-	
+
 	/** {@inheritDoc} */
 	@Override
 	public void normalize() {

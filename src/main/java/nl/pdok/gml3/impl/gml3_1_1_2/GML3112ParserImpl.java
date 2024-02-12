@@ -40,16 +40,16 @@ public class GML3112ParserImpl implements GMLParser {
         try {
             GML_3112_JAXB_CONTEXT = JAXBContext.newInstance(AbstractGeometryType.class);
             LOGGER.debug("Created JAXB context");
-            GML_3112_UNMARSHALLER = new ThreadLocal<Unmarshaller>() {
-                @Override
-                protected Unmarshaller initialValue() {
-                    try {
-                        return GML_3112_JAXB_CONTEXT.createUnmarshaller();
-                    } catch (JAXBException ex) {
-                        LOGGER.error(ex.getMessage(), ex);
-                        throw new IllegalStateException(ex);
-                    }
+            GML_3112_UNMARSHALLER = new ThreadLocal<>() {
+              @Override
+              protected Unmarshaller initialValue() {
+                try {
+                  return GML_3112_JAXB_CONTEXT.createUnmarshaller();
+                } catch (JAXBException ex) {
+                  LOGGER.error(ex.getMessage(), ex);
+                  throw new IllegalStateException(ex);
                 }
+              }
             };
         } catch (JAXBException ex) {
             LOGGER.error("Could not create JAXB context. {}", ex.getMessage(), ex);
@@ -70,7 +70,7 @@ public class GML3112ParserImpl implements GMLParser {
      * <p>Constructor for GML3112ParserImpl.</p>
      *
      * @param maximumArcApproximationError a double.
-     * @param srid a int.
+     * @param srid an int.
      */
     public GML3112ParserImpl(final double maximumArcApproximationError, final int srid) {
         ExtendedGeometryFactory geometryFactory = new ExtendedGeometryFactory(new PrecisionModel(), srid);
@@ -102,14 +102,14 @@ public class GML3112ParserImpl implements GMLParser {
     @Override
     public Geometry toJTSGeometry(String gml) throws GML3ParseException {
         if (StringUtils.isBlank(gml)) {
-            throw new GML3ParseException("Emtpy GML-string provided");
+            throw new GML3ParseException("Empty GML-string provided");
         }
         return toJTSGeometry(new StringReader(gml));
     }
 
     private AbstractGeometryType parseGeometryFromGML(Reader reader) throws JAXBException {
         JAXBElement<AbstractGeometryType> unmarshalled = (JAXBElement<AbstractGeometryType>) GML_3112_UNMARSHALLER.get().unmarshal(new StreamSource(reader));
-        return (AbstractGeometryType) unmarshalled.getValue();
+        return unmarshalled.getValue();
     }
 
     /** {@inheritDoc} */
