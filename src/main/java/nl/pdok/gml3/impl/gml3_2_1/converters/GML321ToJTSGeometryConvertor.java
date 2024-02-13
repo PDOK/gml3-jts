@@ -36,19 +36,19 @@ public class GML321ToJTSGeometryConvertor {
      * @throws nl.pdok.gml3.exceptions.GeometryException if any.
      */
     public Geometry convertGeometry(AbstractGeometryType abstractGeometryType) throws GeometryException {
-        if (abstractGeometryType instanceof AbstractSurfaceType) {
-            return gmlToSurfaceConvertor.convertSurface((AbstractSurfaceType) abstractGeometryType);
+        if (abstractGeometryType instanceof AbstractSurfaceType surfaceType) {
+            return gmlToSurfaceConvertor.convertSurface(surfaceType);
 
-        } else if (abstractGeometryType instanceof MultiPointType) {
-            return gmlToPointConvertor.convertMultiPoint((MultiPointType) abstractGeometryType);
-        } else if (abstractGeometryType instanceof PointType) {
-            return gmlToPointConvertor.convertPoint((PointType) abstractGeometryType);
-        } else if (abstractGeometryType instanceof AbstractCurveType) {
-            return gmlToLineConvertor.convertAbstractCurve((AbstractCurveType) abstractGeometryType);
-        } else if (abstractGeometryType instanceof MultiSurfaceType) {
-            return gmlToSurfaceConvertor.convertMultiSurface((MultiSurfaceType) abstractGeometryType);
-        } else if (abstractGeometryType instanceof MultiCurveType) {
-            return gmlToLineConvertor.convertMultiCurve((MultiCurveType) abstractGeometryType);
+        } else if (abstractGeometryType instanceof MultiPointType multiPointType) {
+            return gmlToPointConvertor.convertMultiPoint(multiPointType);
+        } else if (abstractGeometryType instanceof PointType pointType) {
+            return gmlToPointConvertor.convertPoint(pointType);
+        } else if (abstractGeometryType instanceof AbstractCurveType curveType) {
+            return gmlToLineConvertor.convertAbstractCurve(curveType);
+        } else if (abstractGeometryType instanceof MultiSurfaceType multiSurfaceType) {
+            return gmlToSurfaceConvertor.convertMultiSurface(multiSurfaceType);
+        } else if (abstractGeometryType instanceof MultiCurveType multiCurveType) {
+            return gmlToLineConvertor.convertMultiCurve(multiCurveType);
         } else {
             throw new IllegalArgumentException("Geometry type not supported: "
                     + abstractGeometryType.getClass());

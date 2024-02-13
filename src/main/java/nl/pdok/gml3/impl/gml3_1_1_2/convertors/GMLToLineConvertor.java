@@ -29,25 +29,25 @@ import java.util.List;
  * @version $Id: $Id
  */
 public class GMLToLineConvertor {
-	
+
 	private static final int NUMBER_OF_COORDINATES_NEEDED_FOR_ARC = 3;
 	private static final int NUMBER_OF_COORDINATES_NEEDED_FOR_RING = 4;
 	private static final int NUMBER_OF_ORDINATES_NEEDED_FOR_LINE_PER_DIMENSION = 2;
-	private GeometryFactory geometryFactory;
-	private GMLToPointConvertor gmlToPointConvertor;
-	
+	private final GeometryFactory geometryFactory;
+	private final GMLToPointConvertor gmlToPointConvertor;
+
 	/**
 	 * <p>Constructor for GMLToLineConvertor.</p>
 	 *
 	 * @param geometryFactory a {@link org.locationtech.jts.geom.GeometryFactory} object.
 	 * @param gmlToPointConvertor a {@link nl.pdok.gml3.impl.gml3_1_1_2.convertors.GMLToPointConvertor} object.
 	 */
-	public GMLToLineConvertor(GeometryFactory geometryFactory, 
+	public GMLToLineConvertor(GeometryFactory geometryFactory,
 			GMLToPointConvertor gmlToPointConvertor) {
 		this.geometryFactory = geometryFactory;
 		this.gmlToPointConvertor = gmlToPointConvertor;
 	}
-	
+
 	/**
 	 * <p>translateAbstractRing.</p>
 	 *
@@ -57,13 +57,13 @@ public class GMLToLineConvertor {
 	 */
 	public LinearRing translateAbstractRing(AbstractRingPropertyType abstractRingPropertyType) throws GeometryException {
 		AbstractRingType abstractRing = abstractRingPropertyType.getRing().getValue();
-		if (abstractRing instanceof LinearRingType) {
-			return translateLinearRingType((LinearRingType) abstractRing);
+		if (abstractRing instanceof LinearRingType linearRingType) {
+			return translateLinearRingType(linearRingType);
 
-		} 
-		else if (abstractRing instanceof RingType) {
-			return translateRing((RingType) abstractRing);
-		} 
+		}
+		else if (abstractRing instanceof RingType ringType) {
+			return translateRing(ringType);
+		}
 		else {
 			// should not even validate
 			throw new UnsupportedGeometrySpecificationException("Invalid ring declared");
@@ -72,7 +72,7 @@ public class GMLToLineConvertor {
 	}
 
 	private LinearRing translateRing(RingType ring) throws GeometryException {
-		List<LineString> segments = new ArrayList<LineString>();
+		List<LineString> segments = new ArrayList<>();
 		// (according to the xsd at least one curve member is mandatory)
 		for(int i =0 ; i<ring.getCurveMember().size(); i++) {
 			CurvePropertyType curveProperty = ring.getCurveMember().get(i);
@@ -81,18 +81,17 @@ public class GMLToLineConvertor {
 				throw new InvalidGeometryException(GeometryValidationErrorType.CURVE_CONTAINS_NO_SEGMENTS, null);
 			}
 			AbstractCurveType abstractCurve = elementWithCurve.getValue();
-			if (abstractCurve instanceof CurveType) {
-				segments.addAll(translateCurveTypeToSegments((CurveType) abstractCurve));
-			} 
-			else if (abstractCurve instanceof LineStringType) {
-				LineStringType line = (LineStringType) abstractCurve;
-				segments.add(convertLineString(line));
-				
-			} 
+			if (abstractCurve instanceof CurveType curveType) {
+				segments.addAll(translateCurveTypeToSegments(curveType));
+			}
+			else if (abstractCurve instanceof LineStringType lineStringType) {
+				segments.add(convertLineString(lineStringType));
+
+			}
 			else {
 				throw new UnsupportedGeometrySpecificationException("Only linestrings and curves are supported for rings");
 			}
-			
+
 		}
 
 		int dimension = ring.getSrsDimension() != null ? ring.getSrsDimension().intValue() : 2;
@@ -118,14 +117,14 @@ public class GMLToLineConvertor {
 		if (length < NUMBER_OF_COORDINATES_NEEDED_FOR_RING) {
 			throw new InvalidGeometryException(GeometryValidationErrorType.TOO_FEW_POINTS, firstCoordinate);
 		}
-		
+
 		if (!isClosed(sequence)) {
 			throw new InvalidGeometryException(GeometryValidationErrorType.RING_NOT_CLOSED, firstCoordinate);
 		}
 
 		return geometryFactory.createLinearRing(sequence);
 	}
-	
+
 	private void valideerSegmentArray(CurveSegmentArrayPropertyType array) throws GeometryException {
 		int size =  array.getCurveSegment().size();
 		if(size == 0) {
@@ -145,25 +144,23 @@ public class GMLToLineConvertor {
 		CurveSegmentArrayPropertyType array = curve.getSegments();
 		valideerSegmentArray(array);
 		int size =  array.getCurveSegment().size();
-		
+
 		for (int i = 0; i < size; i++) {
 			AbstractCurveSegmentType curveProperty = array.getCurveSegment().get(i).getValue();
-			
-			if (curveProperty instanceof LineStringSegmentType) {
-				LineStringSegmentType line = (LineStringSegmentType) curveProperty;
+
+			if (curveProperty instanceof LineStringSegmentType line) {
 				if (line.getPosList() == null) {
 					throw new DeprecatedGeometrySpecificationException(
 							"Geen poslist voor linestringsegment binnen curve gespecificeerd");
 				}
-				
+
 				CoordinateArraySequence sequence = gmlToPointConvertor.translateOrdinates(line.getPosList());
 				LineString lineString = new LineString(sequence, geometryFactory);
 				list.add(lineString);
-			} 
-			else if (curveProperty instanceof ArcType && !(curveProperty instanceof CircleType)) {
-				ArcType arc = (ArcType) curveProperty;
+			}
+			else if (curveProperty instanceof ArcType arc && !(curveProperty instanceof CircleType)) {
 				list.add(translateArc(arc));
-			} 
+			}
 			else {
 				throw new UnsupportedGeometrySpecificationException(
 						"Only arc and linestring are supported within a Curve segment");
@@ -172,7 +169,7 @@ public class GMLToLineConvertor {
 		}
 		return list;
 	}
-	
+
 	private ArcLineString translateArc(ArcType arc) throws GeometryException {
 		if (CurveInterpolationType.CIRCULAR_ARC_3_POINTS != ArcStringType.INTERPOLATION) {
 			throw new UnsupportedGeometrySpecificationException(
@@ -189,13 +186,12 @@ public class GMLToLineConvertor {
             return gmlToPointConvertor.translateOrdinates(arc.getPosList());
         }
         else if(arc.getPosOrPointPropertyOrPointRep() != null &&
-                arc.getPosOrPointPropertyOrPointRep().size() > 0) {
-            List<Double> values = new ArrayList<Double>();
+            !arc.getPosOrPointPropertyOrPointRep().isEmpty()) {
+            List<Double> values = new ArrayList<>();
             Iterator<JAXBElement<?>> iterator = arc.getPosOrPointPropertyOrPointRep().iterator();
             while(iterator.hasNext()) {
                 Object value = iterator.next().getValue();
-                if(value instanceof DirectPositionType) {
-                    DirectPositionType position = (DirectPositionType) value;
+                if(value instanceof DirectPositionType position) {
                     values.addAll(position.getValue());
                 }
                 else {
@@ -217,9 +213,9 @@ public class GMLToLineConvertor {
     }
 
     private void validateArcIsNotAStraightLine(CoordinateArraySequence sequence) throws GeometryException {
-		if(PointLocation.isOnLine(sequence.getCoordinate(1), 
+		if(PointLocation.isOnLine(sequence.getCoordinate(1),
 				new Coordinate[]{sequence.getCoordinate(0), sequence.getCoordinate(2)})) {
-			throw new InvalidGeometryException(GeometryValidationErrorType.ARC_IS_A_STRAIGHT_LINE, 
+			throw new InvalidGeometryException(GeometryValidationErrorType.ARC_IS_A_STRAIGHT_LINE,
 					sequence.getCoordinate(1), "arc should not be a straight line");
 		}
 	}
@@ -227,21 +223,21 @@ public class GMLToLineConvertor {
 	private boolean isClosed(LineString[] array, int dimension) throws InvalidGeometryException {
 		int length = array.length;
 		int ordinatesLength = 0;
-		
+
 		if (length != 0) {
 			LineString first = array[0];
 			LineString last = array[length - 1];
 			Coordinate coordinate1 = first.getCoordinateN(0);
 			Coordinate coordinate2 = last.getCoordinateN(last.getNumPoints() - 1);
-			
+
 			for(int i=0; i<length && ordinatesLength<NUMBER_OF_COORDINATES_NEEDED_FOR_RING;i++) {
 				ordinatesLength += array[i].getNumPoints();
 			}
-			
+
 			if (ordinatesLength < NUMBER_OF_COORDINATES_NEEDED_FOR_RING) {
 				throw new InvalidGeometryException(GeometryValidationErrorType.TOO_FEW_POINTS, coordinate1);
 			}
-			
+
 			return coordinate1.equals2D(coordinate2);
 		}
 
@@ -268,7 +264,7 @@ public class GMLToLineConvertor {
 		if(posList.size() < NUMBER_OF_ORDINATES_NEEDED_FOR_LINE_PER_DIMENSION * dimension) {
 			throw new InvalidGeometryException(GeometryValidationErrorType.TOO_FEW_POINTS, null);
 		}
-		
+
 		CoordinateArraySequence sequence = gmlToPointConvertor.translateOrdinates(lineStringType.getPosList());
 		return new LineString(sequence, geometryFactory);
 	}
@@ -281,11 +277,11 @@ public class GMLToLineConvertor {
 	 * @throws nl.pdok.gml3.exceptions.GeometryException if any.
 	 */
 	public LineString convertAbstractCurve(AbstractCurveType abstractGeometryType) throws GeometryException {
-		if(abstractGeometryType instanceof LineStringType) {
-			return convertLineString((LineStringType) abstractGeometryType);
+		if(abstractGeometryType instanceof LineStringType lineStringType) {
+			return convertLineString(lineStringType);
 		}
-		else if(abstractGeometryType instanceof CurveType) {
-			List<LineString> segments = translateCurveTypeToSegments((CurveType) abstractGeometryType);
+		else if(abstractGeometryType instanceof CurveType curveType) {
+			List<LineString> segments = translateCurveTypeToSegments(curveType);
 			LineString[] array = segments.toArray(new LineString[] {});
 			return CompoundLineString.createCompoundLineString(geometryFactory, array);
 		}
@@ -293,7 +289,7 @@ public class GMLToLineConvertor {
 			throw new UnsupportedGeometrySpecificationException(
 					"Only arc and linestring are supported within a Curve segment");
 		}
-		
+
 	}
 
 }

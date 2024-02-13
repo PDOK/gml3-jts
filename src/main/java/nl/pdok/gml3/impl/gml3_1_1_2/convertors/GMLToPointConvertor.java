@@ -25,7 +25,7 @@ import nl.pdok.gml3.exceptions.InvalidGeometryException;
  */
 public class GMLToPointConvertor {
 
-	private GeometryFactory geometryFactory;
+	private final GeometryFactory geometryFactory;
 
 	/**
 	 * <p>Constructor for GMLToPointConvertor.</p>
@@ -50,7 +50,7 @@ public class GMLToPointConvertor {
 		if (coordinates == null || coordinates.size() < dimension) {
 			throw new InvalidGeometryException(GeometryValidationErrorType.EMPTY_GEOMETRY, null);
 		}
-		
+
 		if(coordinates.size()%dimension != 0) {
 			throw new InvalidGeometryException(GeometryValidationErrorType.INVALID_COORDINATE, null);
 		}
@@ -58,13 +58,13 @@ public class GMLToPointConvertor {
 		CoordinateArraySequence sequence = new CoordinateArraySequence(coordinates.size() / dimension);
 		int i = 0;
 		for (Double ordinate : coordinates) {
-			BigDecimal bd = new BigDecimal(ordinate);
+			BigDecimal bd = BigDecimal.valueOf(ordinate);
 			int ordinateIndex = i % dimension;
 			int index = (i / dimension);
 			sequence.setOrdinate(index, ordinateIndex, bd.doubleValue());
 			i++;
 		}
-		
+
 		return sequence;
 
 	}
@@ -93,7 +93,7 @@ public class GMLToPointConvertor {
 		if(values.size() != dimension) {
 			throw new InvalidGeometryException(GeometryValidationErrorType.POINT_INVALID_NUMBER_OF_ORDINATES, null);
 		}
-		
+
 		CoordinateArraySequence sequence = translateOrdinates(values, dimension);
 		return geometryFactory.createPoint(sequence);
 	}
@@ -114,15 +114,15 @@ public class GMLToPointConvertor {
 				points.add(convertPoint(point));
 			}
 		}
-		
+
 		for(PointPropertyType type : multipointType.getPointMember()) {
 			PointType pointType = type.getPoint();
 			if(pointType != null) {
 				points.add(convertPoint(pointType));
 			}
 		}
-		
-		if(points.size() < 1) {
+
+		if(points.isEmpty()) {
 			throw new InvalidGeometryException(GeometryValidationErrorType.MULTI_POINT_DID_NOT_CONTAIN_MEMBERS, null);
 		}
 		else if(points.size() == 1) {

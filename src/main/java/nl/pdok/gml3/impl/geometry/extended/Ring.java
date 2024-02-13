@@ -1,5 +1,6 @@
 package nl.pdok.gml3.impl.geometry.extended;
 
+import java.io.Serial;
 import org.locationtech.jts.geom.*;
 import org.locationtech.jts.geom.impl.CoordinateArraySequence;
 
@@ -19,8 +20,9 @@ import java.util.Set;
  */
 public class Ring extends LinearRing {
 
+	@Serial
 	private static final long serialVersionUID = 7685049284222295173L;
-	private CompoundLineString compoundLineString;
+	private final CompoundLineString compoundLineString;
 
 	/**
 	 * <p>Constructor for Ring.</p>
@@ -39,6 +41,7 @@ public class Ring extends LinearRing {
 	 *
 	 * @return a {@link java.lang.String} object.
 	 */
+	@Override
 	public String getGeometryType() {
 		return "Ring";
 	}
@@ -48,10 +51,11 @@ public class Ring extends LinearRing {
 	 *
 	 * @return a {@link org.locationtech.jts.geom.Geometry} object.
 	 */
+	@Override
 	public LinearRing reverse() {
-		return createRing(factory, (CompoundLineString) compoundLineString.reverse());
+		return createRing(factory, compoundLineString.reverse());
 	}
-	
+
 	/**
 	 * <p>createRing.</p>
 	 *
@@ -62,7 +66,7 @@ public class Ring extends LinearRing {
 	public static Ring createRing(GeometryFactory factory, CompoundLineString compoundLineString) {
 		LineString[] segments = compoundLineString.getSegments();
 		return createRing(factory, segments);
-		
+
 	}
 
 	/**
@@ -84,7 +88,7 @@ public class Ring extends LinearRing {
 		CoordinateSequence coordinateSequence =
 			new CoordinateArraySequence(coordsWithoutDuplicates.toArray(new Coordinate[] {}));
 		return new Ring(coordinateSequence, factory, segments);
-		
+
 	}
 
 	/**
@@ -94,7 +98,7 @@ public class Ring extends LinearRing {
 	 */
 	public LineString[] getSegments() {
 		return compoundLineString.getSegments();
-		
+
 	}
 
 }
