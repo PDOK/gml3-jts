@@ -11,7 +11,7 @@ Converts GML to JTS. For now GML 3.1.1.2 and 3.2.1 are supported.
 <dependency>
   <groupId>nl.pdok</groupId>
   <artifactId>gml3-jts</artifactId>
-  <version>17.1.0</version>
+  <version>17.2.0</version>
 </dependency>
 ```
 
