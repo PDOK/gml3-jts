@@ -2,7 +2,7 @@ package nl.pdok.gml3.impl.gml3_2_1.converters;
 
 import org.locationtech.jts.geom.*;
 import org.locationtech.jts.geom.impl.CoordinateArraySequence;
-import net.opengis.gml.v_3_2_1.*;
+import net.opengis.gml.v_3_2.*;
 import nl.pdok.gml3.exceptions.*;
 
 import java.math.BigDecimal;
@@ -74,7 +74,7 @@ public class GML321ToPointConvertor {
     /**
      * <p>convertPoint.</p>
      *
-     * @param point a {@link net.opengis.gml.v_3_2_1.PointType} object.
+     * @param point a {@link net.opengis.gml.v_3_2.PointType} object.
      * @return a {@link org.locationtech.jts.geom.Point} object.
      * @throws nl.pdok.gml3.exceptions.GeometryException if any.
      */
@@ -97,7 +97,7 @@ public class GML321ToPointConvertor {
     /**
      * <p>convertMultiPoint.</p>
      *
-     * @param multipointType a {@link net.opengis.gml.v_3_2_1.MultiPointType} object.
+     * @param multipointType a {@link net.opengis.gml.v_3_2.MultiPointType} object.
      * @return a {@link org.locationtech.jts.geom.Geometry} object.
      * @throws nl.pdok.gml3.exceptions.GeometryException if any.
      */

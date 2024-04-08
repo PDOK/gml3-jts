@@ -3,8 +3,7 @@ package nl.pdok.gml3.impl.gml3_2_1.converters;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.bind.JAXBElement;
-
+import jakarta.xml.bind.JAXBElement;
 import org.locationtech.jts.algorithm.Orientation;
 import org.locationtech.jts.geom.CoordinateSequence;
 import org.locationtech.jts.geom.CoordinateSequenceFactory;
@@ -13,16 +12,16 @@ import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.LinearRing;
 import org.locationtech.jts.geom.MultiPolygon;
 import org.locationtech.jts.geom.Polygon;
-import net.opengis.gml.v_3_2_1.AbstractRingPropertyType;
-import net.opengis.gml.v_3_2_1.AbstractSurfacePatchType;
-import net.opengis.gml.v_3_2_1.AbstractSurfaceType;
-import net.opengis.gml.v_3_2_1.MultiSurfaceType;
-import net.opengis.gml.v_3_2_1.PolygonPatchType;
-import net.opengis.gml.v_3_2_1.PolygonType;
-import net.opengis.gml.v_3_2_1.SurfaceArrayPropertyType;
-import net.opengis.gml.v_3_2_1.SurfacePatchArrayPropertyType;
-import net.opengis.gml.v_3_2_1.SurfacePropertyType;
-import net.opengis.gml.v_3_2_1.SurfaceType;
+import net.opengis.gml.v_3_2.AbstractRingPropertyType;
+import net.opengis.gml.v_3_2.AbstractSurfacePatchType;
+import net.opengis.gml.v_3_2.AbstractSurfaceType;
+import net.opengis.gml.v_3_2.MultiSurfaceType;
+import net.opengis.gml.v_3_2.PolygonPatchType;
+import net.opengis.gml.v_3_2.PolygonType;
+import net.opengis.gml.v_3_2.SurfaceArrayPropertyType;
+import net.opengis.gml.v_3_2.SurfacePatchArrayPropertyType;
+import net.opengis.gml.v_3_2.SurfacePropertyType;
+import net.opengis.gml.v_3_2.SurfaceType;
 
 import nl.pdok.gml3.exceptions.GeometryException;
 import nl.pdok.gml3.exceptions.GeometryValidationErrorType;
@@ -54,7 +53,7 @@ public class GML321ToSurfaceConvertor {
     /**
      * <p>convertMultiSurface.</p>
      *
-     * @param surfaces a {@link net.opengis.gml.v_3_2_1.MultiSurfaceType} object.
+     * @param surfaces a {@link net.opengis.gml.v_3_2.MultiSurfaceType} object.
      * @return a {@link org.locationtech.jts.geom.Geometry} object.
      * @throws nl.pdok.gml3.exceptions.GeometryException if any.
      */
@@ -121,7 +120,7 @@ public class GML321ToSurfaceConvertor {
     /**
      * <p>convertSurface.</p>
      *
-     * @param abstractSurface a {@link net.opengis.gml.v_3_2_1.AbstractSurfaceType} object.
+     * @param abstractSurface a {@link net.opengis.gml.v_3_2.AbstractSurfaceType} object.
      * @return a {@link org.locationtech.jts.geom.Geometry} object.
      * @throws nl.pdok.gml3.exceptions.GeometryException if any.
      */
@@ -174,7 +173,7 @@ public class GML321ToSurfaceConvertor {
     /**
      * <p>convertPolygonPatch.</p>
      *
-     * @param polygonPatch a {@link net.opengis.gml.v_3_2_1.PolygonPatchType} object.
+     * @param polygonPatch a {@link net.opengis.gml.v_3_2.PolygonPatchType} object.
      * @return a {@link org.locationtech.jts.geom.Polygon} object.
      * @throws nl.pdok.gml3.exceptions.GeometryException if any.
      */

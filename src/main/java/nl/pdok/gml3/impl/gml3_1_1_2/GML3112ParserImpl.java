@@ -1,28 +1,25 @@
 package nl.pdok.gml3.impl.gml3_1_1_2;
 
-import java.io.StringReader;
-
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.JAXBContext;
-import javax.xml.transform.stream.StreamSource;
-
-import org.locationtech.jts.geom.Geometry;
-import org.locationtech.jts.geom.PrecisionModel;
-import java.io.Reader;
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.Unmarshaller;
-
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Unmarshaller;
 import net.opengis.gml.v_3_1_1.AbstractGeometryType;
-import nl.pdok.gml3.exceptions.GML3ParseException;
 import nl.pdok.gml3.GMLParser;
-
-import nl.pdok.gml3.impl.gml3_1_1_2.convertors.GMLToJTSGeometryConvertor;
+import nl.pdok.gml3.exceptions.GML3ParseException;
 import nl.pdok.gml3.exceptions.GeometryException;
 import nl.pdok.gml3.exceptions.InvalidGeometryException;
 import nl.pdok.gml3.impl.geometry.extended.ExtendedGeometryFactory;
+import nl.pdok.gml3.impl.gml3_1_1_2.convertors.GMLToJTSGeometryConvertor;
 import org.apache.commons.lang3.StringUtils;
+import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.geom.PrecisionModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.xml.transform.stream.StreamSource;
+import java.io.Reader;
+import java.io.StringReader;
 
 /**
  * <p>GML3112ParserImpl class.</p>

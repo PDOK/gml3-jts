@@ -1,5 +1,6 @@
 package nl.pdok.gml3.impl.gml3_1_1_2.convertors;
 
+import jakarta.xml.bind.JAXBElement;
 import org.locationtech.jts.algorithm.PointLocation;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
@@ -17,7 +18,6 @@ import nl.pdok.gml3.impl.geometry.extended.ArcLineString;
 import nl.pdok.gml3.impl.geometry.extended.CompoundLineString;
 import nl.pdok.gml3.impl.geometry.extended.Ring;
 
-import javax.xml.bind.JAXBElement;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -171,7 +171,7 @@ public class GMLToLineConvertor {
 	}
 
 	private ArcLineString translateArc(ArcType arc) throws GeometryException {
-		if (CurveInterpolationType.CIRCULAR_ARC_3_POINTS != ArcStringType.INTERPOLATION) {
+		if (CurveInterpolationType.CIRCULAR_ARC_3_POINTS != arc.getInterpolation()) {
 			throw new UnsupportedGeometrySpecificationException(
 					"Het arc attribuut interpolation moet circularArc3Points zijn");
 		}

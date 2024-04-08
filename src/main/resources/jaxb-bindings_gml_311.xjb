@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jaxb:bindings version="3.0" xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:annox="urn:jaxb.jvnet.org:annox"
+	xmlns:namespace="urn:jaxb.jvnet.org:plugin:namespace-prefix">
+	<jaxb:bindings schemaLocation="gml/3.1.1/base/gml.xsd">
+		<jaxb:schemaBindings>
+			<jaxb:package name="net.opengis.gml.v_3_1_1" />
+		</jaxb:schemaBindings>
+		<jaxb:bindings>
+			<namespace:prefix name="gml" />
+		</jaxb:bindings>
+	</jaxb:bindings>
+	<jaxb:bindings schemaLocation="gml/3.1.1/base/defaultStyle.xsd" node="/xs:schema">
+		<jaxb:bindings node="xs:element[@name='graphStyle']">
+			<jaxb:class name="GraphStylePropertyElement" />
+		</jaxb:bindings>
+		<jaxb:bindings node="xs:element[@name='featureStyle']">
+			<jaxb:class name="FeatureStylePropertyElement" />
+		</jaxb:bindings>
+		<jaxb:bindings node="xs:element[@name='geometryStyle']">
+			<jaxb:class name="GeometryStylePropertyElement" />
+		</jaxb:bindings>
+		<jaxb:bindings node="xs:element[@name='labelStyle']">
+			<jaxb:class name="LabelStylePropertyElement" />
+		</jaxb:bindings>
+		<jaxb:bindings node="xs:element[@name='topologyStyle']">
+			<jaxb:class name="TopologyStylePropertyElement" />
+		</jaxb:bindings>
+		<jaxb:bindings node="xs:element[@name='_Style']">
+			<jaxb:class name="AStyleElement" />
+		</jaxb:bindings>
+	</jaxb:bindings>
+	<jaxb:bindings schemaLocation="gml/3.1.1/base/geometryBasic0d1d.xsd" node="/xs:schema">
+		<jaxb:bindings node="//xs:complexType[@name='PointType']">
+			<jaxb:class/>
+			<annox:annotate>
+				<annox:annotate annox:class="jakarta.xml.bind.annotation.XmlRootElement"/>
+			</annox:annotate>
+		</jaxb:bindings>
+	</jaxb:bindings>
+	<jaxb:bindings schemaLocation="gml/3.1.1/base/geometryBasic2d.xsd" node="/xs:schema">
+		<jaxb:bindings node="xs:element[@name='_Surface']">
+			<jaxb:class name="ASurfaceElement" />
+		</jaxb:bindings>
+		<jaxb:bindings node="xs:element[@name='_Ring']">
+			<jaxb:class name="ARingElement" />
+		</jaxb:bindings>
+	</jaxb:bindings>
+	<jaxb:bindings schemaLocation="gml/3.1.1/base/feature.xsd" node="/xs:schema">
+		<jaxb:bindings node="xs:element[@name='_FeatureCollection']">
+			<jaxb:class name="AFeatureCollectionElement" />
+		</jaxb:bindings>
+	</jaxb:bindings>
+	<jaxb:bindings schemaLocation="gml/3.1.1/base/geometryPrimitives.xsd" node="/xs:schema">
+		<jaxb:bindings node="xs:element[@name='_Solid']">
+			<jaxb:class name="ASolidElement" />
+		</jaxb:bindings>
+	</jaxb:bindings>
+	<jaxb:bindings schemaLocation="gml/3.1.1/base/geometryBasic0d1d.xsd" node="/xs:schema">
+		<jaxb:bindings node="xs:element[@name='_Curve']">
+			<jaxb:class name="ACurveElement" />
+		</jaxb:bindings>
+	</jaxb:bindings>
+</jaxb:bindings>

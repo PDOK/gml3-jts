@@ -1,7 +1,7 @@
 package nl.pdok.gml3.impl.gml3_2_1.converters;
 
 import org.locationtech.jts.geom.Geometry;
-import net.opengis.gml.v_3_2_1.*;
+import net.opengis.gml.v_3_2.*;
 import nl.pdok.gml3.exceptions.GeometryException;
 import nl.pdok.gml3.impl.geometry.extended.ExtendedGeometryFactory;
 
@@ -31,14 +31,13 @@ public class GML321ToJTSGeometryConvertor {
     /**
      * <p>convertGeometry.</p>
      *
-     * @param abstractGeometryType a {@link net.opengis.gml.v_3_2_1.AbstractGeometryType} object.
+     * @param abstractGeometryType a {@link net.opengis.gml.v_3_2.AbstractGeometryType} object.
      * @return a {@link org.locationtech.jts.geom.Geometry} object.
      * @throws nl.pdok.gml3.exceptions.GeometryException if any.
      */
     public Geometry convertGeometry(AbstractGeometryType abstractGeometryType) throws GeometryException {
         if (abstractGeometryType instanceof AbstractSurfaceType surfaceType) {
             return gmlToSurfaceConvertor.convertSurface(surfaceType);
-
         } else if (abstractGeometryType instanceof MultiPointType multiPointType) {
             return gmlToPointConvertor.convertMultiPoint(multiPointType);
         } else if (abstractGeometryType instanceof PointType pointType) {

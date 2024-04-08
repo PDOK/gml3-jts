@@ -1,18 +1,18 @@
 package nl.pdok.gml3.impl.gml3_2_1.converters;
 
+import jakarta.xml.bind.JAXBElement;
 import org.locationtech.jts.algorithm.PointLocation;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.LineString;
 import org.locationtech.jts.geom.LinearRing;
 import org.locationtech.jts.geom.impl.CoordinateArraySequence;
-import net.opengis.gml.v_3_2_1.*;
+import net.opengis.gml.v_3_2.*;
 import nl.pdok.gml3.exceptions.*;
 import nl.pdok.gml3.impl.geometry.extended.ArcLineString;
 import nl.pdok.gml3.impl.geometry.extended.CompoundLineString;
 import nl.pdok.gml3.impl.geometry.extended.Ring;
 
-import javax.xml.bind.JAXBElement;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -47,7 +47,7 @@ public class GML321ToLineConvertor {
     /**
      * <p>translateAbstractRing.</p>
      *
-     * @param abstractRingPropertyType a {@link net.opengis.gml.v_3_2_1.AbstractRingPropertyType} object.
+     * @param abstractRingPropertyType a {@link net.opengis.gml.v_3_2.AbstractRingPropertyType} object.
      * @return a {@link org.locationtech.jts.geom.LinearRing} object.
      * @throws nl.pdok.gml3.exceptions.GeometryException if any.
      */
@@ -125,7 +125,7 @@ public class GML321ToLineConvertor {
     /**
      * <p>translateCurveTypeToSegments.</p>
      *
-     * @param curve a {@link net.opengis.gml.v_3_2_1.CurveType} object.
+     * @param curve a {@link net.opengis.gml.v_3_2.CurveType} object.
      * @return a {@link java.util.List} object.
      * @throws nl.pdok.gml3.exceptions.GeometryException if any.
      */
@@ -161,7 +161,7 @@ public class GML321ToLineConvertor {
     }
 
     private ArcLineString translateArc(ArcType arc) throws GeometryException {
-        if (CurveInterpolationType.CIRCULAR_ARC_3_POINTS != ArcStringType.INTERPOLATION) {
+        if (CurveInterpolationType.CIRCULAR_ARC_3_POINTS != arc.getInterpolation()) {
             throw new UnsupportedGeometrySpecificationException(
                     "Het arc attribuut interpolation moet circularArc3Points zijn");
         }
@@ -190,7 +190,7 @@ public class GML321ToLineConvertor {
                 }
             }
             DirectPositionListType newDirectPositionList = new DirectPositionListType();
-            newDirectPositionList.withValue(values);
+            newDirectPositionList.getValue().addAll(values);
             newDirectPositionList.setSrsDimension(arc.getPosList().getSrsDimension());
             newDirectPositionList.setSrsName(arc.getPosList().getSrsName());
             return gmlToPointConvertor.translateOrdinates(newDirectPositionList);
@@ -264,7 +264,7 @@ public class GML321ToLineConvertor {
     /**
      * <p>convertAbstractCurve.</p>
      *
-     * @param abstractGeometryType a {@link net.opengis.gml.v_3_2_1.AbstractCurveType} object.
+     * @param abstractGeometryType a {@link net.opengis.gml.v_3_2.AbstractCurveType} object.
      * @return a {@link org.locationtech.jts.geom.LineString} object.
      * @throws nl.pdok.gml3.exceptions.GeometryException if any.
      */
