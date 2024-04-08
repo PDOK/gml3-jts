@@ -15,10 +15,16 @@ Converts GML to JTS. For now GML 3.1.1.2 and 3.2.1 are supported.
 </dependency>
 ```
 
-## Note
+## Notes
 
 1. Needs Java 17, doesn't support Java 8, 11
 1. Make sure a compatible maven version is used, >= 3.8.x
+
+| Version | XML Binding          |
+|---------|----------------------|
+| 17.1.0  | **javax**.xml.bind   |
+| 17.2.0+ | **jakarta**.xml.bind |
+ 
 
 ## Test
 

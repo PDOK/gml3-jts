@@ -1,10 +1,9 @@
 package nl.pdok.gml3.impl.gml3_1_1_2.convertors;
 
-	import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.bind.JAXBElement;
-
+import jakarta.xml.bind.JAXBElement;
 import org.locationtech.jts.algorithm.Orientation;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryFactory;
@@ -12,8 +11,8 @@ import org.locationtech.jts.geom.LinearRing;
 import org.locationtech.jts.geom.MultiPolygon;
 import org.locationtech.jts.geom.Polygon;
 
-	import net.opengis.gml.v_3_1_1.*;
-	import nl.pdok.gml3.exceptions.GeometryException;
+import net.opengis.gml.v_3_1_1.*;
+import nl.pdok.gml3.exceptions.GeometryException;
 import nl.pdok.gml3.exceptions.GeometryValidationErrorType;
 import nl.pdok.gml3.exceptions.InvalidGeometryException;
 import nl.pdok.gml3.exceptions.UnsupportedGeometrySpecificationException;

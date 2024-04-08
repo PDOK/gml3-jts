@@ -1,0 +1,11 @@
+2024-03-22 - Walter van Iterson: The XSD files in this directory are downloaded from multiple sources:
+
+gml/3.1.1:                      gml-3_1_1_2.zip in https://schemas.opengis.net/gml/gml-3_1_1.zip
+gml/3.2.1.2:                    gml-3_2_1_2.zip in https://schemas.opengis.net/gml/gml-3_2_1.zip
+xlink:                          http://www.w3.org/1999/xlink.xsd
+gco / gmd / gsr / gss / gts:    iso19139-20070417_5-v20220526.zip in https://schemas.opengis.net/iso/19139/iso19139-20070417.zip
+
+I changed the schemaLocations that pointed to https://schemas.opengis.net/... to their relative locations in this directory tree
+
+The JAXB Binding supports only one of GML 3.2.1 and 3.2.2 at a time. I'm currently only converting javax.xml.bind to jakarta.xml.bind,
+so I won't upgrade them to 3.2.2.
