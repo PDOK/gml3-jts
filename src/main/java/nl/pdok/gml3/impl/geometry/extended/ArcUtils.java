@@ -5,7 +5,7 @@ import org.locationtech.jts.geom.*;
 import org.locationtech.jts.geom.impl.CoordinateArraySequence;
 
 /**
- * Utilities for handling arcs with JTS
+ * Utilities for handling arcs with JTS.
  *
  * @author GinkeM
  * @version $Id: $Id

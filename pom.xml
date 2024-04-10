@@ -104,6 +104,10 @@
             <includeTestSourceDirectory>true</includeTestSourceDirectory>
             <failsOnError>true</failsOnError>
             <violationSeverity>warning</violationSeverity>
+            <sourceDirectories>
+              <sourceDirectory>${project.build.sourceDirectory}</sourceDirectory> 
+              <sourceDirectory>${project.build.testSourceDirectory}</sourceDirectory> 
+            </sourceDirectories>
             <suppressionsLocation>${maven.multiModuleProjectDirectory}/tooling/checkstyle/checkstyle-suppressions.xml</suppressionsLocation>
           </configuration>
           <executions>
