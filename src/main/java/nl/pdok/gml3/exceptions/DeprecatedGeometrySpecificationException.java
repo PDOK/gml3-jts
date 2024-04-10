@@ -8,25 +8,29 @@ package nl.pdok.gml3.exceptions;
  * @version $Id: $Id
  */
 // Opmerking kan verwijderd worden indien gml3.2 gebruikt wordt ipv 3.1.1
-public class DeprecatedGeometrySpecificationException 
-		extends UnsupportedGeometrySpecificationException {
+public class DeprecatedGeometrySpecificationException
+    extends UnsupportedGeometrySpecificationException {
 
-	private static final long serialVersionUID = 2901023621749902625L;
+  private static final long serialVersionUID = 2901023621749902625L;
 
-	/**
-	 * <p>Constructor for DeprecatedGeometrySpecificationException.</p>
-	 */
-	public DeprecatedGeometrySpecificationException() {
-		super();
-	}
+  /**
+   * <p>
+   * Constructor for DeprecatedGeometrySpecificationException.
+   * </p>
+   */
+  public DeprecatedGeometrySpecificationException() {
+    super();
+  }
 
-	/**
-	 * <p>Constructor for DeprecatedGeometrySpecificationException.</p>
-	 *
-	 * @param message a {@link java.lang.String} object.
-	 */
-	public DeprecatedGeometrySpecificationException(String message) {
-		super(message);
-	}
+  /**
+   * <p>
+   * Constructor for DeprecatedGeometrySpecificationException.
+   * </p>
+   *
+   * @param message a {@link java.lang.String} object.
+   */
+  public DeprecatedGeometrySpecificationException(String message) {
+    super(message);
+  }
 
 }
