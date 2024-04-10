@@ -16,6 +16,7 @@
  * if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
  * 02111-1307 USA
  */
+
 package nl.pdok.gml3.impl.geometry.extended;
 
 
@@ -26,8 +27,6 @@ import org.locationtech.jts.geom.PrecisionModel;
 
 /**
  * This class provides operations for handling the usage of Circles and arcs in Geometries.
- *
- * Date: Oct 15, 2007
  *
  * @author Tom Acree
  * @version $Id: $Id
@@ -47,7 +46,7 @@ public class SmallCircle {
   protected SmallCircle() {}
 
   /**
-   * Create a circle with a defined center and radius
+   * Create a circle with a defined center and radius.
    *
    * @param center The coordinate representing the center of the circle
    * @param radius The radius of the circle
@@ -60,12 +59,12 @@ public class SmallCircle {
   /**
    * Create a circle using the x/y coordinates for the center.
    *
-   * @param xCenter The x coordinate of the circle's center
-   * @param yCenter The y coordinate of the circle's center
+   * @param xcenter The x coordinate of the circle's center
+   * @param ycenter The y coordinate of the circle's center
    * @param radius the radius of the circle
    */
-  public SmallCircle(double xCenter, double yCenter, double radius) {
-    this(new Coordinate(xCenter, yCenter), radius);
+  public SmallCircle(double xcenter, double ycenter, double radius) {
+    this(new Coordinate(xcenter, ycenter), radius);
   }
 
   /**
@@ -74,15 +73,15 @@ public class SmallCircle {
    * bounding rectangle to be a square. To this end, we check the box and set the side of the box to
    * the larger dimension of the rectangle
    *
-   * @param xLeft a double.
-   * @param yUpper a double.
-   * @param xRight a double.
-   * @param yLower a double.
+   * @param xleft a double.
+   * @param yupper a double.
+   * @param xright a double.
+   * @param ylower a double.
    */
-  public SmallCircle(double xLeft, double yUpper, double xRight, double yLower) {
-    double side = Math.min(Math.abs(xRight - xLeft), Math.abs(yLower - yUpper));
-    this.center.x = Math.min(xRight, xLeft) + side / 2;
-    this.center.y = Math.min(yUpper, yLower) + side / 2;
+  public SmallCircle(double xleft, double yupper, double xright, double ylower) {
+    double side = Math.min(Math.abs(xright - xleft), Math.abs(ylower - yupper));
+    this.center.x = Math.min(xright, xleft) + side / 2;
+    this.center.y = Math.min(yupper, ylower) + side / 2;
     this.radius = side / 2;
   }
 
@@ -114,7 +113,7 @@ public class SmallCircle {
   }
 
   /**
-   * shift the center of the circle by delta X and delta Y
+   * shift the center of the circle by delta X and delta Y.
    *
    * @param deltaX a double.
    * @param deltaY a double.
@@ -125,7 +124,7 @@ public class SmallCircle {
   }
 
   /**
-   * Move the circle to a new center
+   * Move the circle to a new center.
    *
    * @param x a double.
    * @param y a double.
@@ -251,6 +250,24 @@ public class SmallCircle {
   }
 
   /**
+   * Given 2 points defining an arc on the circle, interpolates the circle into a collection of
+   * points that provide connected chords that approximate the arc based on the tolerance value. The
+   * tolerance value specifies the maximum distance between a chord and the circle.
+   *
+   * @param p1 begin coordinate of the arc
+   * @param p2 any other point on the arc
+   * @param p3 end coordinate of the arc
+   * @param tolerence maximum distance between the center of the chord and the outer edge of the
+   *        circle
+   * @return an ordered list of Coordinates representing a series of chords approximating the arc.
+   */
+  public Coordinate[] linearizeArc(Coordinate p1, Coordinate p2, Coordinate p3, double tolerence) {
+    Arc arc = createArc(p1, p2, p3);
+    List<Coordinate> result = linearizeInternal(null, arc, tolerence);
+    return result.toArray(new Coordinate[result.size()]);
+  }
+
+  /**
    * Given a circle defined by the 3 points, creates a linearized interpolation of the circle
    * starting and ending on the first coordinate. This method uses a tolerence value of 1/100 of the
    * length of the radius.
@@ -271,24 +288,6 @@ public class SmallCircle {
     SmallCircle c = new SmallCircle(p1, p2, p3);
     double tolerence = 0.01 * c.getRadius();
     return c.linearizeArc(p1, p2, p1, tolerence);
-  }
-
-  /**
-   * Given 2 points defining an arc on the circle, interpolates the circle into a collection of
-   * points that provide connected chords that approximate the arc based on the tolerance value. The
-   * tolerance value specifies the maximum distance between a chord and the circle.
-   *
-   * @param p1 begin coordinate of the arc
-   * @param p2 any other point on the arc
-   * @param p3 end coordinate of the arc
-   * @param tolerence maximum distance between the center of the chord and the outer edge of the
-   *        circle
-   * @return an ordered list of Coordinates representing a series of chords approximating the arc.
-   */
-  public Coordinate[] linearizeArc(Coordinate p1, Coordinate p2, Coordinate p3, double tolerence) {
-    Arc arc = createArc(p1, p2, p3);
-    List<Coordinate> result = linearizeInternal(null, arc, tolerence);
-    return result.toArray(new Coordinate[result.size()]);
   }
 
   private List<Coordinate> linearizeInternal(List<Coordinate> coordinates, Arc arc,

@@ -5,8 +5,9 @@ import nl.pdok.gml3.exceptions.GML3ParseException;
 import org.locationtech.jts.geom.Geometry;
 
 /**
- *
+ * <p>
  * Parses sources/ string to GML3 (either 3.1.1 or GML 3.2.1)
+ * </p>
  *
  * @author raymond
  * @version $Id: $Id
@@ -14,12 +15,12 @@ import org.locationtech.jts.geom.Geometry;
 public interface GMLParser {
 
   /**
-   * Default SRID (28992: Amersfoort RD/ new)
+   * Default SRID (28992: Amersfoort RD/ new).
    */
   static final int DEFAULT_SRID = 28992;
 
   /**
-   * Default default arc approximation error
+   * Default default arc approximation error.
    */
   static final double ARC_APPROXIMATION_ERROR = 0.01;
 

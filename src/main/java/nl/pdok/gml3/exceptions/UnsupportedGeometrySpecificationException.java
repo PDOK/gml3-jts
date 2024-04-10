@@ -1,7 +1,7 @@
 package nl.pdok.gml3.exceptions;
 
 /**
- * Een geometrie constructie wordt niet ondersteund door de conversie utilities
+ * Een geometrie constructie wordt niet ondersteund door de conversie utilities.
  *
  * @author GinkeM
  * @version $Id: $Id

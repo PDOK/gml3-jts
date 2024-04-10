@@ -10,10 +10,6 @@ import nl.pdok.gml3.impl.gml3_2_1.GML321GeotoolsParserImpl;
 import org.junit.Test;
 import org.locationtech.jts.geom.Geometry;
 
-/**
- *
- * @author niek
- */
 public class GMLGeotoolsParserTest {
 
   @Test

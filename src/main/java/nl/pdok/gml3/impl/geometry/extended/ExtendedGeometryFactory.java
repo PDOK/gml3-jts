@@ -16,7 +16,7 @@ public class ExtendedGeometryFactory extends GeometryFactory {
 
   private static final long serialVersionUID = 6752447631106671661L;
 
-  /** Constant <code>DEFAULT_MAXIMUM_ARC_APPROXIMATION_ERROR=0.001</code> */
+  /** Constant <code>DEFAULT_MAXIMUM_ARC_APPROXIMATION_ERROR=0.001</code>. */
   public static final double DEFAULT_MAXIMUM_ARC_APPROXIMATION_ERROR = 0.001;
   private double maximumArcApproximationError = DEFAULT_MAXIMUM_ARC_APPROXIMATION_ERROR;
 

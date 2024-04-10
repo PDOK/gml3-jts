@@ -9,4 +9,20 @@
     <suppress checks="MissingJavadocMethod" files="." />
     <suppress checks="LineLength" files="." />
     <suppress checks="AbbreviationAsWordInName" files="." />
+    <suppress checks="MemberName" files="." />
+    <suppress checks="Package" files="GML321ToJTSGeometryConvertor.java" />
+    <suppress checks="Package" files="GML321ToLineConvertor.java" />
+    <suppress checks="Package" files="GML321ToPointConvertor.java" />
+    <suppress checks="Package" files="GML321ToSurfaceConvertor.java" />
+    <suppress checks="Package" files="GML321ParserImpl.java" />    
+    <suppress checks="Package" files="GML321GeotoolsParserImpl.java" />
+    <suppress checks="Package" files="GMLToSurfaceConvertor.java" />
+    <suppress checks="Package" files="GMLToJTSGeometryConvertor.java" />
+    <suppress checks="Package" files="GMLToLineConvertor.java" />
+    <suppress checks="Package" files="GMLToPointConvertor.java" />
+    <suppress checks="Package" files="GML3112ParserImpl.java" />
+    <suppress checks="AvoidStarImport" files="." />
+    <suppress checks="MultipleVariableDeclarations" files="SmallCircle.java" />
+    <suppress checks="VariableDeclarationUsageDistance" files="SmallCircle.java" />
+    <suppress checks="ParameterName" files="ExtendedGeometryFactory.java" />
 </suppressions>

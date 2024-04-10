@@ -33,7 +33,7 @@ public class ArcLineString extends LineString {
   }
 
   /**
-   * Get the real non-densified points (densification is used to create
+   * Get the real non-densified points (densification is used to create.
    *
    * @return an array of {@link org.locationtech.jts.geom.Coordinate} objects.
    */

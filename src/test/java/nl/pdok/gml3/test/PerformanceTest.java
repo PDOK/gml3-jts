@@ -13,10 +13,6 @@ import org.locationtech.jts.geom.Geometry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- *
- * @author niek
- */
 @Ignore
 public class PerformanceTest {
 
