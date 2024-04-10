@@ -11,7 +11,7 @@ Converts GML to JTS. For now GML 3.1.1.2 and 3.2.1 are supported.
 <dependency>
   <groupId>nl.pdok</groupId>
   <artifactId>gml3-jts</artifactId>
-  <version>17.2.0</version>
+  <version>30.0.0</version>
 </dependency>
 ```
 
@@ -21,10 +21,9 @@ Converts GML to JTS. For now GML 3.1.1.2 and 3.2.1 are supported.
 1. Make sure a compatible maven version is used, >= 3.8.x
 
 | Version | XML Binding          |
-|---------|----------------------|
+| ------- | -------------------- |
 | 17.1.0  | **javax**.xml.bind   |
-| 17.2.0+ | **jakarta**.xml.bind |
- 
+| 30.0.0+ | **jakarta**.xml.bind |
 
 ## Test
 
