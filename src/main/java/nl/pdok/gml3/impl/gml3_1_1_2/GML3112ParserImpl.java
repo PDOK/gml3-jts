@@ -3,7 +3,6 @@ package nl.pdok.gml3.impl.gml3_1_1_2;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBElement;
 import jakarta.xml.bind.JAXBException;
-import jakarta.xml.bind.Unmarshaller;
 import java.io.Reader;
 import java.io.StringReader;
 import javax.xml.transform.stream.StreamSource;
@@ -32,23 +31,11 @@ public class GML3112ParserImpl implements GMLParser {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(GML3112ParserImpl.class);
   private static final JAXBContext GML_3112_JAXB_CONTEXT;
-  private static final ThreadLocal<Unmarshaller> GML_3112_UNMARSHALLER;
 
   static {
     try {
       GML_3112_JAXB_CONTEXT = JAXBContext.newInstance(AbstractGeometryType.class);
       LOGGER.debug("Created JAXB context");
-      GML_3112_UNMARSHALLER = new ThreadLocal<>() {
-        @Override
-        protected Unmarshaller initialValue() {
-          try {
-            return GML_3112_JAXB_CONTEXT.createUnmarshaller();
-          } catch (JAXBException ex) {
-            LOGGER.error(ex.getMessage(), ex);
-            throw new IllegalStateException(ex);
-          }
-        }
-      };
     } catch (JAXBException ex) {
       LOGGER.error("Could not create JAXB context. {}", ex.getMessage(), ex);
       throw new IllegalStateException("Could not create JAXB context", ex);
@@ -115,7 +102,7 @@ public class GML3112ParserImpl implements GMLParser {
 
   private AbstractGeometryType parseGeometryFromGML(Reader reader) throws JAXBException {
     JAXBElement<AbstractGeometryType> unmarshalled =
-        (JAXBElement<AbstractGeometryType>) GML_3112_UNMARSHALLER.get()
+        (JAXBElement<AbstractGeometryType>) GML_3112_JAXB_CONTEXT.createUnmarshaller()
             .unmarshal(new StreamSource(reader));
     return unmarshalled.getValue();
   }
