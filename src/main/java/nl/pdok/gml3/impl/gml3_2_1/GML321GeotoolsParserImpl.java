@@ -3,6 +3,7 @@ package nl.pdok.gml3.impl.gml3_2_1;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
+import java.util.function.Supplier;
 import javax.xml.parsers.ParserConfigurationException;
 import nl.pdok.gml3.GMLParser;
 import nl.pdok.gml3.exceptions.GML3ParseException;
@@ -24,7 +25,7 @@ import org.xml.sax.SAXException;
 public class GML321GeotoolsParserImpl implements GMLParser {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(GML321GeotoolsParserImpl.class);
-  private final ThreadLocal<Parser> PARSER_THREAD_LOCAL;
+  private final Supplier<Parser> parserSupplier;
 
   /**
    * <p>
@@ -41,14 +42,13 @@ public class GML321GeotoolsParserImpl implements GMLParser {
    * Constructor for GML321GeotoolsParserImpl.
    * </p>
    *
-   * @param srid a int.
+   * @param srid an int.
    * @param strictParsing a boolean.
    * @param strictValidating a boolean.
    */
   public GML321GeotoolsParserImpl(final int srid, final boolean strictParsing,
       final boolean strictValidating) {
-    PARSER_THREAD_LOCAL =
-        ThreadLocal.withInitial(() -> buildParser(srid, strictParsing, strictValidating));
+    parserSupplier = () -> buildParser(srid, strictParsing, strictValidating);
     LOGGER.info("Create a parser for SRID: {}, strictParsing: {}, strictValidating: {}", srid,
         strictParsing, strictValidating);
   }
@@ -67,7 +67,7 @@ public class GML321GeotoolsParserImpl implements GMLParser {
   @Override
   public Geometry toJTSGeometry(Reader reader) throws GML3ParseException {
     try {
-      Object result = PARSER_THREAD_LOCAL.get().parse(reader);
+      Object result = parserSupplier.get().parse(reader);
       if (result instanceof Geometry geometry) {
         return geometry;
       } else {
