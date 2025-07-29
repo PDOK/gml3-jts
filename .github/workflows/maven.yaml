@@ -25,7 +25,7 @@ jobs:
           server-password: MAVEN_PASSWORD
 
       - name: Publish package
-        run: mvn -B verify gpg:sign deploy -PsonatypeDeploy
+        run: mvn -B verify deploy -PsonatypeDeploy
         env:
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
